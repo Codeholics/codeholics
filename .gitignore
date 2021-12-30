@@ -1,0 +1,7 @@
+output/
+*.swp
+*.pyc
+*.pyo
+env/
+.DS_Store
+.vscode/

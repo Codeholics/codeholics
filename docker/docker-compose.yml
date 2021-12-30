@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+    codeholics:
+        container_name: codeholics_static
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile
+        image: codeholics/codeholics_static
+        ports:
+          - "8080:80"
