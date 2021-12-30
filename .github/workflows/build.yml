@@ -15,10 +15,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: dev
+          path: codeholics
       - name: Checkout Plugins
         uses: actions/checkout@v2
         with:
           repository: Codeholics/pelican-plugins
+          path: pelican-plugins
       - name: Build Content
         run: |
           cd codeholics
