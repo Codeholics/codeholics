@@ -1,0 +1,26 @@
+name: build
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches: [ dev ]
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v2
+        with:
+          ref: dev
+      - name: Checkout Plugins
+        uses: actions/checkout@v2
+        with:
+          repository: https://github.com/Codeholics/pelican-plugins.git
+      - name: Build Content
+        run: |
+          cd codeholics
+          pip install -r requirements.txt
+          pelican ./content
