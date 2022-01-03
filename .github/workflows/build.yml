@@ -30,7 +30,7 @@ jobs:
         #uses: appleboy/scp-action@master
         uses: burnett01/rsync-deployments@5.2
         with:
-          switches: -rvz
+          switches: -avzr --delete
           path: "output/*"
           remote_host: ${{ secrets.HOST }}
           remote_port: ${{ secrets.PORT }}
