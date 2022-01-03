@@ -31,12 +31,11 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -rvz
+          path: "output/*"
           remote_host: ${{ secrets.HOST }}
           remote_port: ${{ secrets.PORT }}
           remote_path: ${{ secrets.DEV_PATH }}
           remote_user: ${{ secrets.USERNAME }}
           remote_key: ${{ secrets.KEY }}
           remote_key_pass: ${{ secrets.PASSPHRASE }}
-          path: "output/*"
-          remote_path: ${{ secrets.DEV_PATH }}
           #remote: "www/devel"
