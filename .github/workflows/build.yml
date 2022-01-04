@@ -27,7 +27,6 @@ jobs:
           pip install -r requirements.txt
           pelican ./content
       - name: copy files to dev.codeholics.com
-        #uses: appleboy/scp-action@master
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -avzr --delete
@@ -39,4 +38,3 @@ jobs:
           remote_user: ${{ secrets.USERNAME }}
           remote_key: ${{ secrets.KEY }}
           remote_key_pass: ${{ secrets.PASSPHRASE }}
-          #remote: "www/devel"
