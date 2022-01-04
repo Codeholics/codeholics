@@ -31,6 +31,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -avzr --delete
+          rsh: -oHostKeyAlgorithms=+ssh-rsa
           path: "output/*"
           remote_host: ${{ secrets.HOST }}
           remote_port: ${{ secrets.PORT }}
