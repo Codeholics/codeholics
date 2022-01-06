@@ -1,0 +1,14 @@
+beautifulsoup4
+blinker
+docutils
+feedgenerator
+Jinja2
+Markdown
+MarkupSafe
+pelican
+Pygments
+python-dateutil
+pytz
+soupsieve
+Unidecode
+webassets
