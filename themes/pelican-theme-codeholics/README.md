@@ -28,10 +28,10 @@ Point the `THEME` variable in your `pelicanconf.py` to
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 ```
 
-to your Pelican configuration, as this template can be
+To your Pelican configuration, as this template can be
 translated (see `Translations` below). You also
 need to activate a plugin that initializes the i18n jinja extension. One
-possibility is an up to date version of the
+possibility is an up-to-date version of the
 [`i18n_subsites`](https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites)
 plugin:
 
@@ -46,7 +46,7 @@ site, make sure to also correctly specify the default language of the theme
 
 `I18N_TEMPLATES_LANG = 'en'`
 
-Otherwise the translations will not be used on your default site.
+Otherwise, the translations will not be used on your default site.
 
 ## Usage
 
@@ -121,8 +121,8 @@ EXTRA_PATH_METADATA = {
 ### Pygments
 
 You can choose the syntax highlighting style by using the `PYGMENTS_STYLE`
-variable to specify one of the built-in Pygments styles. By default the
-`native` style is used. The following styles are avaiable:
+variable to specify one of the built-in Pygments styles. By default, the
+`native` style is used. The following styles are available:
 
 - autumn
 - borland
@@ -171,7 +171,7 @@ By default the `SITENAME` will be shown as well. It's also possible to hide the 
 ### Breadcrumbs
 
 It's possible to show breadcrumbs in your site using the `DISPLAY_BREADCRUMBS`
-flag. By default the article category isn't shown in the breadcrumbs, if you
+flag. By default, the article category isn't shown in the breadcrumbs, if you
 wish to enable it, set the `DISPLAY_CATEGORY_IN_BREADCRUMBS` flag to _True_.
 
 ### Navbar
@@ -341,7 +341,7 @@ The same image options for Open Graph (see above) can be used for setting images
 
 The theme can show your twitter timeline in the sidebar. To enable, provide a `TWITTER_USERNAME` and a `TWITTER_WIDGET_ID`.
 
-To get a `TWITTER_WIDGET_ID`, go to: https://twitter.com/settings/widgets and select `Create new`. You'll find the TWITTER_WIDGET_ID under the html or in the site url:
+To get a `TWITTER_WIDGET_ID`, go to: https://twitter.com/settings/widgets and select `Create new`. You'll find the TWITTER_WIDGET_ID under the HTML or in the site URL:
 
 `https://twitter.com/settings/widgets/TWITTER_WIDGET_ID/edit`
 
