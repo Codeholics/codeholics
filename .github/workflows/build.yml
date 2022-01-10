@@ -27,5 +27,6 @@ jobs:
       - name: Build Content
         run: |
           cd codeholics
+          pip install --upgrade pip
           pip install -r requirements.txt
           pelican ./content
