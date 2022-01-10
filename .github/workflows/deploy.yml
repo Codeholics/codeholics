@@ -6,7 +6,7 @@ jobs:
   build:
     uses: Codeholics/codeholics/.github/workflows/build.yml@dev
   deploy:
-    needs: release
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Site
