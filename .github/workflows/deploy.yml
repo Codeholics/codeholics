@@ -4,7 +4,7 @@ on:
      - 'dev'
 jobs:
   build:
-    uses: Codeholics/codeholics/.github/workflows/build.yml@master
+    uses: codeholics/codeholics/.github/workflows/build.yml@master
   deploy:
     needs: release
     runs-on: ubuntu-latest
