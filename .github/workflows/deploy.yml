@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+     - 'dev'
+jobs:
+  build:
+    uses: Codeholics/codeholics/.github/workflows/build.yml@dev
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v2
+        with:
+          ref: dev
+          path: codeholics
+      - name: Checkout Plugins
+        uses: actions/checkout@v2
+        with:
+          repository: Codeholics/pelican-plugins
+          path: pelican-plugins
+      - name: Build Content
+        run: |
+          cd codeholics
+          pip install -r requirements.txt
+          pelican ./content
+      - name: copy files to dev.codeholics.com
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          switches: -avzr --delete
+          rsh: -oHostKeyAlgorithms=+ssh-rsa
+          path: "output/*"
+          remote_host: ${{ secrets.HOST }}
+          remote_port: ${{ secrets.PORT }}
+          remote_path: ${{ secrets.DEV_PATH }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.KEY }}
+          remote_key_pass: ${{ secrets.PASSPHRASE }}
