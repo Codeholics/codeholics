@@ -26,20 +26,11 @@
             
             <div class="flex-fill mx-xl-5 mb-2">
                 <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark">
-                    <!-- {% for page in pages %}
-                        <li class="nav-item">
-                            <a class="nav-link rounded-pill px-3" 
-                                href="/{{page.url}}">
-                                {{page.title}}
-                            </a>
-                        </li>
-                    {% endfor %} -->
                     {% for title, link in MENUITEMS %}
                         <li><a href="{{ link }}">{{ title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
-
             {% if SOCIAL %}
                 <div class="navbar align-self-center d-flex border-0">
                     {% for item in SOCIAL %}
@@ -47,6 +38,15 @@
                     {% endfor %}
                 </div>
             {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+            {% if 'tipue_search' in PLUGINS %}
+              <li><span>
+                <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            {% endif %}
+            </ul>
         </div>
 
     </div>
