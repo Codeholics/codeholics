@@ -1,0 +1,53 @@
+<nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white ">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        {% if SITELOGO %}
+            <img src="/images/{{ SITELOGO }}" class="mx-3"
+                {% if SITELOGO_SIZE %}
+                    style="width: {{ SITELOGO_SIZE }};"
+                {% endif %}
+            >
+        {% endif %}
+
+        <a class="navbar-brand h1" href="/">
+                
+            <span class="text-primary h4">{{ SITENAME }}</span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
+            
+            <div class="flex-fill mx-xl-5 mb-2">
+                <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark">
+                    <!-- {% for page in pages %}
+                        <li class="nav-item">
+                            <a class="nav-link rounded-pill px-3" 
+                                href="/{{page.url}}">
+                                {{page.title}}
+                            </a>
+                        </li>
+                    {% endfor %} -->
+                    {% for title, link in MENUITEMS %}
+                        <li><a href="{{ link }}">{{ title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if SOCIAL %}
+                <div class="navbar align-self-center d-flex border-0">
+                    {% for item in SOCIAL %}
+                        <a class="nav-link" href="{{ item[1] }}"><i class='bi-{{ item[0] }} text-primary'></i></a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
