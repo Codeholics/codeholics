@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 
 AUTHOR = 'vesc'
 SITENAME = '# Codeholics'
-SITEURL = 'https://codeholics.com'
+#SITEURL = 'https://codeholics.com'
+SITEURL = ''
 
 PATH = 'content'
 STATIC_PATHS = ['images']
@@ -14,8 +15,9 @@ TIMEZONE = 'US/Eastern'
 DEFAULT_LANG = 'en'
 
 # Theme
-THEME = "themes/pelican-theme-codeholics"
-CUSTOM_JS = "theme/js/youtube.js"
+#THEME = "themes/pelican-theme-codeholics"
+THEME = "themes/pelican-bootstrap-5"
+#CUSTOM_JS = "theme/js/youtube.js"
 # Plugins
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = [

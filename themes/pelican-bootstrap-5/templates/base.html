@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Open Graph data  -->
+    <meta property="og:title"         content="{{ SITENAME }}" />
+    <meta property="og:description"   content="{{ SITESUBTITLE }}" />
+    <meta property="og:image"         content="{{ THEME__OPEN_GRAPH_IMAGE }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:url"           content="{{ SITEURL }}" />
+
+    <!-- default FB app id: 966242223397117 -->
+    <meta property="fb:app_id" content="{{ THEME__OPEN_GRAPH_FB_APP_ID }}" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/bootstrap-icons/font/fonts/bootstrap-icons.woff2">
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/bootstrap-icons/font/bootstrap-icons.css" >
+
+
+    <!-- Bootstrap CSS  -->
+    {% if THEME__BOOTSWATCH %} 
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ THEME__BOOTSWATCH }}/bootstrap.min.css" type="text/css">
+    {% else %}
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" type="text/css">
+    {% endif %}
+
+    <!-- theme CSS -->
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/theme.css">
+
+    {% if CUSTOM_CSS %}
+        <!-- theme customization CSS -->
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/theme_custom.css">
+    {% endif %}
+ 
+    <link rel="apple-touch-icon" sizes="180x180" href="ZZZ???resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="ZZZ???resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="ZZZ???resources/favicon/favicon-16x16.png">
+
+    <link rel="manifest" href="site.webmanifest">
+
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white ">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            {% if SITELOGO %}
+                <img src="/images/{{ SITELOGO }}" class="mx-3"
+                    {% if SITELOGO_SIZE %}
+                        style="width: {{ SITELOGO_SIZE }};"
+                    {% endif %}
+                >
+            {% endif %}
+
+            <a class="navbar-brand h1" href="/">
+                 
+                <span class="text-primary h4">{{ SITENAME }}</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
+                
+                <div class="flex-fill mx-xl-5 mb-2">
+                    <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark">
+                        <!-- {% for page in pages %}
+                            <li class="nav-item">
+                                <a class="nav-link rounded-pill px-3" 
+                                    href="/{{page.url}}">
+                                    {{page.title}}
+                                </a>
+                            </li>
+                        {% endfor %} -->
+                        {% for title, link in MENUITEMS %}
+                            <li><a href="{{ link }}">{{ title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                {% if SOCIAL %}
+                    <div class="navbar align-self-center d-flex border-0">
+                        {% for item in SOCIAL %}
+                            <a class="nav-link" href="{{ item[1] }}"><i class='bi-{{ item[0] }} text-primary'></i></a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+    <!-- End navbar -->
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+<footer>   
+</footer>
+    <!-- Bootstrap JS bundle  -->
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.bundle.min.js"></script>
+    <!-- Theme JS -->
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/theme.js"></script>
+    {% if CUSTOM_JS %}
+        <!-- Theme customizer JS -->
+        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/theme_custom.js"></script>
+    {% endif %}
+</body>
+</html> 
