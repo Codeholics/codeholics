@@ -3,44 +3,35 @@
 {% block title %}{{ SITENAME }}{% endblock %}
 
 {% block content %}
-
-<section class="container overflow-hidden py-5">
-    <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3">
-
+{% if PADDED_SINGLE_COLUMN_STYLE %}
+    {% set content_class='col-md-8 col-md-offset-2' %}
+{% elif not HIDE_SIDEBAR or ABOUT_ME or AVATAR %}
+    {% set content_class='col-sm-9' + (' col-sm-push-3' if SIDEBAR_ON_LEFT else '') %}
+    {% set sidebar_class='col-sm-3' + (' col-sm-pull-9' if SIDEBAR_ON_LEFT else '') %}
+{% else %}
+    {% set content_class='col-lg-12' %}
+{% endif %}
+<section class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+    <div class="row">
+        <div class="{{ content_class }}"}>
         {% for article in articles %}
-
-            <div class="col-xl-3 col-md-4 col-sm-6 overflow-hidden">
-
-                <a href="/{{ article.url }}" class="article-list card border-0 text-white shadow-sm overflow-hidden m-sm-0">
-
-                    {% if article.og_image %}
-                        <img class="card-img" src="/images/{{ article.og_image }}" alt="Card image">
-                    {% else %}
-                        <img class="card-img" src="/images/{{ THEME__OPEN_GRAPH_IMAGE }}" alt="Card image">
-                    {% endif %}
-
-                    <div class="article-list-vertical card-img-overlay d-flex align-items-end ">
-                        <div class="text-left text-light">
-                            <span class="badge badge-xs rounded-pill bg-light text-dark mb-lg-3 px-lg-4 ">
-                                {{ article.category }}
-                            </span>
-
-                            <p class="card-text fs-4">
-                                {{ article.title }}
-                            </p>
-                        </div>
-                    </div>
-
-                </a>
-
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ article.url }}" 
+                            title="{{ _('Permalink to') }} {{ article.title|striptags }}">
+                            {{ article.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        {{ article.summary }}
+                    </p>
+                </div>
             </div>
-
         {% else %}
             No posts yet!
         {% endfor %}
-
+        </div>
     </div>
 </section>
-
-
 {% endblock %}
