@@ -34,7 +34,7 @@
             {% if SOCIAL %}
                 <div class="navbar align-self-center d-flex border-0">
                     {% for item in SOCIAL %}
-                        <a class="nav-link" href="{{ item[1] }}"><i class='bi-{{ item[0] }} text-primary'></i></a>
+                        <a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}"></i></a>
                     {% endfor %}
                 </div>
             {% endif %}
