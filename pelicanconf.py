@@ -75,7 +75,8 @@ MENUITEMS = [
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/root_codeholics'),
           ('Facebook', 'https://www.facebook.com/RootCodeholics'),
-          ('Github', 'https://www.github.com/Codeholics'))
+          ('Github', 'https://www.github.com/Codeholics'),
+          ('RSS-fill', 'https://www.codeholics.com/feeds/all.atom.xml'))
 
 DEFAULT_PAGINATION = 10
 
