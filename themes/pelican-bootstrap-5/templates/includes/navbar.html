@@ -27,22 +27,22 @@
             <div class="flex-fill mx-xl-5 mb-2">
                 <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark ch-nav-link">
                     {% for title, link in MENUITEMS %}
-                        <li><a href="{{ link }}" class="nav-link">{{ title }}</a></li>
+                        <li class="nav-item"><a href="{{ link }}" class="nav-link">{{ title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
             {% if SOCIAL %}
-                <div class="navbar align-self-center d-flex border-0">
+                <ul class="navbar-nav sm-icons">
                     {% for item in SOCIAL %}
-                        <a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}"></i></a>
+                        <li class="nav-item"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}"></i></a></li>
                     {% endfor %}
-                </div>
+                </ul>
             {% endif %}
             <ul class="nav navbar-nav navbar-right">
             {% if 'tipue_search' in PLUGINS %}
               <li><span>
                 <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
-                  <input aria-label="Search" type="text" class="search-query bleaksearchbox" placeholder="Search" name="q" id="tipue_search_input" required>
+                  <input aria-label="Search" type="text" class="search-query ch-searchbox" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
             {% endif %}

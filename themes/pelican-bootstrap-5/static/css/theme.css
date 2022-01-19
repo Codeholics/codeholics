@@ -59,6 +59,12 @@ h2{margin-top:2rem}.article-list.card{border-radius:10px!important;cursor:pointe
 		max-height: auto;
 	}
 }
+/* Filling a possible gap in display size */
+@media only screen and (max-width: 960px) {
+	.sm-icons .nav-item {
+	  padding-right: 1em;
+	}
+  }
 /* Large devices (laptops/desktops, 992px and up) */
 
 @media only screen and (min-width: 992px) {
@@ -116,7 +122,7 @@ body {
 }
 /* Custom Search Box */
 
-.bleaksearchbox {
+.ch-searchbox {
 	border: white solid 1px;
 	width: 20em;
 	font-size: 12px;
@@ -257,4 +263,7 @@ hr {
 }
 .bleak-cardimg {
 	border-color: #1b1b1b !important;
+}
+.sm-icons {
+	flex-direction: row;
 }
