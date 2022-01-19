@@ -1,4 +1,4 @@
-<nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white ">
+<nav id="main_nav" class="navbar navbar-expand-lg navbar-dark fixed-top bg-black rounded boxshadow">
     <div class="container d-flex justify-content-between align-items-center">
 
         {% if SITELOGO %}
@@ -9,9 +9,9 @@
             >
         {% endif %}
 
-        <a class="navbar-brand h1" href="/">
+        <a class="navbar-brand" href="/">
                 
-            <span class="text-primary h4">{{ SITENAME }}</span>
+            <span class="CodeholicsNavBranding">{{ SITENAME }}</span>
         </a>
 
         <button class="navbar-toggler border-0" type="button" 
@@ -25,9 +25,9 @@
         <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
             
             <div class="flex-fill mx-xl-5 mb-2">
-                <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark">
+                <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark ch-nav-link">
                     {% for title, link in MENUITEMS %}
-                        <li><a href="{{ link }}">{{ title }}</a></li>
+                        <li><a href="{{ link }}" class="nav-link">{{ title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -42,7 +42,7 @@
             {% if 'tipue_search' in PLUGINS %}
               <li><span>
                 <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
-                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                  <input aria-label="Search" type="text" class="search-query bleaksearchbox" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
             {% endif %}
