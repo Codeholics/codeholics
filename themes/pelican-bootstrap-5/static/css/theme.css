@@ -261,8 +261,8 @@ hr {
 }
 .navbar .navbar-nav .nav-link {
     color: #fff;
-    font-size: 1.1em;
-	font-family: 'Special Elite', cursive !important;
+    font-size: 1.5em;
+	font-family: 'Abel' !important;
 }
 .navbar .navbar-nav .nav-link:hover{
     color: #00ff15;
@@ -270,8 +270,8 @@ hr {
 /* Added from the original theme.css */
 
 .article-list.card {
-	border-radius:10px!important
-	;cursor:pointer
+	border-radius:10px!important;
+	cursor:pointer
 }
 /* Added from the original theme.css */
 
