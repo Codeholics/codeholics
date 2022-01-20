@@ -1,53 +1,32 @@
-<nav id="main_nav" class="navbar navbar-expand-lg navbar-dark fixed-top bg-black rounded boxshadow">
-    <div class="container d-flex justify-content-between align-items-center">
-
-        {% if SITELOGO %}
-            <img src="/images/{{ SITELOGO }}" class="mx-3"
-                {% if SITELOGO_SIZE %}
-                    style="width: {{ SITELOGO_SIZE }};"
-                {% endif %}
-            >
-        {% endif %}
-
-        <a class="navbar-brand" href="/">
-                
-            <span class="CodeholicsNavBranding">{{ SITENAME }}</span>
-        </a>
-
-        <button class="navbar-toggler border-0" type="button" 
-            data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" 
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
-            
-            <div class="flex-fill mx-xl-5 mb-2">
-                <ul class="nav navbar-nav d-flex justify-content-around mx-xl-5 text-center text-dark ch-nav-link">
-                    {% for title, link in MENUITEMS %}
-                        <li class="nav-item"><a href="{{ link }}" class="nav-link">{{ title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% if SOCIAL %}
-                <ul class="navbar-nav sm-icons">
-                    {% for item in SOCIAL %}
-                        <li class="nav-item"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}"></i></a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <ul class="nav navbar-nav navbar-right">
-            {% if 'tipue_search' in PLUGINS %}
-              <li><span>
-                <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
-                  <input aria-label="Search" type="text" class="search-query ch-searchbox" placeholder="Search" name="q" id="tipue_search_input" required>
-                </form></span>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-black rounded boxshadow" id="main_nav">
+    <div class="container-fluid">
+      <a class="navbar-brand CodeholicsNavBranding" href="#">{{ SITENAME }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">~/</a>
               </li>
-            {% endif %}
-            </ul>
-        </div>
-
+              {% for title, link in MENUITEMS %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ link }}">{{ title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% if SOCIAL %}
+        <ul class="navbar-nav sm-icons">
+            {% for item in SOCIAL %}
+            <li class="nav-item"><a class="nav-link active" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}" role="img" aria-label="Social"></i></a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'tipue_search' in PLUGINS %}
+        <form class="d-flex" action="{{ SEARCH_URL | default('/search.html') }}">
+          <input class="form-control me-2 search-query ch-searchbox" type="text" placeholder="Search" aria-label="Search" name="q" id="tipue_search_input" required>
+        </form>
+        {% endif %}
+      </div>
     </div>
-</nav>
+  </nav><!-- Nav Close -->
