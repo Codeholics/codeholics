@@ -1,7 +1,3 @@
-h2{margin-top:2rem}.article-list.card{border-radius:10px!important;cursor:pointer}.article-list .article-list-vertical{background:#000;background:linear-gradient(180deg,transparent,transparent 40%,rgba(0,0,0,.7) 99.9%);background-size:100% 100%}
-/*# sourceMappingURL=theme.css.map */
-
-
 /* Extra small devices (phones, 600px and down) */
 
 @media only screen and (max-width: 600px) {
@@ -103,6 +99,7 @@ html body {
 
 h2 {
 	font-family: 'Special Elite', cursive !important;
+	margin-top:2rem;
 }
 /* Codeholics brand in the navbar */
 
@@ -139,12 +136,6 @@ body {
 	font-size: 20px;
 	margin-top: 15px;
 	margin-bottom: 15px;
-}
-/* change nav links bold and black */
-
-.nav-link {
-	color: white !important;
-	font-weight: bold
 }
 /* adds the bottom border line to the navbar */
 
@@ -257,6 +248,7 @@ body {
 .adcontainer {
 	max-width: 200px;
 }
+/* Line for for cards */
 hr {
 	background-color: white;
 	height: 1px;
@@ -266,4 +258,25 @@ hr {
 }
 .sm-icons {
 	flex-direction: row;
+}
+.navbar .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 1.1em;
+	font-family: 'Special Elite', cursive !important;
+}
+.navbar .navbar-nav .nav-link:hover{
+    color: #00ff15;
+}
+/* Added from the original theme.css */
+
+.article-list.card {
+	border-radius:10px!important
+	;cursor:pointer
+}
+/* Added from the original theme.css */
+
+.article-list .article-list-vertical {
+	background:#000;
+	background:linear-gradient(180deg,transparent,transparent 40%,rgba(0,0,0,.7) 99.9%);
+	background-size:100% 100%
 }
