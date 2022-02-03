@@ -5,21 +5,13 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if 'assets' in PLUGINS %}
-    {% include 'includes/minify_tipuesearch.html' with context %}
-    {% else %}
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/css/tipuesearch.css">
-    <script type="text/javascript" src="{{ SITEURL }}/tipuesearch_content.js"></script>
-    <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch_set.js"></script>
-    <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
+    {% if 'tipue_search' in PLUGINS %}
+      <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
+      <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/lunr/lunr.js"></script>
+      <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/lunr-search-result.js"></script>
     {% endif %}
-    <script>
-    $(document).ready(function() {
-      $('#tipue_search_input').tipuesearch();
-    });
-    </script>
 {% endblock %}
 
 {% block content %}
-<div id="tipue_search_content"></div>
+<div id="lunr-search-result"></div>
 {% endblock %}
