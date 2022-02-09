@@ -1,0 +1,41 @@
+{% if GITHUB_USER %}
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="bi bi-github"></i> Github Repos</h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  {% if GITHUB_SHOW_USER_LINK is defined %}
+  <a href="https://github.com/{{ GITHUB_USER }}">@{{ GITHUB_USER }}</a> on GitHub
+  {% endif %}
+</li>
+<!-- End Sidebar/Github -->
+<!-- Github JS -->
+<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/github.js"></script>
+<script async type="text/javascript">
+    githubRepos("{{ GITHUB_USER }}").then(data => {
+        // set up div body
+        let divBody = '<ul class="list-group" id="github">';
+        // sort data by last commit
+        data.sort(function(a, b) {
+            var aDate = new Date(a.pushed_at).valueOf(),
+                bDate = new Date(b.pushed_at).valueOf();
+
+            if (aDate === bDate) { return 0; }
+            return aDate > bDate ? -1 : 1;
+        });
+        for(let x = 0; x < data.length; x++){
+          // Skip forked repos
+          if(data[x].fork){continue};
+          divBody += '<li class="list-group-item">\
+            <a href="'+data[x].html_url+'">'+data[x].name+'</a>\
+            <p><small>'+data[x].description+'</small></p>\
+            </li>';
+        }
+        document.getElementById("gh_repos").innerHTML = divBody;
+    }).catch(function(err) {
+        console.log(`Fetch problem: ${err.message}`);
+    });
+</script>
+{% endif %}
