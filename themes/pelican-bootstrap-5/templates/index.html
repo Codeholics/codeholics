@@ -15,14 +15,14 @@
     <div class="row">
         <div class="{{ content_class }}"}>
         {% for article in articles %}
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ SITE_URL }}/{{ article.url }}" 
-                            title="{{ _('Permalink to') }} {{ article.title|striptags }}">
-                            {{ article.title }}
-                        </a>
-                    </h5>
+                    <div class="card-title">
+                    <a class="card-link" href="{{ SITE_URL }}/{{ article.url }}" 
+                        title="{{ _('Permalink to') }} {{ article.title|striptags }}">
+                        {{ article.title }}
+                    </a>
+                    </div>
                     <p class="card-text">
                         {{ article.summary }}
                     </p>
@@ -31,6 +31,11 @@
         {% else %}
             No posts yet!
         {% endfor %}
+        </div>
+        <div class="{{ sidebar_class }}" id="sidebar">
+            {% if not HIDE_SIDEBAR %}
+                {% include 'includes/sidebar.html' %}
+            {% endif %}
         </div>
     </div>
 </section>
