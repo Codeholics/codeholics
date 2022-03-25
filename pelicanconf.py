@@ -17,6 +17,7 @@ DEFAULT_LANG = 'en'
 # Theme
 #THEME = "themes/pelican-theme-codeholics"
 THEME = "themes/pelican-bootstrap-5"
+#TODO: should be a bool
 #CUSTOM_JS = "theme/js/youtube.js"
 # Plugins
 PLUGIN_PATHS = ['../pelican-plugins']
