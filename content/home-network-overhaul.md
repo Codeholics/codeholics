@@ -1,4 +1,4 @@
-Title: Home Network Overhaul
+Title: Home Network Overhaul with Enterprise Techniques
 Date: 2022-06-20 18:39
 Category: Hardware
 Tags: networking, hardware, review, firewall, pfsense, tplink, asus, router, switch, vlan, infosec
@@ -78,29 +78,37 @@ At this point it time to start acquiring the hardware needed to get the job done
 What I had:
 
 * [Asus AC1900 (RT-AC68U)](https://amzn.to/3bnH7VX)  
-Price: $129.99  
   
 The Asus RT-AC68U is a basic Wifi router with a 4 port switch. I had this for only a few months as my Asus RT-AC66U power switch gave out after its loyal service for about 5 years. 
 The RT-AC68U has never been stable in Router Mode. I had constant connection issues and had to reboot it often. My hope in continuing to use the device was that 
 these issues might go away in AP Mode. (Spoiler Alert!!) So far so good in using it in AP Mode.
-  
+    
+Probably most important is the UPS. It is not depicted in the Network Topology Diagram it would be in a Network Rack Diagram. I am not going to go over the Network Rack Diagram in this post. 
+If you are going to drop some money on equipment you need to protect it. I had a CyberPower UPS that I have been using 
+for a few years. It is not rack mounted by I had this long before I had a rack. 
+
+* [CyberPower CP900AVR](https://amzn.to/3Ngvo92)
+
+If I were going to buy a UPS for this project I would probably go with this:
+
+* [CyberPower OR700LCDRM1U Smart App LCD UPS, 700VA/400W, 6 Outlets, AVR, 1U Rackmount](https://amzn.to/39PEYSM)
+
+The price is good and it is a 1U design
+
 New hardware:
 
 * [Protechtli FW20216](https://protectli.com/product/fw2/)  
-Price: $179 (No Longer sold)
 
 * [Protechtli FW2B](https://protectli.com/vault-2-port/)  
-Price: $259
 
-I included two links because the model I have is no longer avalible and has been updated to a newer model. Before I go on about how nice this device is it is
-probably worth a reminder that I am not getting paid for this post. 
+I included two links because the model I have is no longer available and has been updated to a newer model. Before I go on about how nice this device is it is
+probably worth a reminder that I am not getting paid by Protechtli for this post. 
 
-I got my hardware from a friend who decided the device was not right for their enviornment so I got it for the low low price of free. I had never heard of the company 
+I got my hardware from a friend who decided the device was not right for their environment so I got it for the low low price of free. I had never heard of the company 
 Protechtli but I was immediately impressed. First thing I noticed when I unpacked this device was the quality of the case. It is a beautify designed thick all aluminum case. 
-The specs on the device should have plenty of power for running in my environment. 
+The specs on the device should have plenty of power for running in my environment. These devices do not come pre-loaded with an OS. I am using PFSense CE on my device. 
 
 * [TP-Link TL-SG1024DE](https://amzn.to/3ndATL4)  
-Price: $99
 
 When I was searching around for a switch I had in mind a few things I wanted and a dollar amount I wanted to stay under. I also didn't want to buy used network hardware off of ebay
 because you have no idea the devices history and Cisco IOS is behind a pay wall. The TP-Link TL-SG1024DE 24 port switch is a really nice feature rich budget switch. It is low power and has a
@@ -118,12 +126,56 @@ At the moment this was not in the network project budget. You really can not bea
 or see if maybe another firmware would support multiple VLANs in AP mode. 
 
 * [NavePoint 9U Wall Mount IT Open Frame 19 Inch Rack with Swing Out Hinged Gate Black](https://amzn.to/3bpUu84)
-Price: $116
 
 * [AC Infinity Vented Cantilever 1U Universal Rack Shelf](https://amzn.to/3OCipzK)
-Price: $35
+
+I have the 9U rack mounted to a fire rated backer board in a spot down in the basement. I had already had the spot setup as I have been wanting to do this project for sometime.
+The rack was very easy to mount. I was able to do it all myself without having to call anyone over to lend a hand. 
+The 1U shelfs worked out really well for keeping items that were not rack mountable in a nice location within the rack.
+
+### Finished Network Topology Diagram
+
+Once the hardware is selected a little more detail can be added to the final topology diagram
+
+![network topology v2]({static}/images/home_network_overhaul/network_topology_v2.webp)
 
 ### Switch Port VLAN Assignment Diagram
 
 The reason this is not included with the planning is because this can be a more fluid document and the port configuration can depend on the features of the switch. 
-What my configuration is as of this moment is far from finalized as I have not setup an LAG groups for my server and I have not setup the ports for the Pi cluster.
+What my configuration is as of this moment is not finalized as I have not setup an LAG groups and the additional ports for the Pi Cluster. This will all be done at a later time.
+Having a document like this is handy for easy deployment and later troubleshooting. 
+
+![Network Switch Port Assignment]({static}/images/home_network_overhaul/switch_port_assignment.webp)
+
+### Conclusion
+
+The main goal of this post was to introduce some of the upfront processes and tasks that go into enterprise network planning and some of the techniques that can be deployed to keep a more complex networking project in order. 
+These techniques for enterprise deployments can be applied to deploying a home network as well if your needs are a little more demanding like mine are. 
+  
+There is one document that I should have gone over but will not for this small project. The Rack Level Diagram. This diagram displays all the equipment at the rack level so you know where everything will be placed and can make sure it all fits. I
+didn't do one of these because I simply had an idea in my head of how all these things would fit together and since it was just for me I didn't need it. 
+  
+The topic of computer networking is very deep and while some of the hardware has gone virtual the concepts and practices remain the same. Having a solid foundation in networking has given me an edge throughout my career working with virtulization, containerization and cloud technologies. 
+I would like to give a special thanks to George Markwick who has been an amazing friend and mentor throughout my career and it was he who taught me these techniques early on in my career while we were designing and building out IDFs, MDFs and Data Centers. 
+
+I am going to leave this post off with a few pictures of everything racked up:  
+
+![just mounted rack]({static}/images/home_network_overhaul/just_mounted.webp)
+![before switch]({static}/images/home_network_overhaul/before_switch.webp)
+![rack as of this post]({static}/images/home_network_overhaul/rack_today.webp)
+   
+Next steps are getting a 1U cable tray to get those cables under control and getting a rack mount for the Pi Cluster.
+If you enjoyed this post please consider becoming a sponsor. The funds will be used to help keep Codeholics rolling.  
+
+### Links:
+
+* [Network Topology Icons](https://www.cisco.com/c/en/us/about/brand-center/network-topology-icons.html)
+* [Asus AC1900 (RT-AC68U)](https://amzn.to/3bnH7VX)  
+* [CyberPower CP900AVR](https://amzn.to/3Ngvo92)
+* [CyberPower OR700LCDRM1U Smart App LCD UPS, 700VA/400W, 6 Outlets, AVR, 1U Rackmount](https://amzn.to/39PEYSM)
+* [Protechtli FW20216](https://protectli.com/product/fw2/)  
+* [Protechtli FW2B](https://protectli.com/vault-2-port/)  
+* [TP-Link TL-SG1024DE](https://amzn.to/3ndATL4)  
+* [NavePoint 9U Wall Mount IT Open Frame 19 Inch Rack with Swing Out Hinged Gate Black](https://amzn.to/3bpUu84)
+* [AC Infinity Vented Cantilever 1U Universal Rack Shelf](https://amzn.to/3OCipzK)
+* [Github Sponsors](https://github.com/sponsors/jessecooper)
