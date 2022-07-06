@@ -29,8 +29,9 @@
     {% endif %}
 
     <!-- theme CSS -->
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/theme.css">
-
+    {% assets filters="libsass,cssmin", output="css/theme.min.css", "sass/main.sass" %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/theme.min.css">
+    {% endassets %}
     {% if CUSTOM_CSS %}
         <!-- theme customization CSS -->
         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/theme_custom.css">
