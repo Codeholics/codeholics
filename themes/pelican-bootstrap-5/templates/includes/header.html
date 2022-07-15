@@ -22,11 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS  -->
-    {% if THEME__BOOTSWATCH %} 
-        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ THEME__BOOTSWATCH }}/bootstrap.min.css" type="text/css">
-    {% else %}
-        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" type="text/css">
-    {% endif %}
+    <!--<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" type="text/css">-->
 
     <!-- theme CSS -->
     {% assets filters="libsass,cssmin", output="css/theme.min.css", "sass/main.sass" %}

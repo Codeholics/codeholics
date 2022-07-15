@@ -1,5 +1,46 @@
 /* Main: This should only have imports from the other folders SASS files */
 
-//@import 'base/typography'
+/* Bootstrap imports are done in parts to make overrides easier for the theme maybe moved to theme.sass */
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../scss/bootstrap/functions"
+
+// 2. Include any default variable overrides here
+@import 'themes/bootstrap/color'
+@import 'themes/bootstrap/navbar'
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../scss/bootstrap/variables"
+@import "../scss/bootstrap/mixins"
+@import "../scss/bootstrap/utilities"
+
+// 4. Include any optional Bootstrap components as you like
+@import "../scss/bootstrap/root"
+@import "../scss/bootstrap/reboot"
+@import "../scss/bootstrap/type"
+@import "../scss/bootstrap/images"
+@import "../scss/bootstrap/containers"
+@import "../scss/bootstrap/carousel"
+@import "../scss/bootstrap/grid"
+@import "../scss/bootstrap/navbar"
+@import "../scss/bootstrap/nav"
+@import "../scss/bootstrap/transitions"
+@import "../scss/bootstrap/list-group"
+@import "../scss/bootstrap/card"
+@import "../scss/bootstrap/helpers"
+@import "../scss/bootstrap/offcanvas"
+@import "../scss/bootstrap/forms"
+@import "../scss/bootstrap/tooltip"
+@import "../scss/bootstrap/bootstrap-utilities"
+@import "../scss/bootstrap/tables"
+@import "../scss/bootstrap/button-group"
+@import "../scss/bootstrap/buttons"
+
+@import "../scss/bootstrap/accordion"
+
+// 5. Add additional custom code here
+
 @import 'themes/theme'
 @import 'modules/navbar'

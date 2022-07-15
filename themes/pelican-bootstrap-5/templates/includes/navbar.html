@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark rounded boxshadow" id="main_nav">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary shadow" id="main_nav">
     <div class="container-fluid">
-      <a class="navbar-brand CodeholicsNavBranding" href="#">{{ SITENAME }}</a>
+      <a class="navbar-brand mb-0 h1" href="#">{{ SITENAME }}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -8,15 +8,17 @@
         <ul class="navbar-nav mx-auto mb-2 mb-md-0">
           {% for title, link in MENUITEMS %}
           <li class="nav-item">
-            <a class="nav-link active" href="{{ link }}">{{ title }}</a>
+            <a class="nav-link mb-0" href="{{ link }}">{{ title }}</a>
           </li>
           {% endfor %}
         </ul>
         {% if SOCIAL %}
         <ul class="navbar-nav sm-icons">
-            {% for item in SOCIAL %}
-            <li class="nav-item"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}" role="img" aria-label="Social"></i></a></li>
-            {% endfor %}
+	   <div class="btn-group mr-2">
+		{% for item in SOCIAL %}
+		<li class="nav-item me-3"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}" role="img" aria-label="Social"></i></a></li>
+		{% endfor %}
+	  </div>
         </ul>
         {% endif %}
         {% if 'tipue_search' in PLUGINS %}

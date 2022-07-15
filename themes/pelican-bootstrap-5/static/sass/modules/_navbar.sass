@@ -1,49 +1,29 @@
-/* Navbar module */
+/* Navbar module - these are all changes outside of the scope of the bootstrap SASS overrides */
+
 /* adds the bottom border line to the navbar */
 .navbar
-    border-bottom: $forth-color solid 1px !important
-
-/* Navbar background color */
-.bg-dark
-    background-color: $first-color
-
-.navbar .navbar-nav .nav-link
-        color: $forth-color !important
-        font-size: 1.5em
-        font-family: 'Abel' !important
-
-.navbar .navbar-nav .nav-link:hover
-    color: $third-color !important
+    border-bottom: $secondary solid 1px !important
 
 /* search modal custom properties */
 .modal-content
-    background-color: $second-color
+    background-color: $primary
 
 /* Overrides button border to fix for bootstrap 4.3.1 update*/
 .btn
-    border: 1px solid $third-color !important
+    border: 1px solid $secondary !important
     background-color: $forth-color
-    color: $first-color
-
-/* Codeholics brand in the navbar */
-.CodeholicsNavBranding
-    color: $forth-color !important
-    font-weight: bolder
-    font-family: 'Special Elite', cursive
-    font-size: 1.6rem
-    text-align: center
-    padding-bottom: 0px
+    color: $primary
 
 /* Custom Search Box */
 .ch-searchbox
-	border: $forth-color solid 1px
+	border: $secondary solid 1px
 	width: 20em
 	font-size: 12px
 	margin-top: 0px
 	margin-left: 15px
 	padding-right: 5px
-	background-color: $first-color
-        color: $forth-color
+	background-color: $primary
+        color: $dark
 
 .ch-searchbox:focus
         background-color: $forth-color

@@ -15,14 +15,14 @@
     <div class="row">
         <div class="{{ content_class }}"}>
         {% for article in articles %}
-            <div class="card">
+            <div class="card bg-primary text-secondary mb-1 shadow rounded-3">
                 <div class="card-body">
-                    <div class="card-title">
-                    <a class="card-link" href="{{ SITE_URL }}/{{ article.url }}" 
-                        title="{{ _('Permalink to') }} {{ article.title|striptags }}">
-                        {{ article.title }}
-                    </a>
-                    </div>
+                    <h2 class="card-title mt-0">
+		    	<a class="card-link" href="{{ SITE_URL }}/{{ article.url }}" 
+			   title="{{ _('Permalink to') }} {{ article.title|striptags }}">
+			   {{ article.title }}
+		    	</a>
+                    </h2>
                     <p class="card-text">
                         {{ article.summary }}
                     </p>

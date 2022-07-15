@@ -1,10 +1,10 @@
 {% if GITHUB_USER %}
 
 <!-- Sidebar/Github -->
-<li class="list-group-item">
-  <h4><i class="bi bi-github"></i> Github Repos</h4>
+<li class="list-group-item bg-primary">
+  <h4 class="text-secondary"><i class="bi bi-github"></i> Github Repos</h4>
   <div id="gh_repos">
-    <p class="list-group-item">Status updating...</p>
+    <p class="list-group-item bg-primary text-secondary">Status updating...</p>
   </div>
   {% if GITHUB_SHOW_USER_LINK is defined %}
   <a href="https://github.com/{{ GITHUB_USER }}">@{{ GITHUB_USER }}</a> on GitHub
@@ -28,7 +28,7 @@
         for(let x = 0; x < data.length; x++){
           // Skip forked repos
           if(data[x].fork){continue};
-          divBody += '<li class="list-group-item">\
+          divBody += '<li class="list-group-item bg-primary text-secondary">\
             <a href="'+data[x].html_url+'">'+data[x].name+'</a>\
             <p><small>'+data[x].description+'</small></p>\
             </li>';
