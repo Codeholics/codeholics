@@ -14,7 +14,8 @@
 <section class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
     <div class="row">
         <div class="{{ content_class }}"}>
-        {% for article in articles %}
+        <!-- If article pagination is enabled use that object else just get full list of articles-->
+        {% for article in (articles_page.object_list if articles_page else articles) %}
             <div class="card bg-primary text-secondary mb-1 shadow rounded-3">
                 <div class="card-body">
                     <h2 class="card-title mt-0">
@@ -31,6 +32,8 @@
         {% else %}
             No posts yet!
         {% endfor %}
+
+        {% include 'includes/pagination.html' %}
         </div>
         <div class="{{ sidebar_class }}" id="sidebar">
             {% if not HIDE_SIDEBAR %}
