@@ -13,7 +13,7 @@ function() {
 
 function labnolThumb(id) {
 	var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
-    	play = '<div class="play"></div>';
+    	play = '<div class="play"><i class="bi bi-play-circle text-secondary"></i></div>';
 	return thumb.replace("ID", id) + play;
 }
 
