@@ -14,7 +14,7 @@
   <h4 class="text-secondary"><i class="bi bi-tags-fill"></i> Tags</h4>
   <ul class="list-group {% if DISPLAY_TAGS_INLINE %}list-inline tagcloud{% endif %}" id="tags">
     {% for tag in tags %}
-    <li class="list-group-item bg-primary tag-{{ tag.1 }}">
+    <li class="list-group-item text-capitalize bg-primary tag-{{ tag.1 }}">
       <a href="{{ SITEURL }}/{{ tag.0.url }}">
         {{- tag.0 -}}
       </a>
