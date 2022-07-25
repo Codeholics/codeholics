@@ -3,12 +3,15 @@
 {% block title %}{{ article.title }} - {{SITENAME}}{% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row bg-primary text-secondary shadow round">
     <div class="col-md-8">
-
         <div class="mb-3">
             <h1 class="my-3"> {{ article.title }} </h1>
-            <label>Posted on <strong>{{ article.date|strftime('%Y-%m-%d') }}</strong></label>
+	    {% if article.author %}
+            <label>Posted by 
+		    <a href="author/{{ article.author }}.html"><strong>{{ article.author }}</strong></a></label><br />
+	    {% endif %}
+	    <label>Posted on <strong>{{ article.date|strftime('%Y-%m-%d') }}</strong></label>
 
         </div>
         {% if article.og_image %}
