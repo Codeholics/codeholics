@@ -17,18 +17,11 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/bootstrap-icons/font/bootstrap-icons.css" >
     
-    <!-- Google Fonts -->
-    <!--<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;400&display=swap" rel="stylesheet"> -->
-
     <!-- theme CSS -->
     {% assets filters="libsass,cssmin", output="css/theme.min.css", "sass/main.sass" %}
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/theme.min.css">
     {% endassets %}
-    {% if CUSTOM_CSS %}
-        <!-- theme customization CSS -->
-        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/theme_custom.css">
-    {% endif %}
- 
+     
     <link rel="apple-touch-icon" sizes="180x180" href="ZZZ???resources/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="ZZZ???resources/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="ZZZ???resources/favicon/favicon-16x16.png">
