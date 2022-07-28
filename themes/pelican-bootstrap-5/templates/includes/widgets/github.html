@@ -1,15 +1,16 @@
 {% if GITHUB_USER %}
 
 <!-- Sidebar/Github -->
-<li class="list-group-item bg-primary">
-  <h4 class="text-secondary"><i class="bi bi-github"></i> Github Repos</h4>
-  <div id="gh_repos">
-    <p class="list-group-item bg-primary text-secondary">Status updating...</p>
+  <button class="accordion-button bg-primary text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-github" aria-expanded="true" aria-controls="collapse-github">
+  	<h4 class="accordion-header text-secondary" id="github-header">
+		<i class="bi bi-github"></i> Github Repos
+	</h4>
+  </button>
+  <div class="accordion-collapse collapse show" aria-labelledby="tag-header" data-bs-parent="#sidebar-accordion" id="collapse-github">
+  	<div class="accordion-body" id="gh_repos">
+    		<p class="list-group-item bg-primary text-secondary">Status updating...</p>
+	</div>
   </div>
-  {% if GITHUB_SHOW_USER_LINK is defined %}
-  <a href="https://github.com/{{ GITHUB_USER }}">@{{ GITHUB_USER }}</a> on GitHub
-  {% endif %}
-</li>
 <!-- End Sidebar/Github -->
 <!-- Github JS -->
 <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/github.js"></script>
