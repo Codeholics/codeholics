@@ -15,14 +15,13 @@ TIMEZONE = 'US/Eastern'
 DEFAULT_LANG = 'en'
 
 # Theme
-#THEME = "themes/pelican-theme-codeholics"
 THEME = "themes/pelican-bootstrap-5"
 #TODO: should be a bool
 #CUSTOM_JS = "theme/js/youtube.js"
 # Plugins
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = [
-    #'assets',
+    'pelican.plugins.webassets',
     'gzip_cache',
     'liquid_tags.bootstrap_youtube',
     'liquid_tags.youtube_thumbnail',
@@ -30,13 +29,6 @@ PLUGINS = [
     'i18n_subsites', # for theme
     'tag_cloud', # for theme
 ]
-
-# Plugin Configs
-# Assets
-#ASSET_CONFIG = (
-#    ('closure_compressor_optimization', 'WHITESPACE_ONLY'),
-#    ('less_bin', 'lessc.cmd'),
-#)
 
 # For Theme
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'search']
