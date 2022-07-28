@@ -3,23 +3,29 @@
 {% block title %}{{ article.title }} - {{SITENAME}}{% endblock %}
 
 {% block content %}
-<div class="col-md-10 row bg-primary text-secondary shadow round">
-    <div class="">
-        <div class="mb-3">
-            <h1 class="my-3"> {{ article.title }} </h1>
-	    {% if article.author %}
-            <label>Posted by 
-		    <a href="author/{{ article.author }}.html"><strong>{{ article.author }}</strong></a></label><br />
-	    {% endif %}
-	    <label>Posted on <strong>{{ article.date|strftime('%Y-%m-%d') }}</strong></label>
-
-        </div>
-        {% if article.og_image %}
-            <img src="/images/{{ article.og_image }}" class="w-100 my-3">
-        {% endif %}
-
-        {{ article.content }}
-
-    </div>
-</div>
+<section class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+  <div class="row">
+	<div class="col-md-9 ml-3 bg-primary text-secondary shadow rounded-3">
+    		<div class="">
+        		<div class="mb-3">
+            			<h1 class="my-3"> {{ article.title }} </h1>
+	    			{% if article.author %}
+            			<label>Posted by 
+		    			<a href="author/{{ article.author }}.html"><strong>{{ article.author }}</strong></a></label><br />
+	    			{% endif %}
+	    			<label>Posted on <strong>{{ article.date|strftime('%Y-%m-%d') }}</strong></label>
+        		</div>
+        		{% if article.og_image %}
+            			<img src="/images/{{ article.og_image }}" class="w-100 my-3">
+        		{% endif %}
+        		{{ article.content }}
+    		</div>
+	</div>
+	<div class="col-md-3" id="sidebar">
+    		{% if not HIDE_SIDEBAR %}
+		{% include 'includes/sidebar.html' %}
+    		{% endif %}
+	</div>
+  </div>
+</section>
 {% endblock %}
