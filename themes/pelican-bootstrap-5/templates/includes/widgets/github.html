@@ -29,9 +29,9 @@
         for(let x = 0; x < data.length; x++){
           // Skip forked repos
           if(data[x].fork){continue};
-          divBody += '<li class="list-group-item bg-primary text-secondary text-truncate">\
+          divBody += '<li class="list-group-item bg-primary text-secondary text-wrap">\
             <a href="'+data[x].html_url+'">'+data[x].name+'</a>\
-		<p class="text-wrap"><small>'+data[x].description+'</small></p>\
+		<p class="font-weight-normal text-wrap"><small>'+data[x].description+'</small></p>\
             </li>';
         }
         document.getElementById("gh_repos").innerHTML = divBody;
