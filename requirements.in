@@ -6,9 +6,12 @@ Jinja2
 Markdown
 MarkupSafe
 pelican
+pelican-webassets
+cssmin
+libsass
+webassets
 Pygments
 python-dateutil
 pytz
 soupsieve
 Unidecode
-webassets

@@ -1,0 +1,33 @@
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Open Graph data  -->
+    <meta property="og:title"         content="{{ SITENAME }}" />
+    <meta property="og:description"   content="{{ SITESUBTITLE }}" />
+    <meta property="og:image"         content="{{ THEME__OPEN_GRAPH_IMAGE }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:url"           content="{{ SITEURL }}" />
+
+    <!-- default FB app id: 966242223397117 -->
+    <meta property="fb:app_id" content="{{ THEME__OPEN_GRAPH_FB_APP_ID }}" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/bootstrap-icons/font/bootstrap-icons.css" >
+    
+    <!-- theme CSS -->
+    {% assets filters="libsass,cssmin", output="css/theme.min.css", "sass/main.sass" %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/theme.min.css">
+    {% endassets %}
+     
+    <link rel="apple-touch-icon" sizes="180x180" href="ZZZ???resources/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="ZZZ???resources/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="ZZZ???resources/favicon/favicon-16x16.png">
+
+    <link rel="manifest" href="site.webmanifest">
+
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+</head>
