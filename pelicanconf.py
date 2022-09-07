@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 
 AUTHOR = 'vesc'
 SITENAME = '# Codeholics'
-SITEURL = 'https://codeholics.com'
+#SITEURL = 'https://codeholics.com'
+SITEURL = ''
 
 PATH = 'content'
 STATIC_PATHS = ['images']
@@ -14,12 +15,13 @@ TIMEZONE = 'US/Eastern'
 DEFAULT_LANG = 'en'
 
 # Theme
-THEME = "themes/pelican-theme-codeholics"
-CUSTOM_JS = "theme/js/youtube.js"
+THEME = "themes/pelican-bootstrap-5"
+#TODO: should be a bool
+#CUSTOM_JS = "theme/js/youtube.js"
 # Plugins
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = [
-    #'assets',
+    'pelican.plugins.webassets',
     'gzip_cache',
     'liquid_tags.bootstrap_youtube',
     'liquid_tags.youtube_thumbnail',
@@ -27,13 +29,6 @@ PLUGINS = [
     'i18n_subsites', # for theme
     'tag_cloud', # for theme
 ]
-
-# Plugin Configs
-# Assets
-#ASSET_CONFIG = (
-#    ('closure_compressor_optimization', 'WHITESPACE_ONLY'),
-#    ('less_bin', 'lessc.cmd'),
-#)
 
 # For Theme
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'search']
@@ -73,7 +68,8 @@ MENUITEMS = [
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/root_codeholics'),
           ('Facebook', 'https://www.facebook.com/RootCodeholics'),
-          ('Github', 'https://www.github.com/Codeholics'))
+          ('Github', 'https://www.github.com/Codeholics'),
+          ('RSS-fill', 'https://www.codeholics.com/feeds/all.atom.xml'))
 
 DEFAULT_PAGINATION = 10
 

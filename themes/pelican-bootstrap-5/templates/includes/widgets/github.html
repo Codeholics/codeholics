@@ -1,0 +1,42 @@
+{% if GITHUB_USER %}
+
+<!-- Sidebar/Github -->
+  <button class="accordion-button bg-primary text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-github" aria-expanded="true" aria-controls="collapse-github">
+  	<h4 class="accordion-header text-secondary" id="github-header">
+		<i class="bi bi-github"></i> Github Repos
+	</h4>
+  </button>
+  <div class="accordion-collapse collapse show" aria-labelledby="tag-header" data-bs-parent="#sidebar-accordion" id="collapse-github">
+  	<div class="accordion-body" id="gh_repos">
+    		<p class="list-group-item bg-primary text-secondary">Status updating...</p>
+	</div>
+  </div>
+<!-- End Sidebar/Github -->
+<!-- Github JS -->
+<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/github.js"></script>
+<script async type="text/javascript">
+    githubRepos("{{ GITHUB_USER }}").then(data => {
+        // set up div body
+        let divBody = '<ul class="list-group" id="github">';
+        // sort data by last commit
+        data.sort(function(a, b) {
+            var aDate = new Date(a.pushed_at).valueOf(),
+                bDate = new Date(b.pushed_at).valueOf();
+
+            if (aDate === bDate) { return 0; }
+            return aDate > bDate ? -1 : 1;
+        });
+        for(let x = 0; x < data.length; x++){
+          // Skip forked repos
+          if(data[x].fork){continue};
+          divBody += '<li class="list-group-item bg-primary text-secondary text-wrap">\
+            <a href="'+data[x].html_url+'">'+data[x].name+'</a>\
+		<p class="font-weight-normal text-wrap"><small>'+data[x].description+'</small></p>\
+            </li>';
+        }
+        document.getElementById("gh_repos").innerHTML = divBody;
+    }).catch(function(err) {
+        console.log(`Fetch problem: ${err.message}`);
+    });
+</script>
+{% endif %}

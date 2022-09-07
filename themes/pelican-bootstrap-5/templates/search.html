@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ _('Search') }} - {{ super() }}
+{% endblock %}
+
+{% block scripts %}
+    {% if 'tipue_search' in PLUGINS %}
+      <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
+      <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/lunr/lunr.js"></script>
+      <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/lunr-search-result.js"></script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="lunr-search-result"></div>
+{% endblock %}

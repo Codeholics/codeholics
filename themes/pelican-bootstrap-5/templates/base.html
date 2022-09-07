@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<!-- Header -->
+{% include 'includes/header.html' %}
+
+<body>
+<!-- Navbar -->
+{% include 'includes/navbar.html' %}
+<!-- Content Container-->
+<div class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+    {% block content %}{% endblock %}
+</div>
+<!-- Footer -->
+{% include 'includes/footer.html' %}
+    <!-- Bootstrap JS bundle  -->
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.bundle.min.js"></script>
+    <!-- Theme JS -->
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/theme.js"></script>
+    <!-- YouTube JS -->
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/youtube.js"></script>
+    {% block scripts %}{% endblock %}
+    {% if CUSTOM_JS %}
+        <!-- Theme customizer JS -->
+        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/theme_custom.js"></script>
+    {% endif %}
+</body>
+</html> 
