@@ -120,9 +120,9 @@ In my next post in this _mycroft series_ I will run you through training a custo
 
 ### Links:
 #### Hardware
-* [Raspberry Pi 4 Cancan Kit](https://www.amazon.com/CanaKit-Raspberry-4GB-Starter-Kit/dp/B07V5JTMV9/ref=sxts_rp_s1_0?cv_ct_cx=raspberry+pi+4&dchild=1&keywords=raspberry+pi+4&pd_rd_i=B07V5JTMV9&pd_rd_r=93730acb-7dc6-48a5-995c-c3c0e60b1e21&pd_rd_w=APScY&pd_rd_wg=S8DyU&pf_rd_p=af8d3766-df56-425b-8b01-c9ac6db61af2&pf_rd_r=ASQK4BM9ZS0Q3CPBZ8FC&psc=1&qid=1633024353&sr=1-1-c0f7e2e2-11af-4edb-92eb-888d18bf51be)
-* [Respeaker 2-mic Pi Hat](https://www.amazon.com/KEYESTUDIO-ReSpeaker-2-Mic-V1-0-Raspberry/dp/B07H3T8SQY/ref=sr_1_1_sspa?crid=1B6CZC39ZJP4L&dchild=1&keywords=respeaker+2-mics+pi+hat&qid=1633024594&s=electronics&sprefix=respeaker%2Celectronics%2C170&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzRVZIRFRUTjBFVk5CJmVuY3J5cHRlZElkPUEwNDM2MzkzRE8xSk80VE44RkImZW5jcnlwdGVkQWRJZD1BMDY2NDgzODY3UUlLS1JaQ0RZMSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
-* [MakerHawk 4 Ohm 3 Watt Speaker](https://www.amazon.com/gp/product/B08JCHK7GR/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
+* [Raspberry Pi 4 Cancan Kit](https://amzn.to/3D7XZvB)
+* [Respeaker 2-mic Pi Hat](https://amzn.to/3Tj8Bxq)
+* [MakerHawk 4 Ohm 3 Watt Speaker](https://amzn.to/3D7uPwv)
 * [JST XH2.54mm 24 AWG](https://www.ebay.com/itm/264394274295)
 * [7" LCD Touch Screen](https://www.ebay.com/itm/254528464056)
 * [7" Display Case](https://www.ebay.com/itm/265113382253)
