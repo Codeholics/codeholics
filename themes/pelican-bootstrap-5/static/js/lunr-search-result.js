@@ -26,16 +26,6 @@ function lunr_search(term) {
   });
 
   if (term && idx && documents) {
-    // TODO: decide if we want a search heading
-    /*const resultHeadingRoot = document.getElementById(
-      "lunr-search-result-heading"
-    );
-    const resultIntro = `
-    <h1>Search Results for <code>${term}</code></h1>
-    `;
-
-    resultHeadingRoot.insertAdjacentHTML("beforeend", resultIntro);
-    */
     const resultRoot = document.getElementById("lunr-search-result");
     //put results on the screen.
     var results = idx.search(term);
@@ -63,7 +53,7 @@ function lunr_search(term) {
         resultRoot.insertAdjacentHTML("beforeend", resultItem);
       }
     } else {
-      const resultFailure = `<p class="lunr-result-fail">No results found for <span class="lunr-search-term">${term}</span></p>`;
+      const resultFailure = `<p class="lunr-result-fail">No results found</p>`;
 
       resultRoot.insertAdjacentHTML("beforeend", resultFailure);
     }
