@@ -7,4 +7,4 @@ Slug: how-to-make-a-motherboard-a-gigabyte-factory-tour
 Status: published
 
 How to make a motherboard a GIGABYTE Factory Tour  
-{% youtube_thumbnail Va3Bfjn4inA %}
+{% youtube Va3Bfjn4inA %}

@@ -7,4 +7,4 @@ Slug: how-a-cpu-works
 Status: published
 
 How a CPU Works:
-{% youtube_thumbnail cNN_tTXABUA %}
+{% youtube cNN_tTXABUA %}
