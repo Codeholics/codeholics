@@ -41,5 +41,5 @@ docker-compose -f docker/docker-compose.yml up
 This will generate the requirements.txt from the requirements.in file
 ```
 pip install pip-tools
-pip-compile --update
+pip-compile --upgrade
 ```
