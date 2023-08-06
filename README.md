@@ -1,17 +1,17 @@
 - [Codeholics Static Pelican Site](#codeholics-static-pelican-site)
   - [Clone Projects](#clone-projects)
   - [Docker Setup](#docker-setup)
-    - [Build docker image](#build-docker-image)
-    - [Run docker container](#run-docker-container)
+    - [Build Docker Image](#build-docker-image)
+    - [Run Docker Container](#run-docker-container)
   - [Manual Setup](#manual-setup)
     - [Install pip](#install-pip)
     - [Install Venv](#install-venv)
     - [Setup Venv](#setup-venv)
-    - [Activate Venvu enviornment](#activate-venvu-enviornment)
+    - [Activate Venvu Enviornment](#activate-venvu-enviornment)
     - [Install Python Requirements:](#install-python-requirements)
     - [Build Site](#build-site)
-    - [Run dev server](#run-dev-server)
-  - [Update site dependencies](#update-site-dependencies)
+    - [Run Dev Server](#run-dev-server)
+  - [Update Site Dependencies](#update-site-dependencies)
   - [Directory Structure](#directory-structure)
   - [Resources](#resources)
 
@@ -50,13 +50,13 @@ git clone git@github.com:Codeholics/pelican-plugins.git
 
 If you use Docker, otherwise follow the manual process
 
-### Build docker image
+### Build Docker Image
 
 ```
 docker-compose -f docker/docker-compose.yml build
 ```
 
-### Run docker container
+### Run Docker Container
 
 ```
 docker-compose -f docker/docker-compose.yml up
@@ -89,7 +89,7 @@ You should create this under the root project folder. If you're using GitHub, ma
 python -m venv C:\Code\codeholics
 ```
 
-### Activate Venvu enviornment
+### Activate Venvu Enviornment
 
 ```
 `C:\Code\codeholics\venv\Scripts\Activate.ps1`
@@ -114,7 +114,7 @@ Output `C:\Code\codeholics\output` is where the final html version will be saved
 pelican C:\Code\codeholics\Content
 ```
 
-### Run dev server
+### Run Dev Server
 
 Start the dev server
 
@@ -129,7 +129,7 @@ By default you should now see a message in the console
 
 <br>
 
-## Update site dependencies
+## Update Site Dependencies
 
 This will generate the requirements.txt from the requirements.in file
 
