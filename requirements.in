@@ -8,6 +8,7 @@ MarkupSafe
 pelican
 pelican-webassets
 pelican-liquid-tags
+pelican-tag-cloud
 cssmin
 libsass
 webassets

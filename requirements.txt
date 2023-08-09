@@ -98,8 +98,11 @@ pelican==4.8.0
     # via
     #   -r requirements.in
     #   pelican-liquid-tags
+    #   pelican-tag-cloud
     #   pelican-webassets
 pelican-liquid-tags==1.0.4
+    # via -r requirements.in
+pelican-tag-cloud==1.0.1
     # via -r requirements.in
 pelican-webassets==2.0.0
     # via -r requirements.in

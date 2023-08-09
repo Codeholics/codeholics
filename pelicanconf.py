@@ -16,22 +16,21 @@ DEFAULT_LANG = 'en'
 
 # Theme
 THEME = "themes/pelican-bootstrap-5"
-#TODO: should be a bool
-#CUSTOM_JS = "theme/js/youtube.js"
 # Plugins
 # TODO: move to all namesapce plugins
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = [
     'pelican.plugins.webassets',
     'pelican.plugins.liquid_tags',
+    'pelican.plugins.tag_cloud',
     'gzip_cache',
     'tipue_search', # for theme search
     'i18n_subsites', # for theme
-    'tag_cloud', # for theme
 ]
-
+# Liquid Tag Settings
 LIQUID_TAGS = ["img", "literal", "video", "youtube", "vimeo", "include_code"]
 YOUTUBE_THUMB_ONLY = True
+YOUTUBE_THUMB_SIZE = "maxres"
 # For Theme
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'search']
 I18N_TEMPLATES_LANG = 'en'
