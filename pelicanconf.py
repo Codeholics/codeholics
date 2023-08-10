@@ -27,6 +27,8 @@ PLUGINS = [
     'tipue_search', # for theme search
     'i18n_subsites', # for theme
 ]
+# Webassets Config
+WEBASSETS_CONF = ['cache', 'False']
 # Liquid Tag Settings
 LIQUID_TAGS = ["img", "literal", "video", "youtube", "vimeo", "include_code"]
 YOUTUBE_THUMB_ONLY = True
