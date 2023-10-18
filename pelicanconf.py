@@ -32,7 +32,6 @@ WEBASSETS_CONF = ['cache', 'False']
 # Liquid Tag Settings
 LIQUID_TAGS = ["img", "literal", "video", "youtube", "vimeo", "include_code"]
 YOUTUBE_THUMB_ONLY = True
-YOUTUBE_THUMB_SIZE = "maxres"
 # For Theme
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'search']
 I18N_TEMPLATES_LANG = 'en'
