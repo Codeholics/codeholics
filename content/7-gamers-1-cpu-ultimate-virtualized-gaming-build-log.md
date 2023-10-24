@@ -6,4 +6,4 @@ Tags: gaming, hardware, video
 Slug: 7-gamers-1-cpu-ultimate-virtualized-gaming-build-log
 Status: published
 
-{% youtube_thumbnail LXOaCkbt4lI %}
+{% youtube LXOaCkbt4lI %}

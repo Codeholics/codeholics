@@ -2,7 +2,7 @@
     {% set DISPLAY_TAGS_ON_SIDEBAR = True %}
 {% endif -%}
 
-{% if 'tag_cloud' in PLUGINS and DISPLAY_TAGS_ON_SIDEBAR %}
+{% if 'pelican.plugins.tag_cloud' in PLUGINS and DISPLAY_TAGS_ON_SIDEBAR %}
   {% if DISPLAY_TAGS_INLINE %}
     {% set tags = tag_cloud | sort(attribute='0') %}
   {% else %}

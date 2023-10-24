@@ -6,4 +6,4 @@ Tags: hardware, sd cards, video
 Slug: how-we-make-sd-cards
 Status: published
 
-{% youtube_thumbnail z_HSDp8KFfA %}
+{% youtube z_HSDp8KFfA %}
