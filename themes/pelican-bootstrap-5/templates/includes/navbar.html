@@ -14,10 +14,10 @@
         </ul>
         {% if SOCIAL %}
         <ul class="navbar-nav sm-icons">
-	   <li class="btn-group mr-2">
-		{% for item in SOCIAL %}
-		<li class="nav-item me-3"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}" role="img" aria-label="Social"></i></a></li>
-		{% endfor %}
+	        <li class="btn-group mr-2">
+		      {% for item in SOCIAL %}
+		      <li class="nav-item me-3"><a class="nav-link" href="{{ item[1] }}"><i class="bi bi-{{ item[0]|lower }}" role="img" aria-label="Social"></i></a></li>
+		      {% endfor %}
         </ul>
         {% endif %}
         {% if 'tipue_search' in PLUGINS %}
@@ -27,4 +27,4 @@
         {% endif %}
       </div>
     </div>
-  </nav><!-- Nav Close -->
+</nav><!-- Nav Close -->
