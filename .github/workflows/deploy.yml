@@ -33,15 +33,16 @@ jobs:
       - name: Build Content
         working-directory: codeholics
         run: uv run pelican -s pelicanconf.py
-      - name: copy files to dev.codeholics.com
-        uses: burnett01/rsync-deployments@5.2
+      - name: Copy files to dev.codeholics.com
+        uses: appleboy/scp-action@v1
         with:
-          switches: -avzr --delete
-          rsh: -oHostKeyAlgorithms=+ssh-rsa
-          path: "output/*"
-          remote_host: ${{ secrets.HOST }}
-          remote_port: ${{ secrets.PORT }}
-          remote_path: ${{ secrets.DEV_PATH }}
-          remote_user: ${{ secrets.USERNAME }}
-          remote_key: ${{ secrets.KEY }}
-          remote_key_pass: ${{ secrets.PASSPHRASE }}
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "codeholics/output/*"
+          target: ${{ secrets.DEV_PATH }}
+          strip_components: 2
+          rm: true
+          overwrite: true

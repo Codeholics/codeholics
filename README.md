@@ -158,17 +158,17 @@ Tests and linting:
 GitHub Actions workflows live in `.github/workflows/`.
 
 - `build.yml` builds on pushes to `dev`.
-- `deploy.yml` runs the shared build workflow, rebuilds the site, and deploys `output/*` with rsync.
+- `deploy.yml` runs the shared build workflow, rebuilds the site, and copies `output/*` to the server with `appleboy/scp-action`.
 - Both workflows check out this repo and `Codeholics/pelican-plugins`.
 
-Example rsync command:
+Example manual deploy command:
 
 ```bash
-rsync --delete --exclude ".DS_Store" -pthrvz -c output/ user@production-host:/var/www/codeholics/
+scp -r output/* user@production-host:/var/www/codeholics/
 ```
 
 Current CI note:
-- Workflow files still install from `requirements.txt`, while local dependency management now lives in `pyproject.toml` and `uv.lock`.
+- Workflow files use `actions/setup-python`, `astral-sh/setup-uv`, `uv sync`, and `uv run pelican ...`.
 
 ## Optional tools in the repo
 

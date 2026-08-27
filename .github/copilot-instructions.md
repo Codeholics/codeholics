@@ -36,18 +36,19 @@ Quick reference for future Copilot sessions working in this repository.
 - `pelicanconf.py` is the main development configuration. `publishconf.py` imports it and applies production overrides like `RELATIVE_URLS = False` and `DELETE_OUTPUT_DIRECTORY = True`.
 - The active theme is `themes/pelican-bootstrap-5`. Theme source assets and Node/Gulp tooling live under `themes/pelican-bootstrap-5/frontend-tools`, while generated theme assets are copied into the theme's `static/assets` directories.
 - Pelican plugins are not vendored in this repo. The site expects a sibling checkout at `../pelican-plugins` via `PLUGIN_PATHS = ['../pelican-plugins']`.
-- Generated site output goes to `output/`. Deployment publishes that generated output rather than source files.
+- Generated site output goes to `output/`. Deployment copies that generated output rather than source files.
 - CI and deploy workflows in `.github/workflows/` check out both this repo and `Codeholics/pelican-plugins`, then run a Pelican build before deployment.
 
 ## Key conventions
 - Prefer direct `pelican ...` and `uv run pelican ...` commands in docs and automation; `tasks.py` exists as an optional wrapper, not the primary workflow.
 - Python dependency management has moved to `pyproject.toml` and `uv.lock`. The declared Python requirement is `>=3.13`.
-- The GitHub Actions workflows still install from `requirements.txt`, but no `requirements.txt` currently exists in the repo. If CI or deploy work is touched, account for that mismatch.
+- The GitHub Actions workflows use `actions/setup-python`, `astral-sh/setup-uv`, `uv sync`, and `uv run pelican ...` for builds.
 - Theme asset changes may require both frontend rebuilds in `themes/pelican-bootstrap-5/frontend-tools` and a subsequent Pelican site rebuild.
 - `pelicanconf.py` enables specific plugins and theme integrations: `webassets`, `liquid_tags`, `tag_cloud`, `gzip_cache`, `tipue_search`, and `i18n_subsites`. Preserve those integrations when editing config.
 - Search is wired through Pelican direct templates and the theme: `DIRECT_TEMPLATES` includes `search`, and `tipue_search` is enabled.
 - Do not edit or commit files under `output/`; regenerate them instead.
 - Workflow automation currently targets the `dev` branch in `.github/workflows/build.yml` and `.github/workflows/deploy.yml`.
+- The deploy workflow uses `appleboy/scp-action` to copy `codeholics/output/*` into `${{ secrets.DEV_PATH }}` with `strip_components: 2` and `rm: true`.
 
 ## Project docs and assistant config
 - Primary repo docs are `README.md`, `pelicanconf.py`, `publishconf.py`, and the workflow files under `.github/workflows/`.
