@@ -15,12 +15,12 @@ jobs:
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
     steps:
       - name: Checkout Site
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           ref: dev
           path: codeholics
       - name: Checkout Plugins
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           repository: Codeholics/pelican-plugins
           path: pelican-plugins
