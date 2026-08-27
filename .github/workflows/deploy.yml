@@ -19,11 +19,20 @@ jobs:
         with:
           repository: Codeholics/pelican-plugins
           path: pelican-plugins
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        working-directory: codeholics
+        run: uv sync
       - name: Build Content
-        run: |
-          cd codeholics
-          pip install -r requirements.txt
-          pelican ./content
+        working-directory: codeholics
+        run: uv run pelican -s pelicanconf.py
       - name: copy files to dev.codeholics.com
         uses: burnett01/rsync-deployments@5.2
         with:

@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.11, 3.12 ]
+        python-version: [ "3.13" ]
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
     steps:
       - name: Checkout Site
@@ -24,9 +24,17 @@ jobs:
         with:
           repository: Codeholics/pelican-plugins
           path: pelican-plugins
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        working-directory: codeholics
+        run: uv sync
       - name: Build Content
-        run: |
-          cd codeholics
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pelican ./content
+        working-directory: codeholics
+        run: uv run pelican -s pelicanconf.py
