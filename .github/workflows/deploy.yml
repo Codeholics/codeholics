@@ -43,6 +43,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           timeout: 120s
           command_timeout: 10m
+          debug: true
           source: "codeholics/output/*"
           target: ${{ secrets.DEV_PATH }}
           strip_components: 2
