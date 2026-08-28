@@ -33,6 +33,19 @@ jobs:
       - name: Build Content
         working-directory: codeholics
         run: uv run pelican -s pelicanconf.py
+      - name: Debug DNS resolution
+        continue-on-error: true
+        env:
+          DEPLOY_HOST: ${{ secrets.HOST }}
+        run: |
+          echo "System resolver lookup:"
+          getent hosts "$DEPLOY_HOST" || true
+          echo
+          echo "Cloudflare lookup:"
+          nslookup "$DEPLOY_HOST" 1.1.1.1 || true
+          echo
+          echo "Google lookup:"
+          nslookup "$DEPLOY_HOST" 8.8.8.8 || true
       - name: Copy files to dev.codeholics.com
         uses: appleboy/scp-action@v1
         with:
