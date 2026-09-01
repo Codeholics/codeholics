@@ -34,7 +34,7 @@ jobs:
         working-directory: codeholics
         run: uv run pelican -s pelicanconf.py
       - name: Copy files to dev.codeholics.com
-        uses: appleboy/scp-action@v0.1.3
+        uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
@@ -45,7 +45,8 @@ jobs:
           command_timeout: 10m
           debug: true
           source: "codeholics/output/*"
-          target: ${{ secrets.DEV_PATH }}
+          #target: ${{ secrets.DEV_PATH }}
+          target: "~/"
           strip_components: 2
           rm: true
           overwrite: true
