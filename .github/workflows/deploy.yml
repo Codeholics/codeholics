@@ -42,7 +42,6 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           timeout: 120s
-          target: ${{ secrets.DEV_PATH }}
           command_timeout: 10m
           debug: true
           source: "codeholics/output/*"
