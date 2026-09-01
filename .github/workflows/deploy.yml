@@ -42,11 +42,12 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           timeout: 120s
+          target: ${{ secrets.DEV_PATH }}
           command_timeout: 10m
           debug: true
           source: "codeholics/output/*"
           #target: ${{ secrets.DEV_PATH }}
-          target: "~/"
+          target: "/home/codeholi/"
           strip_components: 2
           rm: true
           overwrite: true
