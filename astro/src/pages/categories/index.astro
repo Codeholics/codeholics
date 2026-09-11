@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { loadPosts, getAllCategories } from '../../lib/posts';
+
+const posts = loadPosts();
+const cats = getAllCategories(posts);
+---
+
+<Layout>
+  <h1>Categories</h1>
+  <ul>
+    {cats.map(c=> (
+      <li><a href={`/categories/${encodeURIComponent(c.category)}`}>{c.category}</a> ({c.count})</li>
+    ))}
+  </ul>
+</Layout>

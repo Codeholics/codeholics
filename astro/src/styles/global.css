@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root{
-  --bg:#0f1720;
-  --muted:#9aa4b2;
-  --accent:#60a5fa;
+  --bg: #0b1220; /* deep navy */
+  --muted: #94a3b8; /* muted slate */
+  --accent: #7c3aed; /* modern indigo-violet */
 }
 
 @layer base {
