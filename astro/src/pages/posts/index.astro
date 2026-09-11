@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
+const posts = Object.entries(modules).map(([path, mod]) => ({ slug: path.split('/').pop().replace('.md',''), frontmatter: mod.frontmatter })).sort((a,b)=> new Date(b.frontmatter.date)-new Date(a.frontmatter.date));
+---
+
+<Layout>
+  <h1>All Posts</h1>
+  <ul>
+    {posts.map(p=> (
+      <li><a href={`/posts/${p.slug}`}>{p.frontmatter.title}</a> - <small>{p.frontmatter.date}</small></li>
+    ))}
+  </ul>
+</Layout>

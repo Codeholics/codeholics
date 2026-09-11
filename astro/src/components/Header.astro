@@ -1,0 +1,12 @@
+---
+const siteTitle = Astro.props.title ?? 'Codeholics';
+---
+<header style="background:#0d6efd;color:white;padding:1rem">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+    <a href="/" style="color:inherit;text-decoration:none"><h1 style="margin:0;font-size:1.25rem">{siteTitle}</h1></a>
+    <nav>
+      <a href="/" style="color:inherit;margin-right:1rem;text-decoration:none">Home</a>
+      <a href="/about" style="color:inherit;text-decoration:none">About</a>
+    </nav>
+  </div>
+</header>

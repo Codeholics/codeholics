@@ -1,0 +1,13 @@
+---
+
+title: "Thirty years of Mac ads (1984-2014)"
+date: "2016-03-05 11:00"
+author: "root"
+category: "Video"
+tags: "hardware, apple, mac, video"
+slug: "thirty-years-of-mac-ads-1984-2014"
+status: "published"
+---
+
+
+{% youtube Ytuznpy95ZU %}
