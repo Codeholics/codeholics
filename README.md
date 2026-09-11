@@ -177,3 +177,40 @@ Current CI note:
 ## Resources
 - Pelican: https://getpelican.com/
 - Astral uv: https://docs.astral.sh/uv/
+
+## Astro version (modern JavaScript build)
+
+This repository also contains a migrated Astro site in the `astro/` subdirectory. Use the Astro workflow when developing the modern, Tailwind-powered site.
+
+Recommended Node: see `astro/package.json` (engines). Example (nvm):
+
+```bash
+nvm use 22
+```
+
+Quick start (inside repo root):
+
+```bash
+cd astro
+npm install
+npm run dev      # start local dev server (hot reload)
+```
+
+Build and preview the static site:
+
+```bash
+cd astro
+npm run build
+npm run preview  # serves the built output
+```
+
+Run Playwright end-to-end tests (includes navbar/link checks):
+
+```bash
+cd astro
+npm run test:e2e
+```
+
+Notes:
+- `npm run build` generates a production-ready static site with Astro.
+- If you want CI integration, run `npm ci && npm run build && npm run test:e2e` in the `astro/` folder.
