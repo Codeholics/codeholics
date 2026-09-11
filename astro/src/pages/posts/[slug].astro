@@ -22,10 +22,10 @@ const { frontmatter } = mod;
 ---
 
 <Layout>
-  <article>
-    <h1>{frontmatter.title}</h1>
-    <div style="color:#666">{frontmatter.date}</div>
-    <hr />
-    <Content />
+  <article class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-sm">
+    <h1 class="text-3xl font-bold text-slate-900">{frontmatter.title}</h1>
+    <div class="text-sm text-slate-500 mt-2">{frontmatter.date}</div>
+    <hr class="my-6" />
+    <div class="prose prose-slate max-w-none"><Content /></div>
   </article>
 </Layout>

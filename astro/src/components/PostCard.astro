@@ -1,8 +1,8 @@
 ---
 const { post } = Astro.props;
 ---
-<article style="margin-bottom:1.25rem;padding:0.75rem;border:1px solid #e6e6e6;border-radius:6px">
-  <h2 style="margin:0 0 0.25rem 0"><a href={`/posts/${post.slug}`} style="text-decoration:none;color:inherit">{post.frontmatter.title}</a></h2>
-  <div style="color:#888;font-size:0.9rem;margin-bottom:0.5rem">{post.frontmatter.date}</div>
-  {post.frontmatter.summary ? <p style="margin:0">{post.frontmatter.summary}</p> : null}
+<article class="post-card border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+  <h2 class="text-xl font-semibold"><a class="text-slate-900 hover:text-indigo-600" href={`/posts/${post.slug}`}>{post.frontmatter.title}</a></h2>
+  <div class="post-meta text-sm text-slate-500 mt-1">{post.frontmatter.date}</div>
+  {post.frontmatter.summary ? <p class="post-summary mt-3 text-slate-700">{post.frontmatter.summary}</p> : null}
 </article>

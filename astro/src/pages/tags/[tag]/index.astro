@@ -1,0 +1,37 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { loadPosts, postsByTag, paginate, PAGE_SIZE } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = loadPosts();
+  const tags = new Set();
+  for (const p of posts) {
+    const tlist = (p.frontmatter.tags||'').toString().split(/,\s*/).map(s=>s.trim()).filter(Boolean);
+    for (const t of tlist) tags.add(t);
+  }
+  return Array.from(tags).map(tag => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const posts = loadPosts();
+const tagged = postsByTag(posts, tag);
+const { items, current, totalPages } = paginate(tagged, 1, PAGE_SIZE);
+---
+
+<Layout>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold text-slate-900">Posts tagged: {tag}</h1>
+  </header>
+
+  <section class="space-y-4">
+    {items.map(p=> (
+      <PostCard post={p} />
+    ))}
+  </section>
+
+  <nav class="flex items-center justify-between mt-6 text-sm text-slate-600">
+    {current>1 ? <a class="text-indigo-600 hover:underline" href={current===2?`/tags/${tag}`:`/tags/${tag}/page/1`}>← Newer</a> : <span />}
+    {current<totalPages ? <a class="text-indigo-600 hover:underline" href={`/tags/${tag}/page/${current+1}`}>Older →</a> : <span />}
+  </nav>
+</Layout>

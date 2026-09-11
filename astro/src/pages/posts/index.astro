@@ -1,14 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
 const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
 const posts = Object.entries(modules).map(([path, mod]) => ({ slug: path.split('/').pop().replace('.md',''), frontmatter: mod.frontmatter })).sort((a,b)=> new Date(b.frontmatter.date)-new Date(a.frontmatter.date));
 ---
 
 <Layout>
-  <h1>All Posts</h1>
-  <ul>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold text-slate-900">All Posts</h1>
+  </header>
+
+  <section class="grid gap-6 md:grid-cols-2">
     {posts.map(p=> (
-      <li><a href={`/posts/${p.slug}`}>{p.frontmatter.title}</a> - <small>{p.frontmatter.date}</small></li>
+      <PostCard post={{...p, frontmatter: p.frontmatter}} />
     ))}
-  </ul>
+  </section>
 </Layout>

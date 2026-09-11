@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import '../styles/global.css';
 ---
 <!doctype html>
 <html lang="en">
@@ -10,18 +11,16 @@ import Footer from '../components/Footer.astro';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <title>Codeholics</title>
   </head>
-  <body>
+  <body class="min-h-screen bg-slate-50 text-slate-900 font-inter">
     <Header />
-    <main>
+    <main class="max-w-4xl mx-auto px-4 py-8">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
-
-<style>
-  html, body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-  main { padding: 1rem; max-width: 900px; margin: 0 auto; }
-</style>

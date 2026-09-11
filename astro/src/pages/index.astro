@@ -1,33 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { loadPosts, paginate, PAGE_SIZE } from '../lib/posts';
 
-// Load all markdown posts from src/content/posts
-const modules = import.meta.glob('../content/posts/*.md', { eager: true });
-
-const posts = Object.entries(modules).map(([path, mod]) => {
-  const fileName = path.split('/').pop();
-  const slug = fileName.replace('.md', '');
-  return { slug, frontmatter: mod.frontmatter };
-}).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+const posts = loadPosts();
+const { items, current, totalPages } = paginate(posts, 1, PAGE_SIZE);
 ---
 
 <Layout>
-  <main class="container">
-    <h1>Codeholics</h1>
-    <section>
-      {posts.length ? (
-        <ul>
-          {posts.map((post) => (
-            <li>
-              <a href={`/posts/${post.slug}`}><strong>{post.frontmatter.title}</strong></a>
-              <div><small>{post.frontmatter.date}</small></div>
-              {post.frontmatter.summary ? <p>{post.frontmatter.summary}</p> : null}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No posts yet.</p>
-      )}
-    </section>
-  </main>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900">Codeholics</h1>
+    <p class="text-slate-600 mt-2">Tech notes, tutorials, and reviews.</p>
+  </header>
+
+  <section class="grid gap-6 md:grid-cols-2">
+    {items.length ? (
+      items.map((post) => (
+        <PostCard post={post} />
+      ))
+    ) : (
+      <p class="text-slate-700">No posts yet.</p>
+    )}
+  </section>
+
+  <nav class="flex items-center justify-between mt-8 text-sm text-slate-600">
+    {current>1 ? <a class="text-indigo-600 hover:underline" href={current===2?'/':'/page/1'}>← Newer</a> : <span />}
+    {current<totalPages ? <a class="text-indigo-600 hover:underline" href={`/page/${current+1}`}>Older →</a> : <span />}
+  </nav>
 </Layout>
