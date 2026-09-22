@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { loadPosts } from '../lib/posts';
+
+const rawModules = import.meta.glob('../content/posts/*.md', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+}) as Record<string, string>;
+
+const stripMarkdown = (raw = '') =>
+  raw
+    .replace(/^---[\s\S]*?---/, ' ')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[#>*_~\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const normalize = (value = '') =>
+  value
+    .toString()
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+const searchIndex = loadPosts().map((post) => {
+  const rawPath = Object.keys(rawModules).find((path) => path.endsWith(`${post.slug}.md`));
+  const rawContent = rawPath ? rawModules[rawPath] : '';
+  const content = stripMarkdown(rawContent);
+  const title = (post.frontmatter.title || post.slug).toString();
+  const summary = (post.frontmatter.summary || '').toString();
+  const category = (post.frontmatter.category || '').toString();
+  const tags = (post.frontmatter.tags || '').toString();
+  const excerpt = (summary || content).slice(0, 220).trim();
+
+  return {
+    slug: post.slug,
+    title,
+    summary,
+    category,
+    tags,
+    date: (post.frontmatter.date || '').toString(),
+    excerpt,
+    searchText: normalize([title, summary, category, tags, content].join(' ')),
+  };
+});
+---
+
+<Layout>
+  <section class="space-y-6">
+    <header class="space-y-2">
+      <h1 class="text-3xl font-bold text-white">Search</h1>
+      <p class="text-slate-300">Search titles, summaries, categories, tags, and post content across the Astro site.</p>
+    </header>
+
+    <form action="/search.html" method="get" class="flex flex-col gap-3 md:flex-row md:items-center" role="search">
+      <label class="sr-only" for="search-page-input">Search</label>
+      <input
+        id="search-page-input"
+        name="q"
+        class="w-full rounded-md border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none md:flex-1"
+        placeholder="Search posts"
+        aria-label="Search"
+        required
+      />
+      <button type="submit" class="rounded-md bg-indigo-500 px-4 py-3 font-medium text-white hover:bg-indigo-400">
+        Search
+      </button>
+    </form>
+
+    <p id="search-status" class="text-sm text-slate-300"></p>
+
+    <div id="search-results" class="space-y-4"></div>
+  </section>
+
+  <script define:vars={{ searchIndex }}>
+    const input = document.getElementById('search-page-input');
+    const status = document.getElementById('search-status');
+    const results = document.getElementById('search-results');
+
+    const renderResult = (post) => {
+      const article = document.createElement('article');
+      article.className = 'rounded-lg border border-white/10 bg-white/5 p-6 shadow-sm';
+
+      const title = document.createElement('h2');
+      title.className = 'text-xl font-semibold text-white';
+
+      const link = document.createElement('a');
+      link.href = `/posts/${post.slug}`;
+      link.className = 'hover:text-indigo-300';
+      link.textContent = post.title;
+      title.appendChild(link);
+
+      const meta = document.createElement('p');
+      meta.className = 'mt-2 text-sm text-slate-400';
+      meta.textContent = [post.date, post.category].filter(Boolean).join('  |  ');
+
+      const excerpt = document.createElement('p');
+      excerpt.className = 'mt-3 text-slate-200';
+      excerpt.textContent = post.excerpt || 'No summary available.';
+
+      article.append(title, meta, excerpt);
+      return article;
+    };
+
+    const renderSearch = () => {
+      if (!input || !status || !results) return;
+
+      const params = new URLSearchParams(window.location.search);
+      const query = (params.get('q') || '').trim();
+      input.value = query;
+      results.replaceChildren();
+
+      if (!query) {
+        status.textContent = 'Enter a search term to see matching posts.';
+        return;
+      }
+
+      const tokens = query
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
+
+      const matches = searchIndex.filter((post) =>
+        tokens.every((token) => post.searchText.includes(token)),
+      );
+
+      status.textContent =
+        matches.length === 0
+          ? `No results for "${query}".`
+          : `${matches.length} result${matches.length === 1 ? '' : 's'} for "${query}".`;
+
+      if (matches.length === 0) {
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+      for (const post of matches) {
+        fragment.appendChild(renderResult(post));
+      }
+      results.appendChild(fragment);
+    };
+
+    renderSearch();
+  </script>
+</Layout>

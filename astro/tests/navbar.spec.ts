@@ -14,7 +14,7 @@ test.describe('Navbar', () => {
 
     // Desktop nav links (should be visible at md+) - scope to the first <nav> inside header (desktop nav)
     const desktopNav = header.locator('nav').first();
-    await expect(desktopNav.locator('a', { hasText: 'Home' })).toBeVisible();
+    await expect(desktopNav.locator('a', { hasText: '~/' })).toBeVisible();
     await expect(desktopNav.locator('a', { hasText: 'About' })).toBeVisible();
     await expect(desktopNav.locator('a', { hasText: 'Posts' })).toBeVisible();
     await expect(desktopNav.locator('a', { hasText: 'Tags' })).toBeVisible();
@@ -66,6 +66,76 @@ test.describe('Navbar', () => {
         stored: window.localStorage.getItem('theme'),
       }));
     }).toEqual({ dark: true, stored: 'dark' });
+  });
+
+  test('Desktop search reveals an inline form and closes accessibly', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    const searchButton = page.locator('#search-btn');
+    const searchForm = page.locator('#desktop-search-form');
+    const searchInput = page.locator('#desktop-search-input');
+
+    await expect(searchButton).toBeVisible();
+    await expect(searchButton).toHaveAttribute('aria-expanded', 'false');
+    await expect(searchForm).toBeHidden();
+
+    await searchButton.click();
+
+    await expect(searchButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(searchForm).toBeVisible();
+    await expect(searchInput).toBeFocused();
+
+    await page.keyboard.press('Escape');
+
+    await expect(searchButton).toHaveAttribute('aria-expanded', 'false');
+    await expect(searchForm).toBeHidden();
+    await expect(searchButton).toBeFocused();
+  });
+
+  test('Desktop and mobile search forms target the site search page', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    await expect(page.locator('#desktop-search-form')).toHaveAttribute('action', '/search.html');
+    await expect(page.locator('#desktop-search-input')).toHaveAttribute('name', 'q');
+
+    await expect(page.locator('#nav-panel form')).toHaveAttribute('action', '/search.html');
+    await expect(page.locator('#mobile-search-input')).toHaveAttribute('name', 'q');
+  });
+
+  test('Desktop search submits to the Astro search page and shows results', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    await page.locator('#search-btn').click();
+    await page.locator('#desktop-search-input').fill('docker');
+    await page.locator('#desktop-search-form').press('Enter');
+
+    await expect(page).toHaveURL(/\/search\.html\?q=docker$/);
+    await expect(page.locator('h1')).toHaveText('Search');
+    await expect(page.locator('#search-status')).toContainText('docker');
+    await expect(page.locator('#search-results article').first()).toBeVisible();
+  });
+
+  test('Desktop search is keyboard reachable and labelled', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    const searchButton = page.getByRole('button', { name: 'Search' });
+
+    for (let i = 0; i < 10; i += 1) {
+      await page.keyboard.press('Tab');
+      if (await searchButton.evaluate((node) => node === document.activeElement)) {
+        break;
+      }
+    }
+
+    await expect(searchButton).toBeFocused();
+
+    await page.keyboard.press('Enter');
+
+    await expect(page.locator('#desktop-search-input')).toBeFocused();
   });
 
   test('Keyboard flow opens and closes the mobile menu accessibly', async ({ page }) => {

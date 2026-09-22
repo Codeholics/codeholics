@@ -23,7 +23,39 @@ const siteTitle = Astro.props.title ?? '# Codeholics';
 
     <!-- Right: utilities -->
     <div class="flex items-center gap-3">
-      <button id="search-btn" class="header-search items-center text-slate-200 p-2 rounded-md hover:bg-white/5" aria-label="Search">🔍</button>
+      <div class="header-search-group">
+        <button
+          id="search-btn"
+          type="button"
+          class="header-search items-center justify-center text-slate-200 p-2 rounded-md hover:bg-white/5"
+          aria-label="Search"
+          aria-controls="desktop-search-form"
+          aria-expanded="false"
+        >
+          🔍
+        </button>
+
+        <form
+          id="desktop-search-form"
+          action="/search.html"
+          method="get"
+          class="header-search-form hidden items-center gap-2"
+          role="search"
+        >
+          <label class="sr-only" for="desktop-search-input">Search</label>
+          <input
+            id="desktop-search-input"
+            name="q"
+            class="header-search-input rounded-md px-3 py-2 bg-white/5 placeholder:text-slate-300 text-white outline-none"
+            placeholder="Search"
+            aria-label="Search"
+            required
+          />
+          <button type="submit" class="header-search-submit px-3 py-2 rounded-md bg-white/5 text-slate-200 hover:bg-white/10">
+            Go
+          </button>
+        </form>
+      </div>
 
       <button id="theme-toggle" class="p-2 rounded-md text-slate-200 hover:bg-white/5" aria-label="Toggle theme" title="Toggle theme" data-theme="auto">
         <!-- sun / moon icon will be updated by JS -->
@@ -50,11 +82,11 @@ const siteTitle = Astro.props.title ?? '# Codeholics';
       <a class="block py-2 px-3 rounded hover:bg-white/5 text-slate-200" href="/tags">Tags</a>
       <a class="block py-2 px-3 rounded hover:bg-white/5 text-slate-200" href="/categories">Categories</a>
 
-      <form action="/search" method="get" class="mt-2">
-        <label class="sr-only">Search</label>
+      <form action="/search.html" method="get" class="mt-2" role="search">
+        <label class="sr-only" for="mobile-search-input">Search</label>
         <div class="flex items-center gap-2">
-          <input name="q" class="w-full rounded-md px-3 py-2 bg-white/5 placeholder:text-slate-300 text-white outline-none" placeholder="Search" />
-          <button class="px-3 py-2 rounded-md bg-white/5 text-slate-200">Search</button>
+          <input id="mobile-search-input" name="q" class="w-full rounded-md px-3 py-2 bg-white/5 placeholder:text-slate-300 text-white outline-none" placeholder="Search" aria-label="Search" required />
+          <button type="submit" class="px-3 py-2 rounded-md bg-white/5 text-slate-200">Search</button>
         </div>
       </form>
     </div>
@@ -85,6 +117,45 @@ const siteTitle = Astro.props.title ?? '# Codeholics';
         icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />';
       } else {
         icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle>';
+      }
+    };
+
+    const setSearchExpanded = (expanded) => {
+      const searchButton = document.getElementById('search-btn');
+      const searchForm = document.getElementById('desktop-search-form');
+      if (!searchButton || !searchForm) return;
+
+      searchButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      searchForm.classList.toggle('hidden', !expanded);
+    };
+
+    const closeSearch = (restoreFocus = true) => {
+      const searchButton = document.getElementById('search-btn');
+      if (!searchButton || searchButton.getAttribute('aria-expanded') !== 'true') return;
+
+      setSearchExpanded(false);
+      if (restoreFocus) {
+        searchButton.focus();
+      }
+    };
+
+    const openSearch = () => {
+      const searchInput = document.getElementById('desktop-search-input');
+      setSearchExpanded(true);
+      if (searchInput instanceof HTMLInputElement) {
+        searchInput.focus();
+        searchInput.select();
+      }
+    };
+
+    const toggleSearch = () => {
+      const searchButton = document.getElementById('search-btn');
+      if (!searchButton) return;
+
+      if (searchButton.getAttribute('aria-expanded') === 'true') {
+        closeSearch();
+      } else {
+        openSearch();
       }
     };
 
@@ -120,19 +191,38 @@ const siteTitle = Astro.props.title ?? '# Codeholics';
     const initNavbar = () => {
       const toggle = document.getElementById('nav-toggle');
       const themeToggle = document.getElementById('theme-toggle');
-      if (!toggle || !themeToggle) return;
+      const searchButton = document.getElementById('search-btn');
+      const searchForm = document.getElementById('desktop-search-form');
+      const searchInput = document.getElementById('desktop-search-input');
+      if (!toggle || !themeToggle || !searchButton || !searchForm || !searchInput) return;
 
       const initialTheme = localStorage.getItem(THEME_KEY) || 'auto';
       applyTheme(initialTheme);
       updateThemeIcon(initialTheme);
 
       toggle.addEventListener('click', toggleMenu);
+      searchButton.addEventListener('click', toggleSearch);
       themeToggle.addEventListener('click', () => {
         const current = localStorage.getItem(THEME_KEY) || 'auto';
         const next = current === 'dark' ? 'light' : current === 'light' ? 'auto' : 'dark';
         localStorage.setItem(THEME_KEY, next);
         applyTheme(next);
         updateThemeIcon(next);
+      });
+
+      searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeSearch();
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (searchButton.getAttribute('aria-expanded') !== 'true') return;
+        if (!(event.target instanceof Node)) return;
+        if (!searchForm.contains(event.target) && !searchButton.contains(event.target)) {
+          closeSearch(false);
+        }
       });
 
       window.addEventListener('resize', () => {
@@ -142,12 +232,20 @@ const siteTitle = Astro.props.title ?? '# Codeholics';
           panel?.classList.remove('open');
           toggle.setAttribute('aria-expanded', 'false');
           document.getElementById('hamburger')?.classList.remove('is-open');
+        } else {
+          closeSearch(false);
         }
       });
 
       window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-          closeMenu();
+        if (event.key === 'Escape') {
+          if (searchButton.getAttribute('aria-expanded') === 'true') {
+            closeSearch();
+            return;
+          }
+          if (toggle.getAttribute('aria-expanded') === 'true') {
+            closeMenu();
+          }
         }
       });
     };

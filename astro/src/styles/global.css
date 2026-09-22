@@ -37,8 +37,27 @@ html.dark body { background: linear-gradient(180deg, #071021, #050812); color: #
   display: none;
 }
 
-.header-search {
+.header-search-group {
   display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-search {
+  display: inline-flex;
+}
+
+.header-search-form {
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-search-input {
+  min-width: min(16rem, calc(100vw - 12rem));
+}
+
+.header-search-submit {
+  white-space: nowrap;
 }
 
 .mobile-toggle {
@@ -61,14 +80,12 @@ html.dark body { background: linear-gradient(180deg, #071021, #050812); color: #
   transform: rotate(90deg);
 }
 
-@media (min-width: 640px) {
-  .header-search {
-    display: inline-flex;
-  }
-}
-
 @media (min-width: 768px) {
   .desktop-nav {
+    display: flex;
+  }
+
+  .header-search-group {
     display: flex;
   }
 
