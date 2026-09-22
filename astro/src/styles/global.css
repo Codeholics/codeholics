@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+@source "../**/*.{astro,html,js,ts,jsx,tsx,md}";
 
 :root{
   --bg: #0b1220; /* deep navy */
@@ -14,3 +14,66 @@
 }
 
 /* Component styles removed — replaced by Tailwind utility classes in components and pages */
+
+/* Accessibility and small utilities for the app-bar */
+:root { --header-elev: 0 6px 18px rgba(2,6,23,0.6); }
+
+@layer utilities {
+  .focus-ring:focus { outline: none; box-shadow: 0 0 0 3px rgba(124,58,237,0.18); }
+  .reduced-motion { transition: none !important; animation: none !important; }
+}
+
+header.sticky { position: sticky; top: 0; z-index: 40; }
+header.scrolled { box-shadow: var(--header-elev); }
+
+/* Dark-mode helpers when `.dark` is present on <html> */
+html.dark body { background: linear-gradient(180deg, #071021, #050812); color: #e6eef8; }
+
+/* Ensure focus-visible is visible */
+:focus { outline: none; }
+:focus-visible { outline: 3px solid rgba(124,58,237,0.2); outline-offset: 2px; }
+
+.desktop-nav {
+  display: none;
+}
+
+.header-search {
+  display: none;
+}
+
+.mobile-toggle {
+  display: inline-flex;
+}
+
+.mobile-panel.hidden {
+  display: none;
+}
+
+.mobile-panel.open {
+  display: block;
+}
+
+#hamburger {
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+#hamburger.is-open {
+  transform: rotate(90deg);
+}
+
+@media (min-width: 640px) {
+  .header-search {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
+
+  .mobile-toggle,
+  .mobile-panel {
+    display: none !important;
+  }
+}

@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro';
+import HeaderAppbar from '../components/Header.appbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 ---
@@ -14,10 +14,20 @@ import '../styles/global.css';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+      (function(){
+        try {
+          var p = localStorage.getItem('theme');
+          if(p === 'dark' || (!p && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e){}
+      })();
+    </script>
     <title>Codeholics</title>
   </head>
   <body class="min-h-screen bg-slate-50 text-slate-900 font-inter">
-    <Header />
+    <HeaderAppbar />
     <main class="max-w-4xl mx-auto px-4 py-8">
       <slot />
     </main>

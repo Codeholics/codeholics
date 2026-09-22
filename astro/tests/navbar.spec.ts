@@ -44,4 +44,48 @@ test.describe('Navbar', () => {
     await expect(panel.getByRole('link', { name: 'Home' })).toBeVisible();
     await expect(panel.getByRole('link', { name: 'About' })).toBeVisible();
   });
+
+  test('Theme toggle persists across reloads', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    const themeToggle = page.getByRole('button', { name: 'Toggle theme' });
+    await expect(themeToggle).toBeVisible();
+
+    await themeToggle.click();
+
+    await expect.poll(async () => {
+      return page.evaluate(() => document.documentElement.classList.contains('dark'));
+    }).toBe(true);
+
+    await page.reload();
+
+    await expect.poll(async () => {
+      return page.evaluate(() => ({
+        dark: document.documentElement.classList.contains('dark'),
+        stored: window.localStorage.getItem('theme'),
+      }));
+    }).toEqual({ dark: true, stored: 'dark' });
+  });
+
+  test('Keyboard flow opens and closes the mobile menu accessibly', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/');
+
+    const toggle = page.locator('#nav-toggle');
+    const panel = page.locator('#nav-panel');
+
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toBeVisible();
+    await expect(page.locator('#nav-panel a').first()).toBeFocused();
+
+    await page.keyboard.press('Escape');
+
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toBeHidden();
+    await expect(toggle).toBeFocused();
+  });
 });
