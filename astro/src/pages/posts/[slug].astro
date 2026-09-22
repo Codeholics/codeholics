@@ -1,24 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getPostBySlug, loadPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
-  return Object.keys(modules).map((p) => {
-    const slug = p.split('/').pop().replace('.md', '');
-    return { params: { slug } };
-  });
+  return loadPosts().map((post) => ({ params: { slug: post.slug } }));
 }
 
 const { slug } = Astro.params;
-const modules = import.meta.glob('../../content/posts/*.md', { eager: true });
-
-let matchedKey = Object.keys(modules).find((p) => p.endsWith(`${slug}.md`));
-if (!matchedKey) {
+const post = slug ? getPostBySlug(slug) : undefined;
+if (!post) {
   throw new Error('Post not found');
 }
-const mod = modules[matchedKey];
-const Content = mod.default;
-const { frontmatter } = mod;
+const { Content, frontmatter } = post;
 ---
 
 <Layout>

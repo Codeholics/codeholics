@@ -1,13 +1,49 @@
 export const PAGE_SIZE = 10;
 
+type PostFrontmatter = Record<string, unknown>;
+
+type PostModule = {
+  frontmatter: PostFrontmatter;
+  default: unknown;
+};
+
+type PostEntry = {
+  slug: string;
+  frontmatter: PostFrontmatter;
+  Content: unknown;
+};
+
+function loadPostModules() {
+  return import.meta.glob('../content/posts/*.md', { eager: true }) as Record<string, PostModule>;
+}
+
+function isDraft(frontmatter: PostFrontmatter) {
+  const explicitDraft = frontmatter.draft;
+  if (typeof explicitDraft === 'boolean') return explicitDraft;
+
+  const publicationState = [frontmatter.status, frontmatter.state]
+    .find((value) => typeof value === 'string')
+    ?.toString()
+    .trim()
+    .toLowerCase();
+
+  return publicationState === 'draft';
+}
+
 export function loadPosts() {
-  const modules = import.meta.glob('../content/posts/*.md', { eager: true });
-  const posts = Object.entries(modules).map(([path, mod]) => {
+  const modules = loadPostModules();
+  const posts: PostEntry[] = Object.entries(modules).map(([path, mod]) => {
     const fileName = path.split('/').pop();
     const slug = fileName.replace('.md', '');
-    return { slug, frontmatter: (mod as any).frontmatter, Content: (mod as any).default };
-  }).sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+    return { slug, frontmatter: mod.frontmatter, Content: mod.default };
+  })
+    .filter((post) => !isDraft(post.frontmatter))
+    .sort((a, b) => new Date(String(b.frontmatter.date ?? '')).getTime() - new Date(String(a.frontmatter.date ?? '')).getTime());
   return posts;
+}
+
+export function getPostBySlug(slug: string) {
+  return loadPosts().find((post) => post.slug === slug);
 }
 
 export function paginate(posts, page = 1, pageSize = PAGE_SIZE) {
