@@ -98,7 +98,7 @@ const desktopNavBaseClass =
         </div>
       </div>
 
-      <button id="theme-toggle" class="p-2 rounded-md text-slate-200 hover:bg-white/5" aria-label="Toggle theme" title="Toggle theme" data-theme="auto">
+      <button id="theme-toggle" class="p-2 rounded-md text-slate-200 hover:bg-white/5" aria-label="Toggle theme" title="Theme: auto" data-theme-mode="auto" data-theme="light">
         <!-- sun / moon icon will be updated by JS -->
         <svg id="theme-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden>
           <circle cx="12" cy="12" r="4"></circle>
@@ -150,29 +150,50 @@ const desktopNavBaseClass =
 
   <script type="module">
     const THEME_KEY = 'theme';
-
-    const applyTheme = (theme) => {
-      const html = document.documentElement;
-      if (theme === 'dark') {
-        html.classList.add('dark');
-      } else if (theme === 'light') {
-        html.classList.remove('dark');
-      } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
+    const THEME_SEQUENCE = {
+      auto: 'dark',
+      dark: 'light',
+      light: 'auto',
     };
 
-    const updateThemeIcon = (theme) => {
+    const getStoredTheme = () => {
+      const storedTheme = localStorage.getItem(THEME_KEY);
+      return storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'auto' ? storedTheme : 'auto';
+    };
+
+    const getPreferredTheme = () =>
+      window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    const resolveTheme = (themeMode) => (themeMode === 'auto' ? getPreferredTheme() : themeMode);
+
+    const applyTheme = (themeMode) => {
+      const html = document.documentElement;
+      const resolvedTheme = resolveTheme(themeMode);
+
+      html.dataset.themeMode = themeMode;
+      html.dataset.theme = resolvedTheme;
+      html.classList.toggle('dark', resolvedTheme === 'dark');
+
+      return resolvedTheme;
+    };
+
+    const updateThemeIcon = (themeMode, resolvedTheme) => {
       const icon = document.getElementById('theme-icon');
       if (!icon) return;
-      if (theme === 'dark') {
+
+      if (themeMode === 'dark') {
         icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />';
-      } else if (theme === 'light') {
+      } else if (themeMode === 'light') {
         icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />';
       } else {
-        icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle>';
+        icon.innerHTML = '<rect x="4" y="5" width="16" height="11" rx="2"></rect><path d="M10 19h4M12 16v3"></path>';
+      }
+
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle instanceof HTMLButtonElement) {
+        themeToggle.dataset.themeMode = themeMode;
+        themeToggle.dataset.theme = resolvedTheme;
+        themeToggle.title = `Theme: ${themeMode}`;
       }
     };
 
@@ -252,19 +273,34 @@ const desktopNavBaseClass =
       const searchInput = document.getElementById('desktop-search-input');
       if (!toggle || !themeToggle || !searchButton || !searchForm || !searchInput) return;
 
-      const initialTheme = localStorage.getItem(THEME_KEY) || 'auto';
-      applyTheme(initialTheme);
-      updateThemeIcon(initialTheme);
+      const syncTheme = (themeMode) => {
+        const resolvedTheme = applyTheme(themeMode);
+        updateThemeIcon(themeMode, resolvedTheme);
+      };
+
+      const initialTheme = getStoredTheme();
+      syncTheme(initialTheme);
 
       toggle.addEventListener('click', toggleMenu);
       searchButton.addEventListener('click', toggleSearch);
       themeToggle.addEventListener('click', () => {
-        const current = localStorage.getItem(THEME_KEY) || 'auto';
-        const next = current === 'dark' ? 'light' : current === 'light' ? 'auto' : 'dark';
+        const current = getStoredTheme();
+        const next = THEME_SEQUENCE[current];
         localStorage.setItem(THEME_KEY, next);
-        applyTheme(next);
-        updateThemeIcon(next);
+        syncTheme(next);
       });
+
+      const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
+      const handleSystemThemeChange = () => {
+        if (getStoredTheme() !== 'auto') return;
+        syncTheme('auto');
+      };
+
+      if (mediaQuery?.addEventListener) {
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
+      } else if (mediaQuery?.addListener) {
+        mediaQuery.addListener(handleSystemThemeChange);
+      }
 
       searchInput.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {

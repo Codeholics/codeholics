@@ -16,17 +16,32 @@ import '../styles/global.css';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
       (function(){
+        var root = document.documentElement;
+        var resolveTheme = function(mode) {
+          if (mode === 'dark' || mode === 'light') return mode;
+          return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        var applyTheme = function(mode) {
+          var resolved = resolveTheme(mode);
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.classList.toggle('dark', resolved === 'dark');
+        };
+
+        var mode = 'auto';
         try {
-          var p = localStorage.getItem('theme');
-          if(p === 'dark' || (!p && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark' || stored === 'auto') {
+            mode = stored;
           }
-        } catch(e){}
+        } catch (e) {}
+
+        applyTheme(mode);
       })();
     </script>
     <title>Codeholics</title>
   </head>
-  <body class="min-h-screen bg-slate-50 text-slate-900 font-inter">
+  <body class="min-h-screen font-inter">
     <HeaderAppbar />
     <main class="max-w-4xl mx-auto px-4 py-8">
       <slot />

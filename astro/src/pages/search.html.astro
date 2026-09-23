@@ -52,8 +52,8 @@ const searchIndex = loadPosts().map((post) => {
 <Layout>
   <section class="space-y-6">
     <header class="space-y-2">
-      <h1 class="text-3xl font-bold text-white">Search</h1>
-      <p class="text-slate-300">Search titles, summaries, categories, tags, and post content across the Astro site.</p>
+      <h1 class="theme-page-title text-3xl font-bold">Search</h1>
+      <p class="theme-page-copy">Search titles, summaries, categories, tags, and post content across the Astro site.</p>
     </header>
 
     <form action="/search.html" method="get" class="flex flex-col gap-3 md:flex-row md:items-center" role="search">
@@ -61,7 +61,7 @@ const searchIndex = loadPosts().map((post) => {
       <input
         id="search-page-input"
         name="q"
-        class="w-full rounded-md border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none md:flex-1"
+        class="theme-search-input w-full rounded-md px-4 py-3 outline-none md:flex-1"
         placeholder="Search posts"
         aria-label="Search"
         required
@@ -71,7 +71,7 @@ const searchIndex = loadPosts().map((post) => {
       </button>
     </form>
 
-    <p id="search-status" class="text-sm text-slate-300"></p>
+    <p id="search-status" class="theme-page-copy text-sm"></p>
 
     <div id="search-results" class="space-y-4"></div>
   </section>
@@ -83,10 +83,10 @@ const searchIndex = loadPosts().map((post) => {
 
     const renderResult = (post) => {
       const article = document.createElement('article');
-      article.className = 'rounded-lg border border-white/10 bg-white/5 p-6 shadow-sm';
+      article.className = 'theme-surface rounded-lg p-6';
 
       const title = document.createElement('h2');
-      title.className = 'text-xl font-semibold text-white';
+      title.className = 'theme-page-title text-xl font-semibold';
 
       const link = document.createElement('a');
       link.href = `/posts/${post.slug}`;
@@ -95,11 +95,11 @@ const searchIndex = loadPosts().map((post) => {
       title.appendChild(link);
 
       const meta = document.createElement('p');
-      meta.className = 'mt-2 text-sm text-slate-400';
+      meta.className = 'theme-page-copy mt-2 text-sm';
       meta.textContent = [post.date, post.category].filter(Boolean).join('  |  ');
 
       const excerpt = document.createElement('p');
-      excerpt.className = 'mt-3 text-slate-200';
+      excerpt.className = 'theme-page-copy mt-3';
       excerpt.textContent = post.excerpt || 'No summary available.';
 
       article.append(title, meta, excerpt);

@@ -23,6 +23,24 @@ async function readDesktopHeaderMetrics(page) {
   });
 }
 
+async function readThemeState(page) {
+  return page.evaluate(() => {
+    const root = document.documentElement;
+    const bodyStyle = window.getComputedStyle(document.body);
+    const rgb = (bodyStyle.backgroundColor.match(/\d+/g) || []).slice(0, 3).map(Number);
+    const [r = 0, g = 0, b = 0] = rgb;
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+    return {
+      mode: root.dataset.themeMode ?? null,
+      resolved: root.dataset.theme ?? (root.classList.contains('dark') ? 'dark' : 'light'),
+      stored: window.localStorage.getItem('theme'),
+      backgroundColor: bodyStyle.backgroundColor,
+      brightness,
+    };
+  });
+}
+
 test.describe('Navbar', () => {
   test('Header and desktop nav are visible', async ({ page }) => {
     // desktop viewport (set before navigation so responsive classes take effect)
@@ -71,8 +89,9 @@ test.describe('Navbar', () => {
     await expect(panel.getByRole('link', { name: 'Reviews' })).toBeVisible();
   });
 
-  test('Theme toggle persists across reloads', async ({ page }) => {
+  test('Theme toggle cycles through dark, light, and auto modes and persists selection', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
+    await page.emulateMedia({ colorScheme: 'light' });
     await page.goto('/');
 
     const themeToggle = page.getByRole('button', { name: 'Toggle theme' });
@@ -80,18 +99,79 @@ test.describe('Navbar', () => {
 
     await themeToggle.click();
 
-    await expect.poll(async () => {
-      return page.evaluate(() => document.documentElement.classList.contains('dark'));
-    }).toBe(true);
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'dark',
+      resolved: 'dark',
+      stored: 'dark',
+    });
 
     await page.reload();
 
-    await expect.poll(async () => {
-      return page.evaluate(() => ({
-        dark: document.documentElement.classList.contains('dark'),
-        stored: window.localStorage.getItem('theme'),
-      }));
-    }).toEqual({ dark: true, stored: 'dark' });
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'dark',
+      resolved: 'dark',
+      stored: 'dark',
+    });
+
+    await themeToggle.click();
+
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'light',
+      resolved: 'light',
+      stored: 'light',
+    });
+
+    await themeToggle.click();
+
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'auto',
+      resolved: 'light',
+      stored: 'auto',
+    });
+  });
+
+  test('Theme selector makes light mode visibly distinct and auto follows system preference', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto('/');
+
+    const themeToggle = page.getByRole('button', { name: 'Toggle theme' });
+    await expect(themeToggle).toBeVisible();
+
+    await themeToggle.click();
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'dark',
+      resolved: 'dark',
+      stored: 'dark',
+    });
+    const darkState = await readThemeState(page);
+
+    await themeToggle.click();
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'light',
+      resolved: 'light',
+      stored: 'light',
+    });
+    const lightState = await readThemeState(page);
+
+    expect(lightState.backgroundColor).not.toBe(darkState.backgroundColor);
+    expect(lightState.brightness).toBeGreaterThan(darkState.brightness);
+
+    await themeToggle.click();
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'auto',
+      resolved: 'light',
+      stored: 'auto',
+    });
+
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.reload();
+
+    await expect.poll(() => readThemeState(page)).toMatchObject({
+      mode: 'auto',
+      resolved: 'dark',
+      stored: 'auto',
+    });
   });
 
   test('Desktop search opens without shifting the desktop header layout', async ({ page }) => {

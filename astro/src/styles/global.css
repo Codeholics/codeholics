@@ -3,20 +3,51 @@
 @source "../**/*.{astro,html,js,ts,jsx,tsx,md}";
 
 :root{
-  --bg: #0b1220; /* deep navy */
-  --muted: #94a3b8; /* muted slate */
+  --bg: #f8fafc; /* soft slate */
+  --bg-accent: #e2e8f0;
+  --page-text: #0f172a;
+  --page-heading: #020617;
+  --muted: #475569; /* muted slate */
+  --muted-soft: #64748b;
   --accent: #7c3aed; /* modern indigo-violet */
+  --surface-bg: rgba(255, 255, 255, 0.82);
+  --surface-border: rgba(148, 163, 184, 0.28);
+  --surface-shadow: 0 18px 40px rgba(148, 163, 184, 0.18);
+  --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
+  --chip-bg: rgba(255, 255, 255, 0.9);
+  --chip-hover-bg: rgba(226, 232, 240, 0.92);
 }
 
 @layer base {
-  html, body { background: linear-gradient(180deg, var(--bg), #071021); color: #e6eef8; }
-  body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+  html { color-scheme: light; }
+  body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background-color: var(--bg);
+    background-image: linear-gradient(180deg, var(--bg), var(--bg-accent));
+    color: var(--page-text);
+  }
 }
 
 /* Component styles removed — replaced by Tailwind utility classes in components and pages */
 
 /* Accessibility and small utilities for the app-bar */
 :root { --header-elev: 0 6px 18px rgba(2,6,23,0.6); }
+
+html.dark {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --bg-accent: #071021;
+  --page-text: #e2e8f0;
+  --page-heading: #f8fafc;
+  --muted: #cbd5e1;
+  --muted-soft: #94a3b8;
+  --surface-bg: rgba(15, 23, 42, 0.82);
+  --surface-border: rgba(148, 163, 184, 0.18);
+  --surface-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+  --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
+  --chip-bg: rgba(255, 255, 255, 0.08);
+  --chip-hover-bg: rgba(255, 255, 255, 0.14);
+}
 
 @layer utilities {
   .focus-ring:focus { outline: none; box-shadow: 0 0 0 3px rgba(124,58,237,0.18); }
@@ -26,8 +57,127 @@
 header.sticky { position: sticky; top: 0; z-index: 40; }
 header.scrolled { box-shadow: var(--header-elev); }
 
-/* Dark-mode helpers when `.dark` is present on <html> */
-html.dark body { background: linear-gradient(180deg, #071021, #050812); color: #e6eef8; }
+/* Shared theme helpers */
+.theme-page-title {
+  color: var(--page-heading);
+}
+
+.theme-page-copy {
+  color: var(--muted);
+}
+
+.theme-surface {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+}
+
+.theme-home-hero {
+  background: var(--hero-bg);
+  border: 1px solid var(--surface-border);
+}
+
+.theme-home-hero-title,
+.theme-section-heading,
+.theme-section-subheading,
+.theme-home-panel-heading,
+.theme-home-link {
+  color: var(--page-heading);
+}
+
+.theme-home-hero-copy,
+.theme-home-chip-count {
+  color: var(--muted);
+}
+
+.theme-home-secondary-action {
+  border: 1px solid var(--surface-border);
+  color: var(--page-heading);
+  background: rgba(255, 255, 255, 0.12);
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.theme-home-secondary-action:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.theme-home-panel {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+}
+
+.theme-home-chip {
+  background: var(--chip-bg);
+  color: var(--page-heading);
+  transition: background-color 160ms ease;
+}
+
+.theme-home-chip:hover {
+  background: var(--chip-hover-bg);
+}
+
+.theme-search-input {
+  border: 1px solid var(--surface-border);
+  background: var(--surface-bg);
+  color: var(--page-heading);
+}
+
+.theme-search-input::placeholder {
+  color: var(--muted-soft);
+}
+
+footer {
+  background: var(--surface-bg);
+  border-top-color: var(--surface-border);
+  color: var(--muted);
+}
+
+html.dark .bg-white,
+html.dark footer.bg-white {
+  background-color: rgba(15, 23, 42, 0.82);
+}
+
+html.dark .border,
+html.dark .border-t {
+  border-color: var(--surface-border);
+}
+
+html.dark .text-slate-900 {
+  color: var(--page-heading);
+}
+
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: var(--muted);
+}
+
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: var(--muted-soft);
+}
+
+html.dark .shadow-sm,
+html.dark .shadow-md {
+  box-shadow: var(--surface-shadow);
+}
+
+html.dark .prose {
+  --tw-prose-body: var(--muted);
+  --tw-prose-headings: var(--page-heading);
+  --tw-prose-links: #c4b5fd;
+  --tw-prose-bold: var(--page-heading);
+  --tw-prose-counters: var(--muted-soft);
+  --tw-prose-bullets: var(--muted-soft);
+  --tw-prose-hr: var(--surface-border);
+  --tw-prose-quotes: var(--page-heading);
+  --tw-prose-quote-borders: var(--surface-border);
+  --tw-prose-captions: var(--muted-soft);
+  --tw-prose-code: var(--page-heading);
+  --tw-prose-pre-code: #e2e8f0;
+  --tw-prose-pre-bg: rgba(2, 6, 23, 0.92);
+  --tw-prose-th-borders: var(--surface-border);
+  --tw-prose-td-borders: var(--surface-border);
+}
 
 /* Ensure focus-visible is visible */
 :focus { outline: none; }
