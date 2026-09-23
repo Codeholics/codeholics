@@ -1,4 +1,6 @@
 ---
+import { siFacebook, siGithub, siRss, siX } from 'simple-icons';
+
 const siteTitle = Astro.props.title ?? '# Codeholics';
 const primaryNavItems = [
   { label: '~/', href: '/', desktopClass: 'text-sm' },
@@ -8,6 +10,13 @@ const primaryNavItems = [
   { label: 'OS', href: '/tags/os' },
   { label: 'Hardware', href: '/tags/hardware' },
   { label: 'Reviews', href: '/tags/review' },
+];
+
+const socialLinks = [
+  { label: 'X', href: 'https://twitter.com/root_codeholics', icon: siX },
+  { label: 'Facebook', href: 'https://www.facebook.com/RootCodeholics', icon: siFacebook },
+  { label: 'Github', href: 'https://www.github.com/Codeholics', icon: siGithub },
+  { label: 'RSS', href: 'https://www.codeholics.com/feeds/all.atom.xml', icon: siRss },
 ];
 
 const desktopNavBaseClass =
@@ -35,6 +44,23 @@ const desktopNavBaseClass =
 
     <!-- Right: utilities -->
     <div class="flex items-center gap-3">
+      <div class="hidden items-center gap-1 md:flex" aria-label="Social links">
+        {socialLinks.map((item) => (
+          <a
+            href={item.href}
+            class="inline-flex rounded-md p-2 text-slate-200 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/10 transition"
+            aria-label={item.label}
+            title={item.label}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={item.icon.path}></path>
+            </svg>
+          </a>
+        ))}
+      </div>
+
       <div class="header-search-group">
         <button
           id="search-btn"
@@ -91,6 +117,23 @@ const desktopNavBaseClass =
       {primaryNavItems.map((item) => (
         <a class="block py-2 px-3 rounded hover:bg-white/5 text-slate-200" href={item.href}>{item.label}</a>
       ))}
+
+      <div class="flex items-center gap-2 border-t border-white/10 px-3 pt-3" aria-label="Social links">
+        {socialLinks.map((item) => (
+          <a
+            href={item.href}
+            class="inline-flex rounded-md p-2 text-slate-200 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/10 transition"
+            aria-label={item.label}
+            title={item.label}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={item.icon.path}></path>
+            </svg>
+          </a>
+        ))}
+      </div>
 
       <form action="/search.html" method="get" class="mt-2" role="search">
         <label class="sr-only" for="mobile-search-input">Search</label>
