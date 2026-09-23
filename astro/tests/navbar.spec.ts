@@ -1,5 +1,28 @@
 import { test, expect } from '@playwright/test';
 
+async function readDesktopHeaderMetrics(page) {
+  return page.evaluate(() => {
+    const nav = document.querySelector('header nav');
+    const searchButton = document.getElementById('search-btn');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    if (!(nav instanceof HTMLElement) || !(searchButton instanceof HTMLElement) || !(themeToggle instanceof HTMLElement)) {
+      throw new Error('Desktop header metrics are unavailable');
+    }
+
+    const navRect = nav.getBoundingClientRect();
+    const searchRect = searchButton.getBoundingClientRect();
+    const themeRect = themeToggle.getBoundingClientRect();
+
+    return {
+      navLeft: navRect.left,
+      navWidth: navRect.width,
+      searchLeft: searchRect.left,
+      themeLeft: themeRect.left,
+    };
+  });
+}
+
 test.describe('Navbar', () => {
   test('Header and desktop nav are visible', async ({ page }) => {
     // desktop viewport (set before navigation so responsive classes take effect)
@@ -71,7 +94,24 @@ test.describe('Navbar', () => {
     }).toEqual({ dark: true, stored: 'dark' });
   });
 
-  test('Desktop search reveals an inline form and closes accessibly', async ({ page }) => {
+  test('Desktop search opens without shifting the desktop header layout', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    const before = await readDesktopHeaderMetrics(page);
+
+    await page.locator('#search-btn').click();
+    await expect(page.locator('#desktop-search-form')).toBeVisible();
+
+    const after = await readDesktopHeaderMetrics(page);
+
+    expect(after.navLeft).toBe(before.navLeft);
+    expect(after.navWidth).toBe(before.navWidth);
+    expect(after.searchLeft).toBe(before.searchLeft);
+    expect(after.themeLeft).toBe(before.themeLeft);
+  });
+
+  test('Desktop search opens and closes accessibly', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
 
