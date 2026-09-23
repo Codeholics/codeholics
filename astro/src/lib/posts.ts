@@ -17,6 +17,14 @@ function loadPostModules() {
   return import.meta.glob('../content/posts/*.md', { eager: true }) as Record<string, PostModule>;
 }
 
+function loadRawPostModules() {
+  return import.meta.glob('../content/posts/*.md', {
+    eager: true,
+    query: '?raw',
+    import: 'default',
+  }) as Record<string, string>;
+}
+
 function isDraft(frontmatter: PostFrontmatter) {
   const explicitDraft = frontmatter.draft;
   if (typeof explicitDraft === 'boolean') return explicitDraft;
@@ -44,6 +52,36 @@ export function loadPosts() {
 
 export function getPostBySlug(slug: string) {
   return loadPosts().find((post) => post.slug === slug);
+}
+
+export function getRawPostContent(slug: string) {
+  const rawModules = loadRawPostModules();
+  const rawPath = Object.keys(rawModules).find((path) => path.endsWith(`${slug}.md`));
+  return rawPath ? rawModules[rawPath] : '';
+}
+
+export function stripMarkdown(raw = '') {
+  return raw
+    .replace(/^---[\s\S]*?---/, ' ')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[#>*_~\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function buildExcerpt(text = '', maxLength = 220) {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  if (normalized.length <= maxLength) return normalized;
+  return `${normalized.slice(0, maxLength).trimEnd()}...`;
+}
+
+export function getPostDescription(post: PostEntry, maxLength = 220) {
+  const summary = (post.frontmatter.summary || '').toString().trim();
+  if (summary) return summary;
+  return buildExcerpt(stripMarkdown(getRawPostContent(post.slug)), maxLength);
 }
 
 export function paginate(posts, page = 1, pageSize = PAGE_SIZE) {

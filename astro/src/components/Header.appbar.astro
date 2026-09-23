@@ -1,5 +1,6 @@
 ---
 import { siFacebook, siGithub, siRss, siX } from 'simple-icons';
+import searchIcon from './icons/search.svg?raw';
 
 const siteTitle = Astro.props.title ?? '# Codeholics';
 const primaryNavItems = [
@@ -16,7 +17,7 @@ const socialLinks = [
   { label: 'X', href: 'https://twitter.com/root_codeholics', icon: siX },
   { label: 'Facebook', href: 'https://www.facebook.com/RootCodeholics', icon: siFacebook },
   { label: 'Github', href: 'https://www.github.com/Codeholics', icon: siGithub },
-  { label: 'RSS', href: 'https://www.codeholics.com/feeds/all.atom.xml', icon: siRss },
+  { label: 'RSS', href: '/rss.xml', icon: siRss },
 ];
 
 const desktopNavBaseClass =
@@ -70,7 +71,7 @@ const desktopNavBaseClass =
           aria-controls="desktop-search-form"
           aria-expanded="false"
         >
-          🔍
+          <span class="header-search-icon inline-flex h-5 w-5" set:html={searchIcon}></span>
         </button>
 
         <form

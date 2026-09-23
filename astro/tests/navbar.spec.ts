@@ -14,11 +14,13 @@ test.describe('Navbar', () => {
 
     // Desktop nav links (should be visible at md+) - scope to the first <nav> inside header (desktop nav)
     const desktopNav = header.locator('nav').first();
-    await expect(desktopNav.locator('a', { hasText: '~/' })).toBeVisible();
-    await expect(desktopNav.locator('a', { hasText: 'About' })).toBeVisible();
-    await expect(desktopNav.locator('a', { hasText: 'Posts' })).toBeVisible();
-    await expect(desktopNav.locator('a', { hasText: 'Tags' })).toBeVisible();
-    await expect(desktopNav.locator('a', { hasText: 'Categories' })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: '~/', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'Coding', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'SysAdmin', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'InfoSec', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'OS', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'Hardware', exact: true })).toBeVisible();
+    await expect(desktopNav.getByRole('link', { name: 'Reviews', exact: true })).toBeVisible();
   });
 
   test('Mobile hamburger toggles mobile menu', async ({ page }) => {
@@ -41,8 +43,9 @@ test.describe('Navbar', () => {
     await expect(panel).toBeVisible();
 
     // Links inside panel
-    await expect(panel.getByRole('link', { name: 'Home' })).toBeVisible();
-    await expect(panel.getByRole('link', { name: 'About' })).toBeVisible();
+    await expect(panel.getByRole('link', { name: '~/' })).toBeVisible();
+    await expect(panel.getByRole('link', { name: 'Coding' })).toBeVisible();
+    await expect(panel.getByRole('link', { name: 'Reviews' })).toBeVisible();
   });
 
   test('Theme toggle persists across reloads', async ({ page }) => {
@@ -124,7 +127,7 @@ test.describe('Navbar', () => {
 
     const searchButton = page.getByRole('button', { name: 'Search' });
 
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       await page.keyboard.press('Tab');
       if (await searchButton.evaluate((node) => node === document.activeElement)) {
         break;

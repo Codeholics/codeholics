@@ -19,7 +19,7 @@ The system SHALL render a top app-bar containing (left) the `~/` home link, (cen
 
 #### Scenario: Social links are available on desktop and mobile
 - **WHEN** a user views the desktop header or opens the mobile navigation panel
-- **THEN** the UI exposes icon links to `https://twitter.com/root_codeholics`, `https://www.facebook.com/RootCodeholics`, `https://www.github.com/Codeholics`, and `https://www.codeholics.com/feeds/all.atom.xml`
+- **THEN** the UI exposes icon links to `https://twitter.com/root_codeholics`, `https://www.facebook.com/RootCodeholics`, `https://www.github.com/Codeholics`, and `/rss.xml`
 
 ### Requirement: Mobile menu toggles and exposes navigation
 The system SHALL provide a hamburger control that toggles a mobile navigation panel. The hamburger control SHALL change its accessible state (`aria-expanded`) and visually transform to an X when open.
