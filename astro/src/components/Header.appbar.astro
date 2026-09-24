@@ -21,14 +21,14 @@ const socialLinks = [
 ];
 
 const desktopNavBaseClass =
-  'px-3 py-2 rounded-md font-semibold text-slate-200 hover:text-white hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/10 transition';
+  'theme-appbar-link px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 transition';
 ---
-<header class="w-full bg-gradient-to-b from-slate-900/60 to-transparent backdrop-blur-sm border-b border-white/5 sticky top-0 z-40">
+<header class="theme-appbar w-full sticky top-0 z-40">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
     <!-- Left: Brand -->
     <div class="flex items-center gap-3">
       <a href="/" class="inline-flex items-center gap-3">
-        <span class="text-2xl font-semibold tracking-tight text-white">{siteTitle}</span>
+        <span class="theme-appbar-brand text-2xl font-semibold tracking-tight">{siteTitle}</span>
       </a>
     </div>
 
@@ -49,7 +49,7 @@ const desktopNavBaseClass =
         {socialLinks.map((item) => (
           <a
             href={item.href}
-            class="inline-flex rounded-md p-2 text-slate-200 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/10 transition"
+            class="theme-appbar-icon-button inline-flex rounded-md p-2 focus:outline-none focus:ring-2 transition"
             aria-label={item.label}
             title={item.label}
             target="_blank"
@@ -67,7 +67,7 @@ const desktopNavBaseClass =
           <button
             id="search-btn"
             type="button"
-            class="header-search items-center justify-center text-slate-200 p-2 rounded-md hover:bg-white/5"
+            class="theme-appbar-icon-button header-search items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 transition"
             aria-label="Search"
             aria-controls="desktop-search-form"
             aria-expanded="false"
@@ -79,26 +79,26 @@ const desktopNavBaseClass =
             id="desktop-search-form"
             action="/search.html"
             method="get"
-            class="header-search-form hidden"
+            class="theme-appbar-search-form header-search-form hidden"
             role="search"
           >
             <label class="sr-only" for="desktop-search-input">Search</label>
             <input
               id="desktop-search-input"
               name="q"
-              class="header-search-input rounded-md border border-white/10 px-3 py-2 bg-white/5 placeholder:text-slate-300 text-white outline-none"
+              class="theme-appbar-search-input header-search-input rounded-md px-3 py-2 outline-none"
               placeholder="Search"
               aria-label="Search"
               required
             />
-            <button type="submit" class="header-search-submit px-3 py-2 rounded-md bg-white/5 text-slate-200 hover:bg-white/10">
+            <button type="submit" class="theme-appbar-search-submit header-search-submit px-3 py-2 rounded-md">
               Go
             </button>
           </form>
         </div>
       </div>
 
-      <button id="theme-toggle" class="p-2 rounded-md text-slate-200 hover:bg-white/5" aria-label="Toggle theme" title="Theme: auto" data-theme-mode="auto" data-theme="light">
+      <button id="theme-toggle" class="theme-appbar-icon-button p-2 rounded-md focus:outline-none focus:ring-2 transition" aria-label="Toggle theme" title="Theme: auto" data-theme-mode="auto" data-theme="light">
         <!-- sun / moon icon will be updated by JS -->
         <svg id="theme-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden>
           <circle cx="12" cy="12" r="4"></circle>
@@ -106,7 +106,7 @@ const desktopNavBaseClass =
       </button>
 
       <!-- Mobile hamburger -->
-      <button id="nav-toggle" class="mobile-toggle p-2 rounded-md text-slate-200 hover:bg-white/5" aria-label="Open menu" aria-controls="nav-panel" aria-expanded="false">
+      <button id="nav-toggle" class="theme-appbar-icon-button mobile-toggle p-2 rounded-md focus:outline-none focus:ring-2 transition" aria-label="Open menu" aria-controls="nav-panel" aria-expanded="false">
         <svg id="hamburger" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden>
           <path d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
@@ -115,17 +115,17 @@ const desktopNavBaseClass =
   </div>
 
   <!-- Mobile panel -->
-  <div id="nav-panel" class="mobile-panel hidden px-4 pb-4 bg-slate-900/80 backdrop-blur-sm">
+  <div id="nav-panel" class="theme-appbar-mobile-panel mobile-panel hidden px-4 pb-4 backdrop-blur-sm">
     <div class="space-y-2">
       {primaryNavItems.map((item) => (
-        <a class="block py-2 px-3 rounded hover:bg-white/5 text-slate-200" href={item.href}>{item.label}</a>
+        <a class="theme-appbar-link block py-2 px-3 rounded" href={item.href}>{item.label}</a>
       ))}
 
-      <div class="flex items-center gap-2 border-t border-white/10 px-3 pt-3" aria-label="Social links">
+      <div class="theme-divider flex items-center gap-2 border-t px-3 pt-3" aria-label="Social links">
         {socialLinks.map((item) => (
           <a
             href={item.href}
-            class="inline-flex rounded-md p-2 text-slate-200 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/10 transition"
+            class="theme-appbar-icon-button inline-flex rounded-md p-2 focus:outline-none focus:ring-2 transition"
             aria-label={item.label}
             title={item.label}
             target="_blank"
@@ -141,8 +141,8 @@ const desktopNavBaseClass =
       <form action="/search.html" method="get" class="mt-2" role="search">
         <label class="sr-only" for="mobile-search-input">Search</label>
         <div class="flex items-center gap-2">
-          <input id="mobile-search-input" name="q" class="w-full rounded-md px-3 py-2 bg-white/5 placeholder:text-slate-300 text-white outline-none" placeholder="Search" aria-label="Search" required />
-          <button type="submit" class="px-3 py-2 rounded-md bg-white/5 text-slate-200">Search</button>
+          <input id="mobile-search-input" name="q" class="theme-appbar-search-input w-full rounded-md px-3 py-2 outline-none" placeholder="Search" aria-label="Search" required />
+          <button type="submit" class="theme-appbar-search-submit px-3 py-2 rounded-md">Search</button>
         </div>
       </form>
     </div>

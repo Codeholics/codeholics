@@ -19,6 +19,20 @@
   --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
   --chip-bg: rgba(255, 255, 255, 0.9);
   --chip-hover-bg: rgba(226, 232, 240, 0.92);
+  --header-bg: rgba(255, 255, 255, 0.78);
+  --header-bg-gradient-end: rgba(255, 255, 255, 0.18);
+  --header-border: rgba(148, 163, 184, 0.24);
+  --header-brand: #0f172a;
+  --header-link: #1e293b;
+  --header-icon: #334155;
+  --header-hover-text: #020617;
+  --header-hover-bg: rgba(15, 23, 42, 0.06);
+  --header-focus-ring: rgba(124, 58, 237, 0.22);
+  --header-search-bg: rgba(255, 255, 255, 0.96);
+  --header-search-text: #0f172a;
+  --header-search-placeholder: #64748b;
+  --header-search-border: rgba(148, 163, 184, 0.36);
+  --header-mobile-panel-bg: rgba(255, 255, 255, 0.96);
 }
 
 @layer base {
@@ -54,6 +68,20 @@ html.dark {
   --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
   --chip-bg: rgba(255, 255, 255, 0.08);
   --chip-hover-bg: rgba(255, 255, 255, 0.14);
+  --header-bg: rgba(15, 23, 42, 0.68);
+  --header-bg-gradient-end: rgba(15, 23, 42, 0.16);
+  --header-border: rgba(255, 255, 255, 0.08);
+  --header-brand: #f8fafc;
+  --header-link: #e2e8f0;
+  --header-icon: #e2e8f0;
+  --header-hover-text: #ffffff;
+  --header-hover-bg: rgba(255, 255, 255, 0.08);
+  --header-focus-ring: rgba(255, 255, 255, 0.12);
+  --header-search-bg: rgba(15, 23, 42, 0.98);
+  --header-search-text: #f8fafc;
+  --header-search-placeholder: #cbd5e1;
+  --header-search-border: rgba(255, 255, 255, 0.12);
+  --header-mobile-panel-bg: rgba(15, 23, 42, 0.92);
 }
 
 @layer utilities {
@@ -65,6 +93,69 @@ header.sticky { position: sticky; top: 0; z-index: 40; }
 header.scrolled { box-shadow: var(--header-elev); }
 
 /* Shared theme helpers */
+.theme-appbar {
+  background: linear-gradient(to bottom, var(--header-bg), var(--header-bg-gradient-end));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--header-border);
+}
+
+.theme-appbar-brand {
+  color: var(--header-brand);
+}
+
+.theme-appbar-link {
+  color: var(--header-link);
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.theme-appbar-link:hover,
+.theme-appbar-link:focus-visible {
+  color: var(--header-hover-text);
+  background: var(--header-hover-bg);
+}
+
+.theme-appbar-icon-button {
+  color: var(--header-icon);
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.theme-appbar-icon-button:hover,
+.theme-appbar-icon-button:focus-visible {
+  color: var(--header-hover-text);
+  background: var(--header-hover-bg);
+}
+
+.theme-appbar-search-form {
+  border: 1px solid var(--header-search-border);
+  background: var(--header-search-bg);
+}
+
+.theme-appbar-search-input {
+  border: 1px solid var(--header-search-border);
+  background: var(--header-search-bg);
+  color: var(--header-search-text);
+}
+
+.theme-appbar-search-input::placeholder {
+  color: var(--header-search-placeholder);
+}
+
+.theme-appbar-search-submit {
+  color: var(--header-icon);
+  background: var(--header-hover-bg);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.theme-appbar-search-submit:hover,
+.theme-appbar-search-submit:focus-visible {
+  color: var(--header-hover-text);
+  background: color-mix(in srgb, var(--header-hover-bg) 74%, var(--header-brand));
+}
+
+.theme-appbar-mobile-panel {
+  background: var(--header-mobile-panel-bg);
+}
+
 .theme-page-title {
   color: var(--page-heading);
 }
@@ -310,9 +401,7 @@ html.dark .prose {
   gap: 0.5rem;
   width: min(22rem, calc(100vw - 2rem));
   padding: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
-  background: rgba(15, 23, 42, 0.98);
   box-shadow: var(--header-elev);
 }
 
