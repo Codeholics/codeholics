@@ -29,7 +29,7 @@ const { items, current, totalPages } = paginate(filtered, Number(page), PAGE_SIZ
 
 <Layout>
   <header class="mb-4">
-    <h1 class="text-xl font-semibold text-slate-900">Category: {category} — Page {current}/{totalPages}</h1>
+    <h1 class="theme-page-title text-xl font-semibold">Category: {category} — Page {current}/{totalPages}</h1>
   </header>
 
   <section class="space-y-4">
@@ -38,8 +38,8 @@ const { items, current, totalPages } = paginate(filtered, Number(page), PAGE_SIZ
     ))}
   </section>
 
-  <nav class="flex items-center justify-between mt-6 text-sm text-slate-600">
-    {current>1 ? <a class="text-indigo-600 hover:underline" href={current===2?`/categories/${category}`:`/categories/${category}/page/1`}>← Newer</a> : <span />}
-    {current<totalPages ? <a class="text-indigo-600 hover:underline" href={`/categories/${category}/page/${current+1}`}>Older →</a> : <span />}
+  <nav class="theme-page-copy flex items-center justify-between mt-6 text-sm">
+    {current>1 ? <a class="theme-link hover:underline" href={current===2?`/categories/${category}`:`/categories/${category}/page/1`}>← Newer</a> : <span />}
+    {current<totalPages ? <a class="theme-link hover:underline" href={`/categories/${category}/page/${current+1}`}>Older →</a> : <span />}
   </nav>
 </Layout>

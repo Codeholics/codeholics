@@ -27,7 +27,7 @@ const categories = (() => {
           <h1 class="theme-home-hero-title text-4xl font-extrabold">Codeholics</h1>
           <p class="theme-home-hero-copy mt-3 max-w-xl">Notes, tutorials, and reviews about software, hardware, and systems — written with clarity and practical examples.</p>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a class="inline-block px-4 py-2 bg-white text-slate-900 rounded-md shadow-sm hover:shadow-md" href="/posts">View posts</a>
+            <a class="theme-primary-action inline-block px-4 py-2 rounded-md hover:shadow-md" href="/posts">View posts</a>
             <a class="theme-home-secondary-action inline-block px-4 py-2 rounded-md" href="/tags">Explore tags</a>
           </div>
         </div>
@@ -61,8 +61,8 @@ const categories = (() => {
         </div>
 
         <nav class="theme-page-copy flex items-center justify-between mt-6 text-sm">
-          {current>1 ? <a class="text-indigo-400 hover:underline" href={current===2?'/':'/page/1'}>← Newer</a> : <span />}
-          {current<totalPages ? <a class="text-indigo-400 hover:underline" href={`/page/${current+1}`}>Older →</a> : <span />}
+          {current>1 ? <a class="theme-link hover:underline" href={current===2?'/':'/page/1'}>← Newer</a> : <span />}
+          {current<totalPages ? <a class="theme-link hover:underline" href={`/page/${current+1}`}>Older →</a> : <span />}
         </nav>
       </section>
     </main>

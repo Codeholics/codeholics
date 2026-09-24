@@ -66,7 +66,7 @@ const searchIndex = loadPosts().map((post) => {
         aria-label="Search"
         required
       />
-      <button type="submit" class="rounded-md bg-indigo-500 px-4 py-3 font-medium text-white hover:bg-indigo-400">
+      <button type="submit" class="theme-primary-action rounded-md px-4 py-3 font-medium">
         Search
       </button>
     </form>
@@ -90,16 +90,16 @@ const searchIndex = loadPosts().map((post) => {
 
       const link = document.createElement('a');
       link.href = `/posts/${post.slug}`;
-      link.className = 'hover:text-indigo-300';
+      link.className = 'theme-heading-link';
       link.textContent = post.title;
       title.appendChild(link);
 
       const meta = document.createElement('p');
-      meta.className = 'theme-page-copy mt-2 text-sm';
+      meta.className = 'theme-meta mt-2 text-sm';
       meta.textContent = [post.date, post.category].filter(Boolean).join('  |  ');
 
       const excerpt = document.createElement('p');
-      excerpt.className = 'theme-page-copy mt-3';
+      excerpt.className = 'theme-body-text mt-3';
       excerpt.textContent = post.excerpt || 'No summary available.';
 
       article.append(title, meta, excerpt);

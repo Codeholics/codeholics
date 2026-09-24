@@ -10,12 +10,15 @@ const tags = getAllTags(posts);
 
 <Layout>
   <header class="mb-6">
-    <h1 class="text-2xl font-semibold text-slate-900">Tags</h1>
+    <h1 class="theme-page-title text-2xl font-semibold">Tags</h1>
   </header>
 
-  <ul class="space-y-2">
+  <ul class="theme-reading-surface space-y-2 rounded-lg p-5">
     {tags.map(t=> (
-      <li class="flex items-center justify-between py-2 border-b last:border-b-0"><a class="text-indigo-600 hover:underline" href={`/tags/${encodeURIComponent(t.tag)}`}>{t.tag}</a> <span class="text-sm text-slate-600">{t.count}</span></li>
+      <li class="flex items-center justify-between py-2 border-b theme-divider last:border-b-0">
+        <a class="theme-link hover:underline" href={`/tags/${encodeURIComponent(t.tag)}`}>{t.tag}</a>
+        <span class="theme-meta text-sm">{t.count}</span>
+      </li>
     ))}
   </ul>
 </Layout>

@@ -5,14 +5,17 @@
 :root{
   --bg: #f8fafc; /* soft slate */
   --bg-accent: #e2e8f0;
-  --page-text: #0f172a;
+  --page-text: #1e293b;
   --page-heading: #020617;
   --muted: #475569; /* muted slate */
   --muted-soft: #64748b;
   --accent: #7c3aed; /* modern indigo-violet */
+  --accent-hover: #6d28d9;
   --surface-bg: rgba(255, 255, 255, 0.82);
   --surface-border: rgba(148, 163, 184, 0.28);
   --surface-shadow: 0 18px 40px rgba(148, 163, 184, 0.18);
+  --code-bg: rgba(15, 23, 42, 0.04);
+  --code-text: #312e81;
   --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
   --chip-bg: rgba(255, 255, 255, 0.9);
   --chip-hover-bg: rgba(226, 232, 240, 0.92);
@@ -41,9 +44,13 @@ html.dark {
   --page-heading: #f8fafc;
   --muted: #cbd5e1;
   --muted-soft: #94a3b8;
-  --surface-bg: rgba(15, 23, 42, 0.82);
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --surface-bg: rgba(15, 23, 42, 0.9);
   --surface-border: rgba(148, 163, 184, 0.18);
   --surface-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+  --code-bg: rgba(2, 6, 23, 0.94);
+  --code-text: #cbd5e1;
   --hero-bg: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.08), transparent);
   --chip-bg: rgba(255, 255, 255, 0.08);
   --chip-hover-bg: rgba(255, 255, 255, 0.14);
@@ -66,10 +73,62 @@ header.scrolled { box-shadow: var(--header-elev); }
   color: var(--muted);
 }
 
+.theme-body-text {
+  color: var(--page-text);
+}
+
+.theme-meta {
+  color: var(--muted-soft);
+}
+
 .theme-surface {
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);
   box-shadow: var(--surface-shadow);
+}
+
+.theme-reading-surface {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  color: var(--page-text);
+}
+
+.theme-divider {
+  border-color: var(--surface-border);
+}
+
+.theme-link {
+  color: var(--accent);
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.theme-link:hover,
+.theme-link:focus-visible {
+  color: var(--accent-hover);
+}
+
+.theme-heading-link {
+  color: var(--page-heading);
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.theme-heading-link:hover,
+.theme-heading-link:focus-visible {
+  color: var(--accent-hover);
+}
+
+.theme-primary-action {
+  background: var(--page-heading);
+  color: var(--bg);
+  box-shadow: var(--surface-shadow);
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.theme-primary-action:hover,
+.theme-primary-action:focus-visible {
+  background: var(--accent);
+  color: #fff;
 }
 
 .theme-home-hero {
@@ -119,11 +178,46 @@ header.scrolled { box-shadow: var(--header-elev); }
 .theme-search-input {
   border: 1px solid var(--surface-border);
   background: var(--surface-bg);
-  color: var(--page-heading);
+  color: var(--page-text);
 }
 
 .theme-search-input::placeholder {
   color: var(--muted-soft);
+}
+
+.theme-prose {
+  color: var(--page-text);
+}
+
+.theme-prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--accent);
+}
+
+.theme-prose :where(a:hover):not(:where(.not-prose, .not-prose *)) {
+  color: var(--accent-hover);
+}
+
+.theme-prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
+  color: var(--page-text);
+}
+
+.theme-prose :where(code):not(:where(pre code, .not-prose, .not-prose *)) {
+  color: var(--code-text);
+  background: var(--code-bg);
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.35rem;
+}
+
+.theme-prose :where(pre):not(:where(.not-prose, .not-prose *)) {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--surface-border);
+}
+
+.theme-prose :where(pre code):not(:where(.not-prose, .not-prose *)) {
+  background: transparent;
+  color: inherit;
+  padding: 0;
 }
 
 footer {
@@ -162,9 +256,9 @@ html.dark .shadow-md {
 }
 
 html.dark .prose {
-  --tw-prose-body: var(--muted);
+  --tw-prose-body: var(--page-text);
   --tw-prose-headings: var(--page-heading);
-  --tw-prose-links: #c4b5fd;
+  --tw-prose-links: var(--accent);
   --tw-prose-bold: var(--page-heading);
   --tw-prose-counters: var(--muted-soft);
   --tw-prose-bullets: var(--muted-soft);
@@ -173,8 +267,8 @@ html.dark .prose {
   --tw-prose-quote-borders: var(--surface-border);
   --tw-prose-captions: var(--muted-soft);
   --tw-prose-code: var(--page-heading);
-  --tw-prose-pre-code: #e2e8f0;
-  --tw-prose-pre-bg: rgba(2, 6, 23, 0.92);
+  --tw-prose-pre-code: var(--code-text);
+  --tw-prose-pre-bg: var(--code-bg);
   --tw-prose-th-borders: var(--surface-border);
   --tw-prose-td-borders: var(--surface-border);
 }

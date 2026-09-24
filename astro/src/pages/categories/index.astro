@@ -7,10 +7,15 @@ const cats = getAllCategories(posts);
 ---
 
 <Layout>
-  <h1>Categories</h1>
-  <ul>
+  <header class="mb-6">
+    <h1 class="theme-page-title text-2xl font-semibold">Categories</h1>
+  </header>
+  <ul class="theme-reading-surface space-y-2 rounded-lg p-5">
     {cats.map(c=> (
-      <li><a href={`/categories/${encodeURIComponent(c.category)}`}>{c.category}</a> ({c.count})</li>
+      <li class="flex items-center justify-between py-2 border-b theme-divider last:border-b-0">
+        <a class="theme-link hover:underline" href={`/categories/${encodeURIComponent(c.category)}`}>{c.category}</a>
+        <span class="theme-meta text-sm">{c.count}</span>
+      </li>
     ))}
   </ul>
 </Layout>

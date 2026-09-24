@@ -15,10 +15,10 @@ const { Content, frontmatter } = post;
 ---
 
 <Layout>
-  <article class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-sm">
-    <h1 class="text-3xl font-bold text-slate-900">{frontmatter.title}</h1>
-    <div class="text-sm text-slate-500 mt-2">{frontmatter.date}</div>
-    <hr class="my-6" />
-    <div class="prose prose-slate max-w-none"><Content /></div>
+  <article class="theme-reading-surface max-w-3xl mx-auto rounded-lg p-8">
+    <h1 class="theme-page-title text-3xl font-bold">{frontmatter.title}</h1>
+    <div class="theme-meta text-sm mt-2">{frontmatter.date}</div>
+    <hr class="theme-divider my-6" />
+    <div class="theme-prose prose prose-slate max-w-none"><Content /></div>
   </article>
 </Layout>
