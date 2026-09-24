@@ -4,7 +4,7 @@ import PostCard from '../../../components/PostCard.astro';
 import { loadPosts, postsByTag, paginate, PAGE_SIZE } from '../../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = loadPosts();
+  const posts = await loadPosts();
   const tags = new Set();
   for (const p of posts) {
     const tlist = (p.frontmatter.tags||'').toString().split(/,\s*/).map(s=>s.trim()).filter(Boolean);
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
-const posts = loadPosts();
+const posts = await loadPosts();
 const tagged = postsByTag(posts, tag);
 const { items, current, totalPages } = paginate(tagged, 1, PAGE_SIZE);
 ---

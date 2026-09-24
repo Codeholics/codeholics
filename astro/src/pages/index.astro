@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PostCard from '../components/PostCard.astro';
 import { loadPosts, getAllTags, PAGE_SIZE, paginate } from '../lib/posts';
 
-const posts = loadPosts();
+const posts = await loadPosts();
 const featured = posts.slice(0, 4);
 const { items, current, totalPages } = paginate(posts, 1, PAGE_SIZE);
 const tags = getAllTags(posts).slice(0, 24);

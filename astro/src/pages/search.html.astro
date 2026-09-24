@@ -1,23 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { loadPosts } from '../lib/posts';
-
-const rawModules = import.meta.glob('../content/posts/*.md', {
-  eager: true,
-  query: '?raw',
-  import: 'default',
-}) as Record<string, string>;
-
-const stripMarkdown = (raw = '') =>
-  raw
-    .replace(/^---[\s\S]*?---/, ' ')
-    .replace(/```[\s\S]*?```/g, ' ')
-    .replace(/`[^`]*`/g, ' ')
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/[#>*_~\-]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+import { buildExcerpt, loadPosts, stripMarkdown } from '../lib/posts';
 
 const normalize = (value = '') =>
   value
@@ -25,16 +8,13 @@ const normalize = (value = '') =>
     .toLowerCase()
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '');
-
-const searchIndex = loadPosts().map((post) => {
-  const rawPath = Object.keys(rawModules).find((path) => path.endsWith(`${post.slug}.md`));
-  const rawContent = rawPath ? rawModules[rawPath] : '';
-  const content = stripMarkdown(rawContent);
+const searchIndex = (await loadPosts()).map((post) => {
+  const content = stripMarkdown(post.body);
   const title = (post.frontmatter.title || post.slug).toString();
   const summary = (post.frontmatter.summary || '').toString();
   const category = (post.frontmatter.category || '').toString();
   const tags = (post.frontmatter.tags || '').toString();
-  const excerpt = (summary || content).slice(0, 220).trim();
+  const excerpt = summary || buildExcerpt(content, 220);
 
   return {
     slug: post.slug,

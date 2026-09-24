@@ -14,8 +14,10 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@astrojs/mdx": "^8.0.2",
     "@astrojs/rss": "^4.0.19",
     "astro": "^7.3.2",
+    "astro-embed": "^0.14.0",
     "simple-icons": "^16.32.0"
   },
   "devDependencies": {

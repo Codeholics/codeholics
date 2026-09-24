@@ -1,28 +1,22 @@
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
 export const PAGE_SIZE = 10;
 
 type PostFrontmatter = Record<string, unknown>;
-
-type PostModule = {
-  frontmatter: PostFrontmatter;
-  default: unknown;
-};
-
-type PostEntry = {
+type PostRecord = {
   slug: string;
   frontmatter: PostFrontmatter;
-  Content: unknown;
+  body: string;
+  entry: CollectionEntry<'posts'>;
 };
 
-function loadPostModules() {
-  return import.meta.glob('../content/posts/*.md', { eager: true }) as Record<string, PostModule>;
-}
+function resolveSlug(entry: CollectionEntry<'posts'>) {
+  const frontmatterSlug = entry.data.slug;
+  if (typeof frontmatterSlug === 'string' && frontmatterSlug.trim()) {
+    return frontmatterSlug.trim();
+  }
 
-function loadRawPostModules() {
-  return import.meta.glob('../content/posts/*.md', {
-    eager: true,
-    query: '?raw',
-    import: 'default',
-  }) as Record<string, string>;
+  return entry.id.replace(/\.mdx?$/, '');
 }
 
 function isDraft(frontmatter: PostFrontmatter) {
@@ -38,31 +32,40 @@ function isDraft(frontmatter: PostFrontmatter) {
   return publicationState === 'draft';
 }
 
-export function loadPosts() {
-  const modules = loadPostModules();
-  const posts: PostEntry[] = Object.entries(modules).map(([path, mod]) => {
-    const fileName = path.split('/').pop();
-    const slug = fileName.replace('.md', '');
-    return { slug, frontmatter: mod.frontmatter, Content: mod.default };
+export async function loadPosts() {
+  const entries = await getCollection('posts');
+  const posts: PostRecord[] = entries.map((entry) => {
+    return {
+      slug: resolveSlug(entry),
+      frontmatter: entry.data,
+      body: entry.body,
+      entry,
+    };
   })
     .filter((post) => !isDraft(post.frontmatter))
     .sort((a, b) => new Date(String(b.frontmatter.date ?? '')).getTime() - new Date(String(a.frontmatter.date ?? '')).getTime());
   return posts;
 }
 
-export function getPostBySlug(slug: string) {
-  return loadPosts().find((post) => post.slug === slug);
-}
+export async function getPostBySlug(slug: string) {
+  const post = (await loadPosts()).find((entry) => entry.slug === slug);
+  if (!post) return undefined;
 
-export function getRawPostContent(slug: string) {
-  const rawModules = loadRawPostModules();
-  const rawPath = Object.keys(rawModules).find((path) => path.endsWith(`${slug}.md`));
-  return rawPath ? rawModules[rawPath] : '';
+  const { Content } = await render(post.entry);
+
+  return {
+    ...post,
+    Content,
+  };
 }
 
 export function stripMarkdown(raw = '') {
   return raw
     .replace(/^---[\s\S]*?---/, ' ')
+    .replace(/^\s*import\s+.+$/gm, ' ')
+    .replace(/^\s*export\s+.+$/gm, ' ')
+    .replace(/\{%\s*youtube\s+[^%]+\s*%\}/g, ' ')
+    .replace(/<\/?[A-Z][\w.-]*\b[^>]*\/?>/g, ' ')
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/`[^`]*`/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
@@ -78,10 +81,10 @@ export function buildExcerpt(text = '', maxLength = 220) {
   return `${normalized.slice(0, maxLength).trimEnd()}...`;
 }
 
-export function getPostDescription(post: PostEntry, maxLength = 220) {
+export function getPostDescription(post: PostRecord, maxLength = 220) {
   const summary = (post.frontmatter.summary || '').toString().trim();
   if (summary) return summary;
-  return buildExcerpt(stripMarkdown(getRawPostContent(post.slug)), maxLength);
+  return buildExcerpt(stripMarkdown(post.body), maxLength);
 }
 
 export function paginate(posts, page = 1, pageSize = PAGE_SIZE) {

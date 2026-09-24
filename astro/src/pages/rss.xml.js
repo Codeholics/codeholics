@@ -2,8 +2,8 @@ import rss from '@astrojs/rss';
 import { getPostDescription, loadPosts } from '../lib/posts';
 import { SITE_URL } from '../../site.config.mjs';
 
-export function GET() {
-  const posts = loadPosts();
+export async function GET() {
+  const posts = await loadPosts();
 
   return rss({
     title: 'Codeholics',

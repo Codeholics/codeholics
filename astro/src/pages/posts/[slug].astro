@@ -3,11 +3,11 @@ import Layout from '../../layouts/Layout.astro';
 import { getPostBySlug, loadPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  return loadPosts().map((post) => ({ params: { slug: post.slug } }));
+  return (await loadPosts()).map((post) => ({ params: { slug: post.slug } }));
 }
 
 const { slug } = Astro.params;
-const post = slug ? getPostBySlug(slug) : undefined;
+const post = slug ? await getPostBySlug(slug) : undefined;
 if (!post) {
   throw new Error('Post not found');
 }

@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { loadPosts, getAllTags } from '../../lib/posts';
 
-const posts = loadPosts();
+const posts = await loadPosts();
 const tags = getAllTags(posts);
 ---
 

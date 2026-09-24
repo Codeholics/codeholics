@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import { SITE_URL } from './site.config.mjs';
 
@@ -21,15 +22,14 @@ function getAssetOrigin() {
   return parsedUrl.toString().replace(/\/$/, '');
 }
 
-// https://astro.build/config
-export default defineConfig(({ command }) => {
-  const assetOrigin = getAssetOrigin();
+const assetOrigin = getAssetOrigin();
 
-  return {
-    site: SITE_URL,
-    vite: {
-      plugins: [tailwindcss()],
-      server: command === 'dev' && assetOrigin ? { origin: assetOrigin } : undefined,
-    },
-  };
+// https://astro.build/config
+export default defineConfig({
+  integrations: [mdx()],
+  site: SITE_URL,
+  vite: {
+    plugins: [tailwindcss()],
+    server: assetOrigin ? { origin: assetOrigin } : undefined,
+  },
 });
