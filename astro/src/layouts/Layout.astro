@@ -1,15 +1,19 @@
 ---
 import HeaderAppbar from '../components/Header.appbar.astro';
 import Footer from '../components/Footer.astro';
+import { publicAssetUrl } from '../lib/asset-url';
 import '../styles/global.css';
+
+const faviconSvgUrl = publicAssetUrl('/favicon.svg');
+const faviconIcoUrl = publicAssetUrl('/favicon.ico');
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
+    <link rel="icon" href={faviconIcoUrl} />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

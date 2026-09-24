@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test:site-url": "node scripts/verify-site-url.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

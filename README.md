@@ -196,6 +196,26 @@ npm install
 npm run dev      # start local dev server (hot reload)
 ```
 
+To set the canonical site URL used during builds, pass `SITE_URL`. When unset, builds keep the production default:
+
+```bash
+cd astro
+SITE_URL=https://dev.codeholics.com npm run build
+```
+
+To make the Astro dev server emit generated asset URLs from a different origin, set `ASSET_URL`:
+
+```bash
+cd astro
+ASSET_URL=https://cdn-dev.codeholics.test npm run dev
+```
+
+Notes:
+- `SITE_URL` controls canonical build output such as RSS absolute links and defaults to `https://www.codeholics.com`.
+- `ASSET_URL` changes the origin Astro uses for dev-served assets, and the current layout also applies it to favicon URLs from `public/`.
+- Other hand-authored root-relative paths from `public/` or templates still need to opt into the same helper if you move them behind that origin.
+- Production builds still use the default local asset paths.
+
 Build and preview the static site:
 
 ```bash
@@ -209,6 +229,13 @@ Run Playwright end-to-end tests (includes navbar/link checks):
 ```bash
 cd astro
 npm run test:e2e
+```
+
+Run the targeted canonical URL build checks:
+
+```bash
+cd astro
+npm run test:site-url
 ```
 
 Notes:

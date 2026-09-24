@@ -1,13 +1,14 @@
 import rss from '@astrojs/rss';
 import { getPostDescription, loadPosts } from '../lib/posts';
+import { SITE_URL } from '../../site.config.mjs';
 
-export function GET(context) {
+export function GET() {
   const posts = loadPosts();
 
   return rss({
     title: 'Codeholics',
     description: 'Published posts from Codeholics.',
-    site: context.site,
+    site: SITE_URL,
     items: posts.map((post) => ({
       title: (post.frontmatter.title || post.slug).toString(),
       description: getPostDescription(post),
