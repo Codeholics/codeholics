@@ -311,6 +311,73 @@ header.scrolled { box-shadow: var(--header-elev); }
   padding: 0;
 }
 
+.theme-prose :where(figure[data-rehype-pretty-code-figure]):not(:where(.not-prose, .not-prose *)) {
+  margin: 1.25rem 0;
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] pre):not(:where(.not-prose, .not-prose *)) {
+  position: relative;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--surface-border);
+  background: var(--code-bg) !important;
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] code):not(:where(.not-prose, .not-prose *)) {
+  display: grid;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] [data-line]):not(:where(.not-prose, .not-prose *)) {
+  display: inline-block;
+  min-height: 1.5rem;
+  padding: 0 0.75rem;
+  margin: 0 -0.75rem;
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] [data-highlighted-line]):not(:where(.not-prose, .not-prose *)) {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-left: 0.2rem solid var(--accent);
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] [data-highlighted-chars]):not(:where(.not-prose, .not-prose *)) {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.2rem;
+}
+
+.theme-prose :where(figure[data-rehype-pretty-code-figure] code span):not(:where(.not-prose, .not-prose *)) {
+  color: var(--shiki-light, var(--code-text));
+  background-color: transparent;
+}
+
+html.dark .theme-prose :where(figure[data-rehype-pretty-code-figure] code span):not(:where(.not-prose, .not-prose *)) {
+  color: var(--shiki-dark, var(--code-text));
+}
+
+.theme-prose :where(.code-copy-button):not(:where(.not-prose, .not-prose *)) {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  border: 1px solid var(--surface-border);
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  color: var(--page-heading);
+  background: color-mix(in srgb, var(--surface-bg) 85%, transparent);
+  cursor: pointer;
+}
+
+.theme-prose :where(.code-copy-button:hover):not(:where(.not-prose, .not-prose *)),
+.theme-prose :where(.code-copy-button:focus-visible):not(:where(.not-prose, .not-prose *)) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 footer {
   background: var(--surface-bg);
   border-top-color: var(--surface-border);

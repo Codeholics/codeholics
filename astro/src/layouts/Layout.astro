@@ -51,5 +51,75 @@ const faviconIcoUrl = publicAssetUrl('/favicon.ico');
       <slot />
     </main>
     <Footer />
+    <script>
+      (function () {
+        function copyText(text) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text);
+          }
+
+          return new Promise(function (resolve, reject) {
+            var textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.setAttribute('readonly', 'readonly');
+            textArea.style.position = 'absolute';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+              document.execCommand('copy');
+              resolve();
+            } catch (error) {
+              reject(error);
+            } finally {
+              document.body.removeChild(textArea);
+            }
+          });
+        }
+
+        function attachCopyButtons() {
+          var blocks = document.querySelectorAll('figure[data-rehype-pretty-code-figure] pre');
+
+          blocks.forEach(function (pre) {
+            if (pre.querySelector('.code-copy-button')) {
+              return;
+            }
+
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'code-copy-button';
+            button.textContent = 'Copy';
+            button.setAttribute('aria-label', 'Copy code to clipboard');
+
+            button.addEventListener('click', function () {
+              var code = pre.querySelector('code');
+              var text = code ? code.innerText : pre.innerText;
+              copyText(text.trimEnd())
+                .then(function () {
+                  button.textContent = 'Copied';
+                  setTimeout(function () {
+                    button.textContent = 'Copy';
+                  }, 1600);
+                })
+                .catch(function () {
+                  button.textContent = 'Failed';
+                  setTimeout(function () {
+                    button.textContent = 'Copy';
+                  }, 1600);
+                });
+            });
+
+            pre.appendChild(button);
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', attachCopyButtons, { once: true });
+        } else {
+          attachCopyButtons();
+        }
+      })();
+    </script>
   </body>
 </html>
