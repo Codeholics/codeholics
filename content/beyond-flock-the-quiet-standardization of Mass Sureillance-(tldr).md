@@ -49,13 +49,11 @@ Except, public FOIA requests, civil-liberties analyses, and city audits tell a r
 
 When you look at the raw data, these networks are rarely used to solve violent crimes:
 
-```
-[Flock Query & Alert Breakdown]
-
-Violent Crime Investigations:   ██ 2–5%
-Minor/Routine Lookups:         ██████████████████████ 95-98%
-------------------------------------------------------------------
-False Positive Rate:           ████████████████████ 90%+
+```mermaid
+%% Pie chart: Flock Query Breakdown (Representative)
+pie title Flock Query Breakdown (Representative)
+  "Violent Crime Investigations (≈3%)" : 3
+  "Minor / Routine Lookups (≈97%)"    : 97
 ```
 
 * **Fewer than 1% of scanned vehicles are tied to any crime.** FOIA audits published by transparency group [Oakland Privacy](https://oaklandprivacy.org) and policy analyses from the [ACLU](https://www.aclu.org) confirm that the vast majority of vehicle scans log ordinary commuters. Queries are overwhelmingly run for minor traffic stops, expired registrations, or non-specific "suspicious vehicle" lookups.
