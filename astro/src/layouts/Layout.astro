@@ -114,9 +114,48 @@ const faviconIcoUrl = publicAssetUrl('/favicon.ico');
           });
         }
 
+        function normalizeInlineCodeDelimiters() {
+          var inlineCodeSpans = document.querySelectorAll(
+            '.theme-prose span[data-rehype-pretty-code-figure]',
+          );
+          var normalizedCount = 0;
+
+          inlineCodeSpans.forEach(function (span) {
+            var sibling = span.nextSibling;
+            if (!sibling || sibling.nodeType !== Node.TEXT_NODE) {
+              return;
+            }
+
+            var text = sibling.textContent || '';
+            var normalized = text.replace(
+              /^(\\s+[A-Za-z0-9_./-]+)`(?=($|[\\s.,;:!?)]))/,
+              '$1',
+            );
+
+            if (normalized === text) {
+              return;
+            }
+
+            sibling.textContent = normalized;
+            normalizedCount += 1;
+          });
+
+          if (normalizedCount > 0) {
+            console.warn(
+              '[inline-code] Applied ' +
+              normalizedCount +
+              ' deterministic inline-code normalization fix(es) in rendered content.',
+            );
+          }
+        }
+
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', attachCopyButtons, { once: true });
+          document.addEventListener('DOMContentLoaded', function () {
+            normalizeInlineCodeDelimiters();
+            attachCopyButtons();
+          }, { once: true });
         } else {
+          normalizeInlineCodeDelimiters();
           attachCopyButtons();
         }
       })();

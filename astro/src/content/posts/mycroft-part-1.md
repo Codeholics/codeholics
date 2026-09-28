@@ -94,7 +94,7 @@ pulseaudio -k #stop the pulse daemon
 pulseaudio -D #start the pulse daemon
 ```
 
-The last item for the base setup is setting the audio settings in the `mycroft.conf` file`.  
+The last item for the base setup is setting the audio settings in the `mycroft.conf` file.  
 Mycorft will look for configurations in 3 locations:
 
 * remote - pulled from the home.mycroft.ai

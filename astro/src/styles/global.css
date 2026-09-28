@@ -299,6 +299,11 @@ header.scrolled { box-shadow: var(--header-elev); }
   padding: 0.15rem 0.35rem;
 }
 
+.theme-prose :where(code):not(:where(pre code, .not-prose, .not-prose *))::before,
+.theme-prose :where(code):not(:where(pre code, .not-prose, .not-prose *))::after {
+  content: none;
+}
+
 .theme-prose :where(pre):not(:where(.not-prose, .not-prose *)) {
   background: var(--code-bg);
   color: var(--code-text);

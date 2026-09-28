@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run lint:inline-code && astro build",
+    "build:inline-code-strict": "INLINE_CODE_LINT_MODE=error npm run build",
     "preview": "astro preview",
     "astro": "astro",
+    "lint:inline-code": "node scripts/lint-inline-code.mjs",
+    "lint:inline-code:strict": "INLINE_CODE_LINT_MODE=error node scripts/lint-inline-code.mjs",
     "test:site-url": "node scripts/verify-site-url.mjs",
     "test:e2e": "playwright test"
   },
