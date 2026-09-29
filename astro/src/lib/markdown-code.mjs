@@ -37,6 +37,7 @@ const SUPPORTED_LANGUAGES = new Set([
   'lua',
   'make',
   'markdown',
+  'mermaid',
   'plaintext',
   'python',
   'rust',

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
+import rehypeMermaid from 'rehype-mermaid';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { SITE_URL } from './site.config.mjs';
 import { remarkNormalizeCodeFenceLanguages } from './src/lib/markdown-code.mjs';
@@ -42,7 +43,7 @@ export default defineConfig({
     syntaxHighlight: false,
     processor: unified({
       remarkPlugins: [remarkNormalizeCodeFenceLanguages],
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+      rehypePlugins: [rehypeMermaid, [rehypePrettyCode, prettyCodeOptions]],
     }),
   },
   site: SITE_URL,

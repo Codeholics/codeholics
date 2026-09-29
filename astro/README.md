@@ -1,10 +1,6 @@
-# Astro Starter Kit: Basics
+# Codeholics Astro Site
 
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The Astro implementation of the Codeholics site.
 
 ## 🚀 Project Structure
 
@@ -28,7 +24,29 @@ Inside of your Astro project, you'll see the following folders and files:
 
 To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-## 🧞 Commands
+## Setup
+
+Install the project dependencies and Chromium, which renders Mermaid diagrams during static builds:
+
+```sh
+npm install
+npx playwright install chromium
+```
+
+## Mermaid Diagrams
+
+Write Mermaid diagrams in post Markdown or MDX using a `mermaid` fenced code block:
+
+````md
+```mermaid
+flowchart LR
+	A[Markdown] --> B[Inline SVG]
+```
+````
+
+The diagram is rendered to inline SVG when the site builds. Run `npx playwright install chromium` before `npm run build` in every clean environment.
+
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
