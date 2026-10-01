@@ -16,7 +16,7 @@ test.describe('RSS feed', () => {
     await expect(mobileRss).toHaveAttribute('href', '/rss.xml');
   });
 
-  test('rss.xml exposes published posts with absolute links and no draft entry', async ({ request }) => {
+  test('rss.xml exposes published posts with absolute links and includes migration post entry', async ({ request }) => {
     const response = await request.get('/rss.xml');
 
     expect(response.ok()).toBeTruthy();
@@ -28,6 +28,6 @@ test.describe('RSS feed', () => {
     expect(body).toContain('<item>');
     expect(body).toContain('https://www.codeholics.com/posts/');
     expect(body).toContain('<description>');
-    expect(body).not.toContain('migrating-codeholics-from-pelican-to-astro');
+    expect(body).toContain('migrating-codeholics-from-pelican-to-astro');
   });
 });
