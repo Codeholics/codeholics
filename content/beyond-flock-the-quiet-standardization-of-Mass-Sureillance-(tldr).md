@@ -37,7 +37,7 @@ For developers and embedded systems engineers, the hardware teardown contradicte
 | Key Management        | AES-encrypted local storage      | Decryption keys stored in plaintext   |
 | Firmware Maintenance  | Modern, patched OS stack         | Android 8.1 (Unsupported 2017 kernel) |
 
-When master decryption keys sit on the same unencrypted partition as the data they are supposed to protect, edge security is purely theoretical.
+When master decryption keys sit on the same unencrypted partition as the data they are supposed to protect, edge security is nonexistent.
 
 ---
 
