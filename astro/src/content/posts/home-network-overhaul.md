@@ -4,6 +4,7 @@ title: "Home Network Overhaul with Enterprise Techniques"
 date: "2022-06-20 18:39"
 category: "Hardware"
 tags: "networking, hardware, review, firewall, pfsense, tplink, asus, router, switch, vlan, infosec"
+summary: "A practical breakdown of planning and building a segmented home network using VLANs, firewall rules, and enterprise-style design principles to improve security and organization."
 ---
 
 

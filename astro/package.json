@@ -13,6 +13,10 @@
     "astro": "astro",
     "lint:inline-code": "node scripts/lint-inline-code.mjs",
     "lint:inline-code:strict": "INLINE_CODE_LINT_MODE=error node scripts/lint-inline-code.mjs",
+    "lint:post-metadata": "node scripts/lint-post-metadata.mjs",
+    "lint:post-metadata:ai": "AI_ASSISTED_POST=1 node scripts/lint-post-metadata.mjs --auto",
+    "ai:post:finalize": "npm run lint:post-metadata:ai --",
+    "test:post-metadata": "node scripts/test-post-metadata-validator.mjs",
     "test:site-url": "node scripts/verify-site-url.mjs",
     "test:e2e": "playwright test"
   },

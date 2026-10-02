@@ -47,6 +47,7 @@ Quick reference for future Copilot sessions working in this repository.
 - `pelicanconf.py` enables specific plugins and theme integrations: `webassets`, `liquid_tags`, `tag_cloud`, `gzip_cache`, `tipue_search`, and `i18n_subsites`. Preserve those integrations when editing config.
 - Search is wired through Pelican direct templates and the theme: `DIRECT_TEMPLATES` includes `search`, and `tipue_search` is enabled.
 - Do not edit or commit files under `output/`; regenerate them instead.
+- For AI-assisted Astro post drafting, run `cd astro && npm run ai:post:finalize -- --file src/content/posts/<slug>.md` to emit warning-only metadata checks (`title`, `date`, `category`, `tags`, `slug`, `summary`) before finalizing content.
 - Workflow automation currently targets the `dev` branch in `.github/workflows/build.yml` and `.github/workflows/deploy.yml`.
 - The deploy workflow uses `appleboy/scp-action` to copy `codeholics/output/*` into `${{ secrets.DEV_PATH }}` with `strip_components: 2` and `rm: true`.
 

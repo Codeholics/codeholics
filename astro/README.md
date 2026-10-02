@@ -56,9 +56,35 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run lint:post-metadata` | Run warning-only metadata checks for Astro posts |
+| `npm run ai:post:finalize` | Run AI-assisted metadata checks (warning-only)    |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## AI-assisted post metadata checks (warning-only)
+
+When AI helps generate or edit a post, run:
+
+```sh
+npm run ai:post:finalize -- --file src/content/posts/<your-post>.md
+```
+
+For optional manual checks outside AI-assisted flow, run:
+
+```sh
+npm run lint:post-metadata -- --file src/content/posts/<your-post>.md
+```
+
+Required front matter keys for the check:
+- `title`
+- `date`
+- `category`
+- `tags`
+- `slug`
+- `summary`
+
+The check is warning-only: it reports missing/empty required fields but does not fail publishing or build commands.
