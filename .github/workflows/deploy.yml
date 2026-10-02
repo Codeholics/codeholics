@@ -14,25 +14,21 @@ jobs:
         with:
           ref: dev
           path: codeholics
-      - name: Checkout Plugins
-        uses: actions/checkout@v7
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          repository: Codeholics/pelican-plugins
-          path: pelican-plugins
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
-      - name: Sync dependencies
-        working-directory: codeholics
-        run: uv sync
-      - name: Build Content
-        working-directory: codeholics
-        run: uv run pelican -s pelicanconf.py
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: codeholics/astro/package-lock.json
+      - name: Install Astro dependencies
+        working-directory: codeholics/astro
+        run: npm ci
+      - name: Verify legacy content parity
+        working-directory: codeholics/astro
+        run: npm run verify:legacy-content-parity
+      - name: Build Astro site
+        working-directory: codeholics/astro
+        run: npm run build
       - name: Copy files to dev.codeholics.com
         uses: appleboy/scp-action@v1.0.0
         with:
@@ -44,7 +40,7 @@ jobs:
           timeout: 120s
           command_timeout: 10m
           debug: true
-          source: "codeholics/output/*"
+          source: "codeholics/astro/dist/*"
           #target: ${{ secrets.DEV_PATH }}
           target: "/home/codeholi/"
           strip_components: 2
