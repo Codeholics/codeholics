@@ -6,17 +6,42 @@ import '../styles/global.css';
 
 const faviconSvgUrl = publicAssetUrl('/favicon.svg');
 const faviconIcoUrl = publicAssetUrl('/favicon.ico');
+
+const {
+  title = "# Codeholics",
+  description = "Default subtitle",
+  ogImage = "/assets/og-default.png",
+  url = "https://codeholics.com",
+  themeStaticDir = "/static"
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+
+    <!-- Facebook App ID -->
+    <meta property="fb:app_id" content="966242223397117" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="shortcut icon" type="image/x-icon" href={faviconIcoUrl} />
     <link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
     <link rel="icon" type="image/png" sizes="32x32" href={publicAssetUrl('/favicon-32x32.png')} />
     <link rel="icon" type="image/png" sizes="16x16" href={publicAssetUrl('/favicon-16x16.png')} />
     <link rel="icon" type="image/x-icon" href={faviconIcoUrl} />
+
+    <!-- Site Manifest for Mobile add home features and such -->
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
