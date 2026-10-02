@@ -1,0 +1,192 @@
+---
+import HeaderAppbar from '../components/Header.appbar.astro';
+import Footer from '../components/Footer.astro';
+import { publicAssetUrl } from '../lib/asset-url';
+import '../styles/global.css';
+
+const faviconSvgUrl = publicAssetUrl('/favicon.svg');
+const faviconIcoUrl = publicAssetUrl('/favicon.ico');
+
+const {
+  title = "# Codeholics",
+  description = "Default subtitle",
+  ogImage = "/assets/og-default.png",
+  url = "https://codeholics.com",
+  themeStaticDir = "/static"
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+
+    <!-- Facebook App ID -->
+    <meta property="fb:app_id" content="966242223397117" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href={faviconIcoUrl} />
+    <link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
+    <link rel="icon" type="image/png" sizes="32x32" href={publicAssetUrl('/favicon-32x32.png')} />
+    <link rel="icon" type="image/png" sizes="16x16" href={publicAssetUrl('/favicon-16x16.png')} />
+    <link rel="icon" type="image/x-icon" href={faviconIcoUrl} />
+
+    <!-- Site Manifest for Mobile add home features and such -->
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+      (function(){
+        var root = document.documentElement;
+        var resolveTheme = function(mode) {
+          if (mode === 'dark' || mode === 'light') return mode;
+          return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        var applyTheme = function(mode) {
+          var resolved = resolveTheme(mode);
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.classList.toggle('dark', resolved === 'dark');
+        };
+
+        var mode = 'auto';
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark' || stored === 'auto') {
+            mode = stored;
+          }
+        } catch (e) {}
+
+        applyTheme(mode);
+      })();
+    </script>
+    <title>Codeholics</title>
+  </head>
+  <body class="min-h-screen font-inter">
+    <HeaderAppbar />
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      (function () {
+        function copyText(text) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text);
+          }
+
+          return new Promise(function (resolve, reject) {
+            var textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.setAttribute('readonly', 'readonly');
+            textArea.style.position = 'absolute';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+              document.execCommand('copy');
+              resolve();
+            } catch (error) {
+              reject(error);
+            } finally {
+              document.body.removeChild(textArea);
+            }
+          });
+        }
+
+        function attachCopyButtons() {
+          var blocks = document.querySelectorAll('figure[data-rehype-pretty-code-figure] pre');
+
+          blocks.forEach(function (pre) {
+            if (pre.querySelector('.code-copy-button')) {
+              return;
+            }
+
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'code-copy-button';
+            button.textContent = 'Copy';
+            button.setAttribute('aria-label', 'Copy code to clipboard');
+
+            button.addEventListener('click', function () {
+              var code = pre.querySelector('code');
+              var text = code ? code.innerText : pre.innerText;
+              copyText(text.trimEnd())
+                .then(function () {
+                  button.textContent = 'Copied';
+                  setTimeout(function () {
+                    button.textContent = 'Copy';
+                  }, 1600);
+                })
+                .catch(function () {
+                  button.textContent = 'Failed';
+                  setTimeout(function () {
+                    button.textContent = 'Copy';
+                  }, 1600);
+                });
+            });
+
+            pre.appendChild(button);
+          });
+        }
+
+        function normalizeInlineCodeDelimiters() {
+          var inlineCodeSpans = document.querySelectorAll(
+            '.theme-prose span[data-rehype-pretty-code-figure]',
+          );
+          var normalizedCount = 0;
+
+          inlineCodeSpans.forEach(function (span) {
+            var sibling = span.nextSibling;
+            if (!sibling || sibling.nodeType !== Node.TEXT_NODE) {
+              return;
+            }
+
+            var text = sibling.textContent || '';
+            var normalized = text.replace(
+              /^(\\s+[A-Za-z0-9_./-]+)`(?=($|[\\s.,;:!?)]))/,
+              '$1',
+            );
+
+            if (normalized === text) {
+              return;
+            }
+
+            sibling.textContent = normalized;
+            normalizedCount += 1;
+          });
+
+          if (normalizedCount > 0) {
+            console.warn(
+              '[inline-code] Applied ' +
+              normalizedCount +
+              ' deterministic inline-code normalization fix(es) in rendered content.',
+            );
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () {
+            normalizeInlineCodeDelimiters();
+            attachCopyButtons();
+          }, { once: true });
+        } else {
+          normalizeInlineCodeDelimiters();
+          attachCopyButtons();
+        }
+      })();
+    </script>
+  </body>
+</html>

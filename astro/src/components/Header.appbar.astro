@@ -1,0 +1,351 @@
+---
+import { siFacebook, siGithub, siRss, siX } from 'simple-icons';
+import searchIcon from './icons/search.svg?raw';
+
+const siteTitle = Astro.props.title ?? '# Codeholics';
+const primaryNavItems = [
+  { label: '~/', href: '/', desktopClass: 'text-sm' },
+  { label: 'Coding', href: '/tags/coding' },
+  { label: 'SysAdmin', href: '/tags/sysadmin' },
+  { label: 'InfoSec', href: '/tags/infosec' },
+  { label: 'OS', href: '/tags/os' },
+  { label: 'Hardware', href: '/tags/hardware' },
+  { label: 'Reviews', href: '/tags/review' },
+];
+
+const socialLinks = [
+  { label: 'X', href: 'https://twitter.com/root_codeholics', icon: siX },
+  { label: 'Facebook', href: 'https://www.facebook.com/RootCodeholics', icon: siFacebook },
+  { label: 'Github', href: 'https://www.github.com/Codeholics', icon: siGithub },
+  { label: 'RSS', href: '/rss.xml', icon: siRss },
+];
+
+const desktopNavBaseClass =
+  'theme-appbar-link px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 transition';
+---
+<header class="theme-appbar w-full sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+    <!-- Left: Brand -->
+    <div class="flex items-center gap-3">
+      <a href="/" class="inline-flex items-center gap-3">
+        <span class="theme-appbar-brand text-2xl font-semibold tracking-tight">{siteTitle}</span>
+      </a>
+    </div>
+
+    <!-- Center: primary nav (desktop) -->
+    <nav aria-label="Primary" class="desktop-nav flex-1 justify-center">
+      <ul class="inline-flex items-center space-x-4 bg-transparent rounded-md px-2 py-1">
+        {primaryNavItems.map((item) => (
+          <li>
+            <a class={`${desktopNavBaseClass} ${item.desktopClass ?? 'text-lg'}`} href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Right: utilities -->
+    <div class="flex items-center gap-3">
+      <div class="hidden items-center gap-1 md:flex" aria-label="Social links">
+        {socialLinks.map((item) => (
+          <a
+            href={item.href}
+            class="theme-appbar-icon-button inline-flex rounded-md p-2 focus:outline-none focus:ring-2 transition"
+            aria-label={item.label}
+            title={item.label}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={item.icon.path}></path>
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <div class="header-search-group">
+        <div class="header-search-anchor">
+          <button
+            id="search-btn"
+            type="button"
+            class="theme-appbar-icon-button header-search items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 transition"
+            aria-label="Search"
+            aria-controls="desktop-search-form"
+            aria-expanded="false"
+          >
+            <span class="header-search-icon inline-flex h-5 w-5" set:html={searchIcon}></span>
+          </button>
+
+          <form
+            id="desktop-search-form"
+            action="/search.html"
+            method="get"
+            class="theme-appbar-search-form header-search-form hidden"
+            role="search"
+          >
+            <label class="sr-only" for="desktop-search-input">Search</label>
+            <input
+              id="desktop-search-input"
+              name="q"
+              class="theme-appbar-search-input header-search-input rounded-md px-3 py-2 outline-none"
+              placeholder="Search"
+              aria-label="Search"
+              required
+            />
+            <button type="submit" class="theme-appbar-search-submit header-search-submit px-3 py-2 rounded-md">
+              Go
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <button id="theme-toggle" class="theme-appbar-icon-button p-2 rounded-md focus:outline-none focus:ring-2 transition" aria-label="Toggle theme" title="Theme: auto" data-theme-mode="auto" data-theme="light">
+        <!-- sun / moon icon will be updated by JS -->
+        <svg id="theme-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+      </button>
+
+      <!-- Mobile hamburger -->
+      <button id="nav-toggle" class="theme-appbar-icon-button mobile-toggle p-2 rounded-md focus:outline-none focus:ring-2 transition" aria-label="Open menu" aria-controls="nav-panel" aria-expanded="false">
+        <svg id="hamburger" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden>
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile panel -->
+  <div id="nav-panel" class="theme-appbar-mobile-panel mobile-panel hidden px-4 pb-4 backdrop-blur-sm">
+    <div class="space-y-2">
+      {primaryNavItems.map((item) => (
+        <a class="theme-appbar-link block py-2 px-3 rounded" href={item.href}>{item.label}</a>
+      ))}
+
+      <div class="theme-divider flex items-center gap-2 border-t px-3 pt-3" aria-label="Social links">
+        {socialLinks.map((item) => (
+          <a
+            href={item.href}
+            class="theme-appbar-icon-button inline-flex rounded-md p-2 focus:outline-none focus:ring-2 transition"
+            aria-label={item.label}
+            title={item.label}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={item.icon.path}></path>
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <form action="/search.html" method="get" class="mt-2" role="search">
+        <label class="sr-only" for="mobile-search-input">Search</label>
+        <div class="flex items-center gap-2">
+          <input id="mobile-search-input" name="q" class="theme-appbar-search-input w-full rounded-md px-3 py-2 outline-none" placeholder="Search" aria-label="Search" required />
+          <button type="submit" class="theme-appbar-search-submit px-3 py-2 rounded-md">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    const THEME_KEY = 'theme';
+    const THEME_SEQUENCE = {
+      auto: 'dark',
+      dark: 'light',
+      light: 'auto',
+    };
+
+    const getStoredTheme = () => {
+      const storedTheme = localStorage.getItem(THEME_KEY);
+      return storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'auto' ? storedTheme : 'auto';
+    };
+
+    const getPreferredTheme = () =>
+      window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    const resolveTheme = (themeMode) => (themeMode === 'auto' ? getPreferredTheme() : themeMode);
+
+    const applyTheme = (themeMode) => {
+      const html = document.documentElement;
+      const resolvedTheme = resolveTheme(themeMode);
+
+      html.dataset.themeMode = themeMode;
+      html.dataset.theme = resolvedTheme;
+      html.classList.toggle('dark', resolvedTheme === 'dark');
+
+      return resolvedTheme;
+    };
+
+    const updateThemeIcon = (themeMode, resolvedTheme) => {
+      const icon = document.getElementById('theme-icon');
+      if (!icon) return;
+
+      if (themeMode === 'dark') {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />';
+      } else if (themeMode === 'light') {
+        icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />';
+      } else {
+        icon.innerHTML = '<rect x="4" y="5" width="16" height="11" rx="2"></rect><path d="M10 19h4M12 16v3"></path>';
+      }
+
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle instanceof HTMLButtonElement) {
+        themeToggle.dataset.themeMode = themeMode;
+        themeToggle.dataset.theme = resolvedTheme;
+        themeToggle.title = `Theme: ${themeMode}`;
+      }
+    };
+
+    const setSearchExpanded = (expanded) => {
+      const searchButton = document.getElementById('search-btn');
+      const searchForm = document.getElementById('desktop-search-form');
+      if (!searchButton || !searchForm) return;
+
+      searchButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      searchForm.classList.toggle('hidden', !expanded);
+    };
+
+    const closeSearch = (restoreFocus = true) => {
+      const searchButton = document.getElementById('search-btn');
+      if (!searchButton || searchButton.getAttribute('aria-expanded') !== 'true') return;
+
+      setSearchExpanded(false);
+      if (restoreFocus) {
+        searchButton.focus();
+      }
+    };
+
+    const openSearch = () => {
+      const searchInput = document.getElementById('desktop-search-input');
+      setSearchExpanded(true);
+      if (searchInput instanceof HTMLInputElement) {
+        searchInput.focus();
+        searchInput.select();
+      }
+    };
+
+    const toggleSearch = () => {
+      const searchButton = document.getElementById('search-btn');
+      if (!searchButton) return;
+
+      if (searchButton.getAttribute('aria-expanded') === 'true') {
+        closeSearch();
+      } else {
+        openSearch();
+      }
+    };
+
+    const closeMenu = () => {
+      const btn = document.getElementById('nav-toggle');
+      const panel = document.getElementById('nav-panel');
+      const ham = document.getElementById('hamburger');
+      if (!btn || !panel) return;
+      btn.setAttribute('aria-expanded', 'false');
+      panel.classList.add('hidden');
+      panel.classList.remove('open');
+      ham?.classList.remove('is-open');
+      btn.focus();
+    };
+
+    const toggleMenu = () => {
+      const btn = document.getElementById('nav-toggle');
+      const panel = document.getElementById('nav-panel');
+      const ham = document.getElementById('hamburger');
+      if (!btn || !panel) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      panel.classList.toggle('hidden', expanded);
+      panel.classList.toggle('open', !expanded);
+      ham?.classList.toggle('is-open', !expanded);
+      if (!expanded) {
+        panel.querySelector('a, button, input')?.focus();
+      } else {
+        btn.focus();
+      }
+    };
+
+    const initNavbar = () => {
+      const toggle = document.getElementById('nav-toggle');
+      const themeToggle = document.getElementById('theme-toggle');
+      const searchButton = document.getElementById('search-btn');
+      const searchForm = document.getElementById('desktop-search-form');
+      const searchInput = document.getElementById('desktop-search-input');
+      if (!toggle || !themeToggle || !searchButton || !searchForm || !searchInput) return;
+
+      const syncTheme = (themeMode) => {
+        const resolvedTheme = applyTheme(themeMode);
+        updateThemeIcon(themeMode, resolvedTheme);
+      };
+
+      const initialTheme = getStoredTheme();
+      syncTheme(initialTheme);
+
+      toggle.addEventListener('click', toggleMenu);
+      searchButton.addEventListener('click', toggleSearch);
+      themeToggle.addEventListener('click', () => {
+        const current = getStoredTheme();
+        const next = THEME_SEQUENCE[current];
+        localStorage.setItem(THEME_KEY, next);
+        syncTheme(next);
+      });
+
+      const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
+      const handleSystemThemeChange = () => {
+        if (getStoredTheme() !== 'auto') return;
+        syncTheme('auto');
+      };
+
+      if (mediaQuery?.addEventListener) {
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
+      } else if (mediaQuery?.addListener) {
+        mediaQuery.addListener(handleSystemThemeChange);
+      }
+
+      searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeSearch();
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (searchButton.getAttribute('aria-expanded') !== 'true') return;
+        if (!(event.target instanceof Node)) return;
+        if (!searchForm.contains(event.target) && !searchButton.contains(event.target)) {
+          closeSearch(false);
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          const panel = document.getElementById('nav-panel');
+          panel?.classList.add('hidden');
+          panel?.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          document.getElementById('hamburger')?.classList.remove('is-open');
+        } else {
+          closeSearch(false);
+        }
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          if (searchButton.getAttribute('aria-expanded') === 'true') {
+            closeSearch();
+            return;
+          }
+          if (toggle.getAttribute('aria-expanded') === 'true') {
+            closeMenu();
+          }
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNavbar, { once: true });
+    } else {
+      initNavbar();
+    }
+  </script>
+</header>

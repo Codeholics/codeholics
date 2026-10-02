@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { loadPosts, getAllCategories } from '../../lib/posts';
+
+const posts = await loadPosts();
+const cats = getAllCategories(posts);
+---
+
+<Layout>
+  <header class="mb-6">
+    <h1 class="theme-page-title text-2xl font-semibold">Categories</h1>
+  </header>
+  <ul class="theme-reading-surface space-y-2 rounded-lg p-5">
+    {cats.map(c=> (
+      <li class="flex items-center justify-between py-2 border-b theme-divider last:border-b-0">
+        <a class="theme-link hover:underline" href={`/categories/${encodeURIComponent(c.category)}`}>{c.category}</a>
+        <span class="theme-meta text-sm">{c.count}</span>
+      </li>
+    ))}
+  </ul>
+</Layout>

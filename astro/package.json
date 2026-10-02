@@ -1,0 +1,47 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run lint:inline-code && astro build",
+    "build:inline-code-strict": "INLINE_CODE_LINT_MODE=error npm run build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint:inline-code": "node scripts/lint-inline-code.mjs",
+    "lint:inline-code:strict": "INLINE_CODE_LINT_MODE=error node scripts/lint-inline-code.mjs",
+    "lint:post-metadata": "node scripts/lint-post-metadata.mjs",
+    "lint:post-metadata:ai": "AI_ASSISTED_POST=1 node scripts/lint-post-metadata.mjs --auto",
+    "ai:post:finalize": "npm run lint:post-metadata:ai --",
+    "test:post-metadata": "node scripts/test-post-metadata-validator.mjs",
+    "test:site-url": "node scripts/verify-site-url.mjs",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.2",
+    "@astrojs/rss": "^4.0.19",
+    "astro": "^7.3.2",
+    "astro-embed": "^0.14.0",
+    "simple-icons": "^16.32.0"
+  },
+  "devDependencies": {
+    "@astrojs/markdown-remark": "^7.3.1",
+    "@playwright/test": "^1.40.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "autoprefixer": "^10.5.6",
+    "playwright": "^1.63.0",
+    "postcss": "^8.5.28",
+    "rehype-mermaid": "^3.0.0",
+    "rehype-pretty-code": "^0.14.1",
+    "tailwindcss": "^4.3.3",
+    "unist-util-visit": "^5.0.0"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

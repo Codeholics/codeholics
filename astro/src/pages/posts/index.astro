@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { loadPosts } from '../../lib/posts';
+
+const posts = await loadPosts();
+---
+
+<Layout>
+  <header class="mb-6">
+    <h1 class="theme-page-title text-2xl font-semibold">All Posts</h1>
+  </header>
+
+  <section class="grid gap-6 md:grid-cols-2">
+    {posts.map((post) => (
+      <PostCard post={post} />
+    ))}
+  </section>
+</Layout>
