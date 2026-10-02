@@ -1,12 +1,12 @@
-Title: Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)
-Date: 2026-09-25 16:20
-Author: Mute
-Category: Surveillance
-Tags: Surveillance
-Slug: beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
-Status: Draft
-
-# Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)
+---
+title: 'Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)'
+date: '2026-09-25 16:20'
+author: Mute
+category: Surveillance
+tags: Surveillance
+slug: beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
+status: published
+---
 
 Six months ago, most Americans had never heard of Flock Safety. 
 
@@ -16,7 +16,7 @@ Whether you view automated license plate readers (ALPRs) as vital public safety 
 
 ---
 
-### 1. Three Incidents, One Reality
+## 1. Three Incidents, One Reality
 
 Over the past few weeks, three separate stories broke that reveal just how fast this infrastructure is scaling—and how fragile its safeguards actually are.
 
@@ -26,7 +26,7 @@ Over the past few weeks, three separate stories broke that reveal just how fast 
 
 ---
 
-### 2. The Architectural Reality: What the Teardown Proved
+## 2. The Architectural Reality: What the Teardown Proved
 
 For developers and embedded systems engineers, the hardware teardown contradicted several of the vendor's core marketing and policy claims:
 
@@ -37,11 +37,11 @@ For developers and embedded systems engineers, the hardware teardown contradicte
 | Key Management        | AES-encrypted local storage      | Decryption keys stored in plaintext   |
 | Firmware Maintenance  | Modern, patched OS stack         | Android 8.1 (Unsupported 2017 kernel) |
 
-When master decryption keys sit on the same unencrypted partition as the data they are supposed to protect, edge security is purely theoretical.
+When master decryption keys sit on the same unencrypted partition as the data they are supposed to protect, edge security is nonexistent.
 
 ---
 
-### 3. The Myth of the "Crime-Solving AI"
+## 3. The Myth of the "Crime-Solving AI"
 
 The core justification for deploying mass camera networks has always been safety: *If you aren't doing anything wrong, you have nothing to hide, and the cameras will help catch bank robbers and kidnappers.*
 
@@ -67,7 +67,7 @@ The ratio is stark: cities are subjecting millions of innocent citizens to dragn
 
 ---
 
-### 4. Systemic Misuse: When the Watchers Stalk
+## 4. Systemic Misuse: When the Watchers Stalk
 
 Beyond system errors, investigations show that these networks are routinely abused by law enforcement officers for personal tracking.
 
@@ -82,7 +82,7 @@ When mass surveillance tools lack mandatory, real-time auditing controls, the da
 
 ---
 
-### 5. Regulatory Capture: How Vendors Protect Their Contracts
+## 5. Regulatory Capture: How Vendors Protect Their Contracts
 
 When technical failures, security breaches, and police abuse come to light, logic suggests local governments would immediately halt these programs. Instead, surveillance vendors actively embed themselves into local political processes to protect their revenue.
 
@@ -97,7 +97,7 @@ The resolution was defeated. The incident highlighted a glaring vulnerability in
 
 ---
 
-### 6. Incremental Deployment, Permanent Infrastructure
+## 6. Incremental Deployment, Permanent Infrastructure
 
 The real story isn't just that Flock built a flawed product or that cities are backing out. The real story is how easily mass surveillance became normalized.
 
@@ -110,7 +110,7 @@ Piece by piece, a real-time tracking network was assembled. Now, between Flock, 
 
 ---
 
-### The Inflection Point
+## The Inflection Point
 
 Commenters and developers following these stories aren't just reacting to a single security vulnerability or a bad municipal contract. They are asking a fundamental question about technical ethics: 
 
@@ -123,7 +123,7 @@ Whether you believe these systems make communities safer or represent an unconst
 
 ---
 
-### Sources & References
+## Sources & References
 
 * **Hardware Teardown & Firmware Security:**
   * *WIRED* & *404 Media* — Joint investigation on physical Flock camera teardown, unencrypted local media cache, and on-device decryption keys.

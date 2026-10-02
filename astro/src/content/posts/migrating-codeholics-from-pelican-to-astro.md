@@ -5,11 +5,8 @@ date: "2026-09-22 15:14"
 category: "Coding"
 tags: "coding, astro, pelican, migration, copilot cli, openspec, ai, static site"
 slug: "migrating-codeholics-from-pelican-to-astro"
-summary: "A draft look at why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process."
-status: "draft"
+summary: "Why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process."
 ---
-
-> **Draft note:** This post is intentionally being published as a draft because the migration is still in progress. We'll keep updating it as we finish more of the move.
 
 For years Codeholics has been powered by Pelican, and it has served the site well. The workflow was simple, the output was fast, and it fit the original needs of the project. Over time though, the frontend started to feel harder to evolve. As the site design and navigation needs changed, we wanted a stack that still produced a static site but gave us a more modern component model and a smoother path for UI improvements.
 
@@ -83,8 +80,8 @@ There is still work to do before the migration is complete. Some of the remainin
 
 We still need to keep refining content parity, verify old posts render the way we expect, continue smoothing out the new UI, and decide exactly when the Astro site is ready to fully replace the Pelican version. We also want to make sure the final result is not just newer, but actually better to maintain.
 
-## Final thoughts for now
+## Final thoughts
 
-This post is intentionally a snapshot rather than a conclusion. Pelican got us a long way, and Astro is helping us take the next step without giving up the strengths of a static site. Using Copilot CLI has made it easier to work directly in the repo and move quickly, while OpenSpec has helped keep the migration organized and intentional.
+This migration is still in progress, but the direction is clear. Pelican got us a long way, and Astro is helping us take the next step without giving up the strengths of a static site. Using Copilot CLI has made it easier to work directly in the repo and move quickly, while OpenSpec has helped keep the migration organized and intentional.
 
-Once the cutover is complete, we will come back and turn this draft into a fuller retrospective with the parts that only become clear at the end of a migration: what worked, what was unexpectedly painful, and what we would do differently next time.
+As the remaining pieces land, we will publish a follow-up retrospective focused on what worked, what was unexpectedly painful, and what we would do differently next time.
