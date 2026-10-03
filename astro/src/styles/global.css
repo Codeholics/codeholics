@@ -33,6 +33,11 @@
   --header-search-placeholder: #64748b;
   --header-search-border: rgba(148, 163, 184, 0.36);
   --header-mobile-panel-bg: rgba(255, 255, 255, 0.96);
+  --alert-note: #2563eb;
+  --alert-tip: #15803d;
+  --alert-important: #7e22ce;
+  --alert-warning: #b45309;
+  --alert-caution: #b91c1c;
 }
 
 @layer base {
@@ -82,6 +87,11 @@ html.dark {
   --header-search-placeholder: #cbd5e1;
   --header-search-border: rgba(255, 255, 255, 0.12);
   --header-mobile-panel-bg: rgba(15, 23, 42, 0.92);
+  --alert-note: #60a5fa;
+  --alert-tip: #4ade80;
+  --alert-important: #c084fc;
+  --alert-warning: #fbbf24;
+  --alert-caution: #f87171;
 }
 
 @layer utilities {
@@ -290,6 +300,58 @@ header.scrolled { box-shadow: var(--header-elev); }
 
 .theme-prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
   color: var(--page-text);
+}
+
+.theme-prose .markdown-alert {
+  --alert-tone: var(--accent);
+  border-left: 0.25rem solid var(--alert-tone);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: color-mix(in srgb, var(--alert-tone) 10%, var(--surface-bg));
+  color: var(--page-text);
+  font-style: normal;
+  padding: 0.875rem 1rem;
+}
+
+.theme-prose .markdown-alert-note {
+  --alert-tone: var(--alert-note);
+}
+
+.theme-prose .markdown-alert-tip {
+  --alert-tone: var(--alert-tip);
+}
+
+.theme-prose .markdown-alert-important {
+  --alert-tone: var(--alert-important);
+}
+
+.theme-prose .markdown-alert-warning {
+  --alert-tone: var(--alert-warning);
+}
+
+.theme-prose .markdown-alert-caution {
+  --alert-tone: var(--alert-caution);
+}
+
+.theme-prose .markdown-alert-title {
+  align-items: center;
+  color: var(--alert-tone);
+  display: flex;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  gap: 0.5rem;
+  letter-spacing: 0.025em;
+  line-height: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+
+.theme-prose .markdown-alert-title .octicon {
+  fill: currentColor;
+  flex: none;
+}
+
+.theme-prose .markdown-alert > :last-child {
+  margin-bottom: 0;
 }
 
 .theme-prose :where(code):not(:where(pre code, .not-prose, .not-prose *)) {
