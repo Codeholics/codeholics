@@ -5,6 +5,7 @@ import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
 import rehypeMermaid from 'rehype-mermaid';
 import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGemoji from 'remark-gemoji';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import { SITE_URL } from './site.config.mjs';
 import { remarkNormalizeCodeFenceLanguages } from './src/lib/markdown-code.mjs';
@@ -43,7 +44,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
     processor: unified({
-      remarkPlugins: [remarkNormalizeCodeFenceLanguages, remarkAlert],
+      remarkPlugins: [remarkNormalizeCodeFenceLanguages, remarkGemoji, remarkAlert],
       rehypePlugins: [rehypeMermaid, [rehypePrettyCode, prettyCodeOptions]],
     }),
   },

@@ -71,6 +71,30 @@ markers at the beginning of a blockquote:
 Alert markers are case-insensitive. Ordinary blockquotes and unsupported markers,
 such as `> [!CUSTOM]`, remain ordinary quotations and do not fail the build.
 
+## Emoji Shortcodes
+
+Post Markdown and MDX support recognized GitHub-style gemoji shortcodes in
+prose:
+
+```md
+Deploying now :rocket:
+
+Celebrating the release :tada:
+```
+
+Recognized aliases render as their Unicode emoji equivalents. Unknown aliases
+remain literal, as do aliases inside inline and fenced code:
+
+````md
+:not-an-emoji:
+
+`:rocket:`
+
+```text
+:rocket:
+```
+````
+
 ## Commands
 
 All commands are run from the root of the project, from a terminal:
@@ -84,6 +108,7 @@ All commands are run from the root of the project, from a terminal:
 | `npm run lint:post-metadata` | Run warning-only metadata checks for Astro posts |
 | `npm run ai:post:finalize` | Run AI-assisted metadata checks (warning-only)    |
 | `npm run test:github-markdown-alerts` | Build and verify Markdown and MDX GitHub alert output |
+| `npm run test:emoji-shortcodes` | Build and verify Markdown and MDX emoji shortcode output |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
