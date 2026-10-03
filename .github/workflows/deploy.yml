@@ -41,8 +41,6 @@ jobs:
           command_timeout: 10m
           debug: true
           source: "codeholics/astro/dist/*"
-          #target: ${{ secrets.DEV_PATH }}
-          target: "/home/codeholi/"
+          target: ${{ secrets.DEV_PATH }}
           strip_components: 2
-          rm: true
           overwrite: true
