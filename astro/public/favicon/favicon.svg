@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="128" fill="rgba(0, 0, 0, 1)"/>
+  <g transform="translate(256, 256) rotate(0) translate(-256, -256)">
+    <g transform="translate(98.304, 98.304)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="315.392" height="315.392" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
+    </g>
+  </g>
+</svg>

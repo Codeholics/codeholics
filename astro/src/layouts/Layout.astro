@@ -4,8 +4,8 @@ import Footer from '../components/Footer.astro';
 import { publicAssetUrl } from '../lib/asset-url';
 import '../styles/global.css';
 
-const faviconSvgUrl = publicAssetUrl('/favicon.svg');
-const faviconIcoUrl = publicAssetUrl('/favicon.ico');
+const faviconSvgUrl = publicAssetUrl('/favicon/favicon.svg');
+const faviconIcoUrl = publicAssetUrl('/favicon/favicon.ico');
 
 const {
   title = "# Codeholics",
@@ -32,15 +32,14 @@ const {
     <meta property="fb:app_id" content="966242223397117" />
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/x-icon" href={faviconIcoUrl} />
+    <link rel="apple-touch-icon" sizes="180x180" href={publicAssetUrl('/favicon/apple-touch-icon.png')} />
     <link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
-    <link rel="icon" type="image/png" sizes="32x32" href={publicAssetUrl('/favicon-32x32.png')} />
-    <link rel="icon" type="image/png" sizes="16x16" href={publicAssetUrl('/favicon-16x16.png')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={publicAssetUrl('/favicon/favicon-32x32.png')} />
+    <link rel="icon" type="image/png" sizes="16x16" href={publicAssetUrl('/favicon/favicon-16x16.png')} />
     <link rel="icon" type="image/x-icon" href={faviconIcoUrl} />
 
     <!-- Site Manifest for Mobile add home features and such -->
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href={publicAssetUrl('/site.webmanifest')} />
 
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
