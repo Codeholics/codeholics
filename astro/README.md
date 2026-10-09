@@ -95,6 +95,25 @@ remain literal, as do aliases inside inline and fenced code:
 ```
 ````
 
+## Post Images
+
+Store post images under `public/images/Posts/` and reference them with
+root-relative URLs so they work from every generated route. To add an optional
+post-card thumbnail, set `thumbnail` in the post frontmatter:
+
+```md
+---
+thumbnail: /images/Posts/my-post/card-image.webp
+---
+```
+
+Use standard Markdown image syntax to render an image in the post body. Always
+provide descriptive alternative text:
+
+```md
+![A descriptive image summary](/images/Posts/my-post/article-image.webp)
+```
+
 ## Commands
 
 All commands are run from the root of the project, from a terminal:

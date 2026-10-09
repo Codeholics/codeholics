@@ -2,12 +2,15 @@
 title: 'Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)'
 date: '2026-09-25 16:20'
 author: Mute
-category: Surveillance
-tags: Surveillance
+category: surveillance
+tags: surveillance
 slug: beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
 status: published
 summary: 'A quick look at how Flock Safety and municipal AI surveillance systems are scaling, why the architecture is risky, and why the debate is moving beyond one company to the broader normalization of mass surveillance.'
+thumbnail: \images\Posts\beyond-flock-the-quiet-standardization-of-Mass-Sureillance-(tldr)\AI-Traffic-Surveillance-Network.webp
 ---
+
+![AI Traffic Surveillance Network](/images/Posts/beyond-flock-the-quiet-standardization-of-Mass-Sureillance-(tldr)/AI-Traffic-Surveillance-Network.webp)
 
 Six months ago, most Americans had never heard of Flock Safety. 
 

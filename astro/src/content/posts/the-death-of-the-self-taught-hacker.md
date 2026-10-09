@@ -7,7 +7,10 @@ tags: 'Surveillance, AI'
 slug: the-death-of-the-self-taught-hacker
 status: published
 summary: 'Why restricting AI to big tech and governments would shut down independent learning, centralize power, and kill the open, self-taught culture that built modern computing.'
+thumbnail: /images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp
 ---
+
+![A hacker works at a computer beside a fortified server room.](/images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp)
 
 If you grew up the way a lot of us did, your tech education didn't happen in a sterile corporate classroom or a university lecture hall. It happened late at night in a dimly lit room, staring at a monitor, teaching yourself how a PC works because you wanted to pull back the curtain and see what made things tick. You figured out the internet when AOL was new, spent time around people in hoodies and masks on forums or IRC networks, and built your skills from scratch. You might never have gotten your hands completely "dirty" in actual mischief, but the capability was always there—fueled purely by curiosity and open access.
 

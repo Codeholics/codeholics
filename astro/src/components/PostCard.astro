@@ -2,6 +2,16 @@
 const { post } = Astro.props;
 ---
 <article class="theme-surface rounded-lg p-6 hover:shadow-md transition-shadow">
+  {post.frontmatter.thumbnail ? (
+    <a class="mb-4 block overflow-hidden rounded-lg" href={`/posts/${post.slug}`}>
+      <img
+        class="h-48 w-full object-cover"
+        src={post.frontmatter.thumbnail}
+        alt={post.frontmatter.title}
+        loading="lazy"
+      />
+    </a>
+  ) : null}
   <h2 class="text-xl font-semibold">
     <a class="theme-heading-link" href={`/posts/${post.slug}`}>{post.frontmatter.title}</a>
   </h2>
