@@ -21,6 +21,7 @@
     "test:emoji-shortcodes": "node scripts/test-emoji-shortcodes.mjs",
     "verify:legacy-content-parity": "node scripts/verify-legacy-content-parity.mjs",
     "test:site-url": "node scripts/verify-site-url.mjs",
+    "test:social-sharing": "node scripts/test-social-sharing.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

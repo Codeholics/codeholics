@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPostBySlug, loadPosts } from '../../lib/posts';
+import { getPostBySlug, getPostDescription, loadPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
   return (await loadPosts()).map((post) => ({ params: { slug: post.slug } }));
@@ -14,7 +14,12 @@ if (!post) {
 const { Content, frontmatter } = post;
 ---
 
-<Layout>
+<Layout
+  title={post.entry.data.title}
+  description={getPostDescription(post)}
+  ogImage={post.entry.data.thumbnail}
+  ogType="article"
+>
   <article class="theme-reading-surface max-w-3xl mx-auto rounded-lg p-8">
     <h1 class="theme-page-title text-3xl font-bold">{frontmatter.title}</h1>
     <div class="theme-meta text-sm mt-2">{frontmatter.date}</div>

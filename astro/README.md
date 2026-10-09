@@ -114,6 +114,59 @@ provide descriptive alternative text:
 ![A descriptive image summary](/images/Posts/my-post/article-image.webp)
 ```
 
+## Social Sharing Previews
+
+The initial HTML includes Open Graph metadata for Facebook and other link
+previews, plus matching Twitter large-image cards. Post previews use the post's
+`title`, its `summary` (or a plain-text body excerpt when blank/missing), and its
+optional `thumbnail`. Thumbnail selection does not change post cards or body
+images.
+
+The homepage and posts without a nonempty thumbnail use
+[`public/assets/og-default.png`](./public/assets/og-default.png), a 1200x630 PNG
+derived from the supplied
+[`Codeholics-Hero.webp`](./public/images/Codeholics-Hero.webp) artwork.
+Other pages retain descriptive Codeholics defaults. Only the known fallback
+image advertises its dimensions; arbitrary thumbnails are not labeled 1200x630.
+
+Use 1200x630 artwork for predictable wide share previews. Image URLs must be
+publicly accessible without authentication and served with an image content
+type. Local paths become absolute URLs using the configured canonical site
+URL; absolute HTTPS thumbnail URLs retain their external host. Prefer forward
+slashes when authoring image URLs (legacy backslashes are normalized for social
+metadata).
+
+Canonical links and `og:url` identify each page, not just the homepage. The
+default canonical host is `https://www.codeholics.com`; build-time `SITE_URL`
+overrides also apply to local social image URLs. Local preview still uses the
+deployment host in metadata, rather than localhost or a development asset host.
+
+Validate changes from `astro/`:
+
+```sh
+npm run test:social-sharing
+npm run test:e2e -- tests/social-sharing.spec.ts
+npm run test:site-url
+```
+
+The fixture test temporarily adds uniquely named test posts, removes them in a
+`finally` block, and removes their generated routes. Run `npm run build` afterward
+to leave a clean production build. Do not deploy fixture-test output.
+
+After deploying, check the actual page source and request its `og:image` URL.
+For the initial deployment, inspect:
+
+- Homepage: `https://www.codeholics.com/`
+- Default image: `https://www.codeholics.com/assets/og-default.png`
+- Post: `https://www.codeholics.com/posts/the-death-of-the-self-taught-hacker/`
+- Post image: `https://www.codeholics.com/images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp`
+
+Then enter the shared page URL in
+[Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) and
+request **Scrape Again**. These are deployment checks, not proof that a local
+test has updated the live site. Facebook controls rendering and caching;
+re-scraping does not guarantee that already published shares update.
+
 ## Commands
 
 All commands are run from the root of the project, from a terminal:
@@ -128,6 +181,8 @@ All commands are run from the root of the project, from a terminal:
 | `npm run ai:post:finalize` | Run AI-assisted metadata checks (warning-only)    |
 | `npm run test:github-markdown-alerts` | Build and verify Markdown and MDX GitHub alert output |
 | `npm run test:emoji-shortcodes` | Build and verify Markdown and MDX emoji shortcode output |
+| `npm run test:social-sharing` | Build fixtures and verify crawler-readable post metadata |
+| `npm run test:site-url` | Verify default/overridden canonical, social image, and RSS URLs |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
