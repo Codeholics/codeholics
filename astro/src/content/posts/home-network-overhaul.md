@@ -1,12 +1,16 @@
 ---
-
 title: "Home Network Overhaul with Enterprise Techniques"
 date: "2022-06-20 18:39"
+updated: "2026-10-10 06:24"
 category: "Hardware"
 tags: "networking, hardware, review, firewall, pfsense, tplink, asus, router, switch, vlan, infosec"
+slug: home-network-overhaul
+status: Published
 summary: "A practical breakdown of planning and building a segmented home network using VLANs, firewall rules, and enterprise-style design principles to improve security and organization."
+thumbnail: \images\Posts\home-network-overhaul\Cozy Home Lab Network Overhaul.webp
 ---
 
+![Cozy Home Lab Network Overhaul](/images/Posts/home-network-overhaul/Cozy%20Home%20Lab%20Network%20Overhaul.webp)
 
 ### Pre-Reqs
 * An understanding of IP networking
@@ -31,7 +35,7 @@ properly, it will grow as your needs grow saving you valuable future time.
 
 My environment has the standard things most houses have: laptops, phones, Roku sticks, personal assistance, cameras... 
 but I also have a bit more than the average home. I have a file server, beefy 4U server and a Raspberry Pi cluster. 
-I wanted to create a few VLANs and rich firewall rules to keep these devices orginized and make sure they do not get out of line. 
+I wanted to create a few VLANs and rich firewall rules to keep these devices organized and make sure they do not get out of line. 
 
 #### Network Topology Diagram
 
@@ -54,13 +58,13 @@ The icons I will use in my network topology diagram are:
 |**Modem**|**Firewall Router**|**Switch**|**WiFi Router**|
 | ![modem icon](/images/networking_icons/modem.jpg) | ![firewall router icon](/images/networking_icons/router_firewall.jpg) | ![switch icon](/images/networking_icons/workgroup_switch.jpg) | ![wifi router icon](/images/networking_icons/wireless_router.jpg) |
 
-I could have used an Access Point icon instead of the WiFi Router icon since  the router will only be acting as an Access Point, 
+I could have used an Access Point icon instead of the Wi-Fi Router icon since the router will only be acting as an Access Point, 
 but this is for my home network and not an enterprise network, so I know what it is. With that said, you do not need to 
 do icons if this is just for you. You can just do boxes or whatever makes sense to you.
 
 Here is what the first version of my network topology diagram looked like:
 
-![network topology v1](/images/home_network_overhaul/network_topology_v1.webp)
+![network topology v1](/images/Posts/home-network-overhaul/network_topology_v1.webp)
 
 The things that were known going into the first iteration of the network topology design:
 
@@ -74,7 +78,7 @@ The things that were known going into the first iteration of the network topolog
 #### VLAN Network Assignment
 The next task is laying out all the additional VLANs and subnets that are needed.
 
-![network vlan layout](/images/home_network_overhaul/network_vlan_layout.webp)
+![network vlan layout](/images/Posts/home-network-overhaul/network_vlan_layout.webp)
 
 At this point, it's time to start acquiring the hardware needed to get the job done.
 
@@ -84,9 +88,9 @@ What I had:
 
 * [Asus AC1900 (RT-AC68U)](https://amzn.to/3bnH7VX)  
   
-The Asus RT-AC68U is a basic Wifi router with a 4 port switch. I had this for only a few months as my Asus RT-AC66U power switch gave out after its loyal service for about 5 years. 
+The Asus RT-AC68U is a basic Wi-Fi router with a 4 port switch. I had this for only a few months as my Asus RT-AC66U power switch gave out after its loyal service for about 5 years. 
 The RT-AC68U has never been stable in Router Mode. I had constant connection issues and had to reboot it often. My hope in continuing to use the device was that 
-these issues might go away in AP Mode. (Spoiler Alert!!) So far so good in using it in AP Mode.
+these issues might go away in AP Mode. (Spoiler Alert!!) So far so good at using it in AP Mode.
     
 Probably most important is the UPS. It is not depicted in the Network Topology Diagram. It would be in a Network Rack Diagram. I am not going to go over the Network Rack Diagram in this post. 
 If you are going to drop some money on equipment you need to protect it. I have a CyberPower UPS that I have been using 
@@ -109,7 +113,7 @@ New hardware:
 I included two links because the model I have is no longer available and has been updated to a newer model. Before I go on about how nice this device is, it is
 probably worth a reminder that I am not getting paid by Protechtli for this post. 
 
-I got my hardware from a friend who decided the device was not right for their environment so I got it for the low, low price of free. I had never heard of the company 
+I got my hardware from a friend who decided the device was not right for their environment, so I got it for the low, low price of free. I had never heard of the company 
 Protechtli but I was immediately impressed. First thing I noticed when I unpacked this device was the quality of the case. It is a beautifully designed, thick, all aluminum case.
 
 The specs on the device should have plenty of power for running in my environment. These devices do not come pre-loaded with an OS. I am using PFSense CE on my device. 
@@ -119,7 +123,7 @@ The specs on the device should have plenty of power for running in my environmen
 When I was searching around for a switch I had in mind a few things I wanted and a dollar amount I wanted to stay under. I also didn't want to buy used network hardware off of ebay because you have no idea the device's history, and Cisco IOS is behind a pay wall. The TP-Link TL-SG1024DE 24 port switch is a really nice, 
 feature rich budget switch. It is low power, and it has a fanless design. 
 
-Things this had that I neeeded:  
+Things this had that I needed:  
 * VLAN
 * LAG
 Things it was lacking that I wanted:  
@@ -132,14 +136,14 @@ In the future when needs and budget grow, I will look into a 24 port switch that
 
 * [AC Infinity Vented Cantilever 1U Universal Rack Shelf](https://amzn.to/3OCipzK)
 
-I have the 9U rack mounted to a fire rated backer board in a spot down in the basement. I had already had the spot setup as I have been wanting to do this project for sometime. The rack was very easy to mount. I was able to do it all myself without having to call anyone over to lend a hand. 
+I have the 9U rack mounted to a fire rated backer board in a spot down in the basement. I had already had the spot setup as I have been wanting to do this project for some time. The rack was very easy to mount. I was able to do it all myself without having to call anyone over to lend a hand. 
 The 1U shelves worked out really well for keeping items that were not rack mountable in a nice location within the rack.
 
 ### Finished Network Topology Diagram
 
 Once the hardware is selected, a little more detail can be added to the final topology diagram.
 
-![network topology v2](/images/home_network_overhaul/network_topology_v2.webp)
+![network topology v2](/images/Posts/home-network-overhaul/network_topology_v2.webp)
 
 ### Switch Port VLAN Assignment Diagram
 
@@ -148,23 +152,23 @@ My configuration is not finalized as of this moment, as I have not setup any LAG
 
 Having a document like this is handy for easy deployment and future troubleshooting. 
 
-![Network Switch Port Assignment](/images/home_network_overhaul/switch_port_assignment.webp)
+![Network Switch Port Assignment](/images/Posts/home-network-overhaul/switch_port_assignment.webp)
 
 ### Conclusion
 
-The main goal of this post was to introduce some of the upfront processes and tasks that go into enterprise network planning and some of the techniques that can be utilized to keep a more complex networking project in order. 
+The main goal of this post was to introduce some upfront processes and tasks that go into enterprise network planning and some of the techniques that can be utilized to keep a more complex networking project in order. 
 The techniques for enterprise deployments can be applied on a home network as well if your needs are a little more demanding like mine. 
   
-There is one document that I should have gone over but will not for this small project: The Rack Level Diagram. This diagram displays all the equipment at the rack level so you know where everything will be placed and can make sure it all fits. I didn't do one of these because I simply had an idea in my head of how all these things would fit together, and since it was just for me I didn't need it. 
+There is one document that I should have gone over but will not for this small project: The Rack Level Diagram. This diagram displays all the equipment at the rack level, so you know where everything will be placed and can make sure it all fits. I didn't do one of these because I simply had an idea in my head of how all these things would fit together, and since it was just for me, I didn't need it. 
   
-The topic of computer networking is very deep. While some of the hardware has gone virtual the concepts and practices remain the same. Having a solid foundation in networking has given me an edge throughout my career working with virtulization, containerization and cloud technologies. 
+The topic of computer networking is very deep. While some hardware has gone virtual the concepts and practices remain the same. Having a solid foundation in networking has given me an edge throughout my career working with virtualization, containerization and cloud technologies. 
 I would like to give a special thanks to George Markwick who has been an amazing friend and mentor throughout my career, and it was he who taught me these techniques early on in my career while we were designing and building out IDFs, MDFs and Data Centers. 
 
 I am going to leave this post off with a few pictures of everything racked up:  
 
-![just mounted rack](/images/home_network_overhaul/just_mounted.webp)
-![before switch](/images/home_network_overhaul/before_switch.webp)
-![rack as of this post](/images/home_network_overhaul/rack_today.webp)
+![just mounted rack](/images/Posts/home-network-overhaul/just_mounted.webp)
+![before switch](/images/Posts/home-network-overhaul/before_switch.webp)
+![rack as of this post](/images/Posts/home-network-overhaul/rack_today.webp)
    
 My next steps are getting a 1U cable tray to get those cables under control and getting a rack mount for the Pi Cluster.
 If you enjoyed this post, please consider becoming a sponsor. The funds will be used to help keep Codeholics rolling.  

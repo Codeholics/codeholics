@@ -5,8 +5,12 @@ date: "2026-09-22 15:14"
 category: "Coding"
 tags: "coding, astro, pelican, migration, copilot cli, openspec, ai, static site"
 slug: "migrating-codeholics-from-pelican-to-astro"
+status: published
 summary: "Why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process."
+thumbnail: \images\Posts\migrating-codeholics-from-pelican-to-astro\Cyberpunk Pelican to Astro Migration.webp
 ---
+
+![Cyberpunk Pelican to Astro Migration](/images/Posts/migrating-codeholics-from-pelican-to-astro/Cyberpunk%20Pelican%20to%20Astro%20Migration.webp)
 
 For years Codeholics has been powered by Pelican, and it has served the site well. The workflow was simple, the output was fast, and it fit the original needs of the project. Over time though, the frontend started to feel harder to evolve. As the site design and navigation needs changed, we wanted a stack that still produced a static site but gave us a more modern component model and a smoother path for UI improvements.
 
@@ -16,7 +20,7 @@ Astro keeps the static-site benefits we care about while making it easier to bui
 
 ## Why move from Pelican?
 
-This is not a post about Pelican being bad. Quite the opposite: Pelican helped Codeholics move away from Wordpress years ago and made the site easier to manage in Git. It gave us a clean content workflow based on Markdown and static output, and that was a big step forward for reliability and maintainability.
+This is not a post about Pelican being bad. Quite the opposite: Pelican helped Codeholics move away from WordPress years ago and made the site easier to manage in Git. It gave us a clean content workflow based on Markdown and static output, and that was a big step forward for reliability and maintainability.
 
 The main reason for the new move is that the frontend has different needs now than it did when the Pelican version was first put together. We wanted:
 
@@ -76,7 +80,7 @@ Just as important, the migration has reinforced that this should be treated as a
 
 ## What is left
 
-There is still work to do before the migration is complete. Some of the remaining effort is technical, and some of it is editorial.
+There is still work to do before the migration is complete. Some remaining effort is technical, and some of it is editorial.
 
 We still need to keep refining content parity, verify old posts render the way we expect, continue smoothing out the new UI, and decide exactly when the Astro site is ready to fully replace the Pelican version. We also want to make sure the final result is not just newer, but actually better to maintain.
 

@@ -15,6 +15,7 @@ const posts = defineCollection({
     status: z.string().optional(),
     state: z.string().optional(),
     draft: z.boolean().optional(),
+    updated: z.string().optional(),
   }),
 });
 
