@@ -46,7 +46,7 @@ async function verifySocialUrls(origin) {
     {
       file: ['posts', 'the-death-of-the-self-taught-hacker', 'index.html'],
       route: '/posts/the-death-of-the-self-taught-hacker/',
-      image: '/images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp',
+      image: '/images/posts/the-death-of-the-self-taught-hacker/the_hacker_and_the_server_fortress_thumbnail.webp',
     },
   ];
 

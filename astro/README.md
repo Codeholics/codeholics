@@ -97,13 +97,13 @@ remain literal, as do aliases inside inline and fenced code:
 
 ## Post Images
 
-Store post images under `public/images/Posts/` and reference them with
+Store post images under `public/images/posts/` and reference them with
 root-relative URLs so they work from every generated route. To add an optional
 post-card thumbnail, set `thumbnail` in the post frontmatter:
 
 ```md
 ---
-thumbnail: /images/Posts/my-post/card-image.webp
+thumbnail: /images/posts/my-post/card-image.webp
 ---
 ```
 
@@ -111,7 +111,19 @@ Use standard Markdown image syntax to render an image in the post body. Always
 provide descriptive alternative text:
 
 ```md
-![A descriptive image summary](/images/Posts/my-post/article-image.webp)
+![A descriptive image summary](/images/posts/my-post/article-image.webp)
+```
+
+Image URLs must use forward slashes and match the exact capitalization of the
+asset path (`posts`, not `Posts`); production hosting is case-sensitive even
+when a local Windows filesystem is not. Commit new image files along with the
+Markdown changes so deployment includes them.
+
+For thumbnail, post, and fullsize variants, use the thumbnail in frontmatter and
+the post-sized image in the body. To optionally link it to the fullsize image:
+
+```md
+[![A descriptive image summary](/images/posts/my-post/image_posts.webp)](/images/posts/my-post/image_fullsize.webp)
 ```
 
 ## Social Sharing Previews
@@ -159,7 +171,7 @@ For the initial deployment, inspect:
 - Homepage: `https://www.codeholics.com/`
 - Default image: `https://www.codeholics.com/assets/og-default.png`
 - Post: `https://www.codeholics.com/posts/the-death-of-the-self-taught-hacker/`
-- Post image: `https://www.codeholics.com/images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp`
+- Post image: `https://www.codeholics.com/images/posts/the-death-of-the-self-taught-hacker/the_hacker_and_the_server_fortress_thumbnail.webp`
 
 Then enter the shared page URL in
 [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) and

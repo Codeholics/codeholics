@@ -7,10 +7,10 @@ tags: "networking, hardware, review, firewall, pfsense, tplink, asus, router, sw
 slug: home-network-overhaul
 status: Published
 summary: "A practical breakdown of planning and building a segmented home network using VLANs, firewall rules, and enterprise-style design principles to improve security and organization."
-thumbnail: \images\Posts\home-network-overhaul\Cozy Home Lab Network Overhaul.webp
+thumbnail: /images/posts/home-network-overhaul/cozy_home_lab_network_overhaul_thumbnail.webp
 ---
 
-![Cozy Home Lab Network Overhaul](/images/Posts/home-network-overhaul/Cozy%20Home%20Lab%20Network%20Overhaul.webp)
+![Cozy Home Lab Network Overhaul](/images/posts/home-network-overhaul/cozy_home_lab_network_overhaul_posts.webp)
 
 ### Pre-Reqs
 * An understanding of IP networking
@@ -64,7 +64,7 @@ do icons if this is just for you. You can just do boxes or whatever makes sense 
 
 Here is what the first version of my network topology diagram looked like:
 
-![network topology v1](/images/Posts/home-network-overhaul/network_topology_v1.webp)
+![network topology v1](/images/posts/home-network-overhaul/network_topology_v1.webp)
 
 The things that were known going into the first iteration of the network topology design:
 
@@ -78,7 +78,7 @@ The things that were known going into the first iteration of the network topolog
 #### VLAN Network Assignment
 The next task is laying out all the additional VLANs and subnets that are needed.
 
-![network vlan layout](/images/Posts/home-network-overhaul/network_vlan_layout.webp)
+![network vlan layout](/images/posts/home-network-overhaul/network_vlan_layout.webp)
 
 At this point, it's time to start acquiring the hardware needed to get the job done.
 
@@ -143,7 +143,7 @@ The 1U shelves worked out really well for keeping items that were not rack mount
 
 Once the hardware is selected, a little more detail can be added to the final topology diagram.
 
-![network topology v2](/images/Posts/home-network-overhaul/network_topology_v2.webp)
+![network topology v2](/images/posts/home-network-overhaul/network_topology_v2.webp)
 
 ### Switch Port VLAN Assignment Diagram
 
@@ -152,7 +152,7 @@ My configuration is not finalized as of this moment, as I have not setup any LAG
 
 Having a document like this is handy for easy deployment and future troubleshooting. 
 
-![Network Switch Port Assignment](/images/Posts/home-network-overhaul/switch_port_assignment.webp)
+![Network Switch Port Assignment](/images/posts/home-network-overhaul/switch_port_assignment.webp)
 
 ### Conclusion
 
@@ -166,9 +166,9 @@ I would like to give a special thanks to George Markwick who has been an amazing
 
 I am going to leave this post off with a few pictures of everything racked up:  
 
-![just mounted rack](/images/Posts/home-network-overhaul/just_mounted.webp)
-![before switch](/images/Posts/home-network-overhaul/before_switch.webp)
-![rack as of this post](/images/Posts/home-network-overhaul/rack_today.webp)
+![just mounted rack](/images/posts/home-network-overhaul/just_mounted.webp)
+![before switch](/images/posts/home-network-overhaul/before_switch.webp)
+![rack as of this post](/images/posts/home-network-overhaul/rack_today.webp)
    
 My next steps are getting a 1U cable tray to get those cables under control and getting a rack mount for the Pi Cluster.
 If you enjoyed this post, please consider becoming a sponsor. The funds will be used to help keep Codeholics rolling.  

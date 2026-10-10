@@ -4,7 +4,8 @@ import sharp from 'sharp';
 
 const origin = 'https://www.codeholics.com';
 const postRoute = '/posts/the-death-of-the-self-taught-hacker/';
-const postImage = '/images/Posts/the-death-of-the-self-taught-hacker/The-Hacker-and-the-Server-Fortress.webp';
+const postImage = '/images/posts/the-death-of-the-self-taught-hacker/the_hacker_and_the_server_fortress_thumbnail.webp';
+const postBodyImage = '/images/posts/the-death-of-the-self-taught-hacker/the_hacker_and_the_server_fortress_posts.webp';
 const fallbackImage = '/assets/og-default.png';
 
 async function metadata(page: Page, html: string) {
@@ -91,7 +92,10 @@ test('published post uses its own title, summary, image, and canonical route', a
     expect(values[`twitter:${key}`]).toEqual(values[`og:${key}`]);
   }
   expect(html).toContain('The Dangerous Illusion of Centralized Safety');
-  expect(html).toContain(`<img src="${postImage}"`);
+  expect(html).toContain(`<img src="${postBodyImage}"`);
+  const bodyImage = await request.get(postBodyImage);
+  expect(bodyImage.ok()).toBeTruthy();
+  expect(bodyImage.headers()['content-type']).toContain('image/webp');
   const image = await request.get(postImage);
   expect(image.ok()).toBeTruthy();
   expect(image.headers()['content-type']).toContain('image/webp');
@@ -118,11 +122,11 @@ test('legacy post uses excerpt and default image without changing body', async (
   expect(html).toContain('This will return the exit status of the last command.');
 });
 
-test('backslash-authored thumbnail emits a reachable normalized URL', async ({ request, page }) => {
+test('surveillance post thumbnail emits a reachable lowercase posts URL', async ({ request, page }) => {
   const response = await request.get('/posts/beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)/');
   expect(response.ok()).toBeTruthy();
   const { values } = await metadata(page, await response.text());
-  const imagePath = '/images/Posts/beyond-flock-the-quiet-standardization-of-Mass-Sureillance-(tldr)/AI-Traffic-Surveillance-Network.webp';
+  const imagePath = '/images/posts/beyond-flock-the-quiet-standardization-of-Mass-Sureillance-(tldr)/ai_traffic_surveillance_network_thumbnail.webp';
   expect(values['og:image']).toEqual([`${origin}${imagePath}`]);
   expect(values['twitter:image']).toEqual(values['og:image']);
   expect(values['og:image:width']).toBeUndefined();

@@ -7,10 +7,10 @@ tags: "coding, astro, pelican, migration, copilot cli, openspec, ai, static site
 slug: "migrating-codeholics-from-pelican-to-astro"
 status: published
 summary: "Why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process."
-thumbnail: \images\Posts\migrating-codeholics-from-pelican-to-astro\Cyberpunk Pelican to Astro Migration.webp
+thumbnail: /images/posts/migrating-codeholics-from-pelican-to-astro/cyberpunk_pelican_to_astro_migration_thumbnail.webp
 ---
 
-![Cyberpunk Pelican to Astro Migration](/images/Posts/migrating-codeholics-from-pelican-to-astro/Cyberpunk%20Pelican%20to%20Astro%20Migration.webp)
+![Cyberpunk Pelican to Astro Migration](/images/posts/migrating-codeholics-from-pelican-to-astro/cyberpunk_pelican_to_astro_migration_posts.webp)
 
 For years Codeholics has been powered by Pelican, and it has served the site well. The workflow was simple, the output was fast, and it fit the original needs of the project. Over time though, the frontend started to feel harder to evolve. As the site design and navigation needs changed, we wanted a stack that still produced a static site but gave us a more modern component model and a smoother path for UI improvements.
 
