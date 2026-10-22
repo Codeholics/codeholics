@@ -179,6 +179,37 @@ request **Scrape Again**. These are deployment checks, not proof that a local
 test has updated the live site. Facebook controls rendering and caching;
 re-scraping does not guarantee that already published shares update.
 
+## Featured Projects
+
+Featured Projects is a dedicated, full-width page at `/projects/`, linked from
+the primary navigation. Its My Projects section shows the selected Codeholics
+repositories `Codeholics/PAC`, `Codeholics/codeholics`,
+`Codeholics/US-Mass-Shootings`, and `Codeholics/PSLogging2`. The Recommended
+Projects section groups manually curated GitHub repositories into categories.
+Category controls work with pointer and keyboard input.
+
+The unboxed hero starts directly beneath the navbar. Its desktop height follows
+the supplied full-size artwork's 1920-by-768 proportions; mobile uses a taller focal crop.
+The shared layout's `flushTop` option removes top padding only for this page.
+
+To add or remove recommendations, edit `CURATED_REPOSITORY_CATEGORIES` in
+[`src/lib/github-projects.mjs`](./src/lib/github-projects.mjs) and add
+`https://github.com/<owner>/<repository>` links to the desired category's
+`repositories` array. The categories currently start empty until repositories
+are selected. Repository names, descriptions, star and fork counts, and
+available primary-language details are fetched during the build and rendered
+into static HTML; visitors' browsers do not request the GitHub API. Only HTTPS
+GitHub repository URLs are accepted. Invalid URLs and failed metadata requests
+produce build warnings and omit only the affected entry.
+
+The build can use an optional `GITHUB_TOKEN` environment variable to authenticate
+its GitHub API requests and avoid the lower unauthenticated API rate limit. When
+it is not set, the build requests public repository metadata without
+authentication. Keep any configured token in the build environment or CI secret
+store; do not expose it through a `PUBLIC_` variable or commit it to the
+repository. Failed repository requests produce a build warning and omit only
+the affected card.
+
 ## Commands
 
 All commands are run from the root of the project, from a terminal:

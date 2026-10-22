@@ -1,0 +1,203 @@
+---
+import GithubProjectCard from './GithubProjectCard.astro';
+
+interface Category {
+  id: string;
+  label: string;
+  repositories: Array<{
+    fullName: string;
+    htmlUrl: string;
+    description: string | null;
+    stars: number;
+    forks: number;
+    language: string | null;
+  }>;
+}
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+const tabId = (id: string) => `curated-tab-${id}`;
+const panelId = (id: string) => `curated-panel-${id}`;
+---
+
+<section class="curated-section" aria-labelledby="curated-projects-heading">
+  <div class="curated-section-header">
+    <div>
+      <p class="projects-eyebrow">Curated Repositories</p>
+      <h2 id="curated-projects-heading" class="theme-section-heading">Recommended Projects</h2>
+      <p class="curated-intro">
+        Useful repositories, organized by category and selected by Codeholics.
+      </p>
+    </div>
+  </div>
+
+  {categories.length > 0 && (
+    <div class="curated-tabs" role="tablist" aria-label="Project categories">
+      {categories.map((category, index) => (
+        <button
+          id={tabId(category.id)}
+          class="curated-tab"
+          type="button"
+          role="tab"
+          aria-controls={panelId(category.id)}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? 0 : -1}
+          data-category-tab
+          data-category-id={category.id}
+        >
+          {category.label}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="curated-panels">
+    {categories.map((category, index) => (
+      <section
+        id={panelId(category.id)}
+        class="curated-panel"
+        role="tabpanel"
+        aria-labelledby={tabId(category.id)}
+        tabindex="0"
+        data-category-panel
+        data-category-id={category.id}
+        hidden={index !== 0}
+      >
+        {category.repositories.length > 0 ? (
+          <div class="curated-project-grid">
+            {category.repositories.map((project) => (
+              <GithubProjectCard project={project} showStaticBadge={false} />
+            ))}
+          </div>
+        ) : (
+          <p class="curated-empty-state">
+            Recommendations for this category are being curated.
+          </p>
+        )}
+      </section>
+    ))}
+  </div>
+</section>
+
+<script>
+  function setupCategoryTabs() {
+    document.querySelectorAll<HTMLElement>('.curated-section').forEach((section) => {
+      const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-category-tab]'));
+      const panels = Array.from(section.querySelectorAll<HTMLElement>('[data-category-panel]'));
+
+      function activate(index: number, moveFocus: boolean) {
+        tabs.forEach((tab, tabIndex) => {
+          const selected = tabIndex === index;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+        });
+        panels.forEach((panel, panelIndex) => {
+          panel.hidden = panelIndex !== index;
+        });
+        if (moveFocus) tabs[index]?.focus();
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activate(index, false));
+        tab.addEventListener('keydown', (event) => {
+          let nextIndex = index;
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+          else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+          else if (event.key === 'Home') nextIndex = 0;
+          else if (event.key === 'End') nextIndex = tabs.length - 1;
+          else return;
+
+          event.preventDefault();
+          activate(nextIndex, true);
+        });
+      });
+    });
+  }
+
+  setupCategoryTabs();
+</script>
+
+<style>
+  .curated-section {
+    margin-top: 2.5rem;
+  }
+
+  .projects-eyebrow {
+    margin-bottom: 0.35rem;
+    color: var(--muted-soft);
+    font-family: ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .curated-intro {
+    margin-top: 0.35rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  .curated-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    margin-top: 1.25rem;
+    scrollbar-width: thin;
+  }
+
+  .curated-tab {
+    flex: none;
+    border: 1px solid var(--surface-border);
+    border-radius: 0.375rem;
+    background: var(--surface-bg);
+    padding: 0.65rem 0.9rem;
+    color: var(--page-text);
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .curated-tab[aria-selected='true'] {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 18%, var(--surface-bg));
+    color: var(--page-heading);
+  }
+
+  .curated-tab:hover {
+    border-color: var(--accent);
+  }
+
+  .curated-tab:focus-visible,
+  .curated-panel:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .curated-panels {
+    border: 1px solid var(--surface-border);
+    border-radius: 0.5rem;
+    background: var(--surface-bg);
+  }
+
+  .curated-panel {
+    padding: 1rem;
+  }
+
+  .curated-panel[hidden] {
+    display: none;
+  }
+
+  .curated-project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+  }
+
+  .curated-empty-state {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+</style>

@@ -12,6 +12,8 @@ interface Props {
   description?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
+  wide?: boolean;
+  flushTop?: boolean;
 }
 
 const defaultImage = '/assets/og-default.png';
@@ -20,6 +22,8 @@ const {
   description = 'Notes, tutorials, and reviews about software, hardware, and systems - written with clarity and practical examples.',
   ogImage,
   ogType = 'website',
+  wide = false,
+  flushTop = false,
 } = Astro.props;
 
 if (!Astro.site) {
@@ -105,7 +109,7 @@ const isDefaultImage = imageUrl === new URL(defaultImage, Astro.site).href;
   </head>
   <body class="min-h-screen font-inter">
     <HeaderAppbar />
-    <main class="max-w-4xl mx-auto px-4 py-8">
+    <main class:list={['mx-auto px-4 pb-8', !flushTop && 'pt-8', wide ? 'max-w-7xl' : 'max-w-4xl']}>
       <slot />
     </main>
     <Footer />

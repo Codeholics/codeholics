@@ -1,0 +1,87 @@
+# Spec Delta
+
+## Purpose
+
+Showcase Codeholics repositories and manually curated GitHub recommendations on a dedicated, accessible Featured Projects page, with useful repository details grouped by category.
+
+## ADDED Requirements
+
+### Requirement: Featured Projects has a dedicated page
+The site SHALL provide a dedicated full-width Featured Projects page at `/projects/` with a clear page heading and a primary navigation link labeled “Projects”.
+
+#### Scenario: Visitor opens the Projects page
+- **WHEN** a visitor follows the Projects navigation link or opens `/projects/`
+- **THEN** the site displays the Featured Projects page rather than placing the projects section in the homepage sidebar
+
+### Requirement: Page features Codeholics repositories
+The Featured Projects page SHALL show selected Codeholics repositories in a distinct My Projects section when their repository data is available.
+
+#### Scenario: Metadata is available for a Codeholics repository
+- **WHEN** the page is generated with valid metadata for a selected Codeholics repository
+- **THEN** its project card shows its repository name, description, star count, fork count, language when present, and Static badge
+
+#### Scenario: A Codeholics repository is unavailable
+- **WHEN** metadata for a selected Codeholics repository cannot be loaded or validated
+- **THEN** that repository is omitted and the other available projects remain visible
+
+### Requirement: Curated repositories are organized by category
+The Featured Projects page SHALL show manually selected GitHub repositories in curator-defined categories, with repository details obtained from the configured repository links.
+
+#### Scenario: Curated category contains available repositories
+- **WHEN** a visitor views a curated category with available repository metadata
+- **THEN** the category displays the repositories in their configured order with their repository name, description, star count, fork count, and language when present
+
+#### Scenario: Visitor switches curated categories
+- **WHEN** a visitor activates a category control
+- **THEN** the corresponding curated repository list becomes visible and the selected category is indicated accessibly
+
+### Requirement: Repository metadata is rendered at build time
+The system SHALL retrieve repository metadata during static site generation and render it into the page without requiring browser-side GitHub API requests.
+
+#### Scenario: Static page contains repository metadata
+- **WHEN** the production site is built successfully
+- **THEN** available repository names, descriptions, and metrics are present in generated HTML without a browser-side GitHub API request
+
+#### Scenario: Authenticated API request is configured
+- **WHEN** a GitHub token is provided through the build environment
+- **THEN** the system uses it for GitHub API requests without exposing it in generated HTML, client-side assets, or browser requests
+
+### Requirement: Curated repository links are validated
+The system SHALL accept only valid GitHub repository links for curated entries and SHALL not use a configured URL as an arbitrary API request destination.
+
+#### Scenario: Curated GitHub repository link is valid
+- **WHEN** a curator configures a valid GitHub repository URL
+- **THEN** the system resolves its owner and repository through the GitHub API and associates the metadata with its configured category
+
+#### Scenario: Curated link is invalid or not a repository URL
+- **WHEN** a configured curated link is invalid or does not identify a GitHub repository
+- **THEN** the system reports the invalid entry during the build and does not request that URL
+
+### Requirement: Unavailable repository metadata does not block the build
+The system SHALL report failed or invalid repository metadata requests and omit only affected entries without preventing the Featured Projects page from building.
+
+#### Scenario: One repository metadata request fails
+- **WHEN** a GitHub request fails or returns invalid data for one repository
+- **THEN** the build reports which repository could not be loaded, omits only its card, and continues rendering other available cards
+
+### Requirement: Featured Projects is responsive and theme readable
+The system SHALL present project cards and category controls without horizontal overflow and preserve readable contrast in the site's light and dark themes.
+
+#### Scenario: Visitor views projects at different viewport widths
+- **WHEN** the visitor views the page on a narrow or wide viewport
+- **THEN** the page content and project cards reflow to fit the available width without horizontal overflow
+
+#### Scenario: Visitor changes the site theme
+- **WHEN** the visitor views the page in light or dark mode
+- **THEN** card surfaces, text, metadata, borders, category controls, and hover or focus states remain distinguishable and readable
+
+### Requirement: Project links are accessible and safe
+The system SHALL provide keyboard-accessible repository links and category controls with visible focus indication and safe external-link behavior.
+
+#### Scenario: Visitor opens a repository
+- **WHEN** a visitor activates a repository link by pointer or keyboard
+- **THEN** the repository opens in a new tab with appropriate link security attributes and the focused link has a visible focus style
+
+#### Scenario: Visitor operates category controls with a keyboard
+- **WHEN** a keyboard user navigates and activates curated category controls
+- **THEN** each control is reachable, its selected state is exposed accessibly, and the active repository list can be reached by keyboard

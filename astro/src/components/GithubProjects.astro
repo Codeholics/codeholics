@@ -1,0 +1,84 @@
+---
+import { loadFeaturedRepositories } from '../lib/github-projects.mjs';
+import GithubProjectCard from './GithubProjectCard.astro';
+
+const projects = await loadFeaturedRepositories({
+  token: import.meta.env.GITHUB_TOKEN,
+});
+---
+
+{projects.length > 0 && (
+  <section class="projects-section" aria-labelledby="my-projects-heading">
+    <div class="projects-section-header">
+      <div>
+        <p class="projects-eyebrow">GitHub Repositories</p>
+        <h2 id="my-projects-heading" class="theme-section-heading">My Projects</h2>
+      </div>
+      <a class="projects-all-link" href="https://github.com/Codeholics" target="_blank" rel="noopener noreferrer">
+        View all on GitHub <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="featured-projects-grid" aria-label="Codeholics repositories">
+      {projects.map((project) => <GithubProjectCard project={project} />)}
+    </div>
+  </section>
+)}
+
+<style>
+  .projects-section {
+    margin-top: 2.5rem;
+  }
+
+  .projects-section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--surface-border);
+    padding-bottom: 1rem;
+  }
+
+  .projects-eyebrow {
+    margin-bottom: 0.35rem;
+    color: var(--muted-soft);
+    font-family: ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .projects-all-link {
+    flex: none;
+    border: 1px solid var(--accent);
+    border-radius: 0.35rem;
+    padding: 0.4rem 0.65rem;
+    color: var(--page-heading);
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+
+  .projects-all-link:hover,
+  .projects-all-link:focus-visible {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .projects-all-link:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .featured-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    .projects-section-header {
+      align-items: start;
+      flex-direction: column;
+    }
+  }
+</style>

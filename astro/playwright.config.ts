@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npm run build && npm run preview -- --port 3000',
+    command: 'node --import ./scripts/mock-github-api-for-e2e.mjs ./node_modules/astro/bin/astro.mjs build && npm run preview -- --port 3000',
     port: 3000,
     timeout: 120_000,
     reuseExistingServer: false,
