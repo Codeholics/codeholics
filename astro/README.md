@@ -188,9 +188,24 @@ repositories `Codeholics/PAC`, `Codeholics/codeholics`,
 Projects section groups manually curated GitHub repositories into categories.
 Category controls work with pointer and keyboard input.
 
-The unboxed hero starts directly beneath the navbar. Its desktop height follows
-the supplied full-size artwork's 1920-by-768 proportions; mobile uses a taller focal crop.
-The shared layout's `flushTop` option removes top padding only for this page.
+The unboxed hero starts directly beneath the navbar. It serves
+`public/images/projects/cyberpunk_developer_desk_under_moonlight_fullsize.webp`
+(1983 by 793) through `publicAssetUrl`, as a decorative, high-priority image.
+The matching `.png` remains in `public/` as the source asset but is not
+referenced by the page; do not add a PNG fallback or preload. The desktop
+height follows the artwork's proportions; below 641px the artwork stacks above
+the copy as a focal crop. The shared layout's `flushTop` option removes top
+padding only for this page.
+
+The hero follows the active light or dark theme without page-specific colors or
+scripts. The eyebrow, title, and summary use `--accent`, `--page-heading`, and
+`--muted`. A CSS mask fades the artwork itself, so the page background
+underneath shows through and no overlay color has to match it. On desktop the
+artwork is fully transparent behind the copy column and becomes opaque toward
+the right. On mobile its lower edge fades out above the copy. A light
+`var(--bg)` tint at the top and bottom edges softens the frame. In dark mode the
+result stays atmospheric; in light mode the artwork blends into the light page
+instead of forming a dark banner. The photograph is not filtered or recolored.
 
 To add or remove recommendations, edit `CURATED_REPOSITORY_CATEGORIES` in
 [`src/lib/github-projects.mjs`](./src/lib/github-projects.mjs) and add

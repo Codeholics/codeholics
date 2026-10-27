@@ -127,7 +127,7 @@ const panelId = (id: string) => `curated-panel-${id}`;
 
   .projects-eyebrow {
     margin-bottom: 0.35rem;
-    color: var(--muted-soft);
+    color: var(--muted);
     font-family: ui-monospace, monospace;
     font-size: 0.7rem;
     letter-spacing: 0.08em;
@@ -140,11 +140,13 @@ const panelId = (id: string) => `curated-panel-${id}`;
     font-size: 0.875rem;
   }
 
+  /* Padding keeps the 3px + 3px-offset focus ring inside the scroll container, which would otherwise clip it. */
   .curated-tabs {
     display: flex;
     gap: 0.5rem;
     overflow-x: auto;
-    margin-top: 1.25rem;
+    margin: 0.875rem -0.375rem 0.125rem;
+    padding: 0.375rem;
     scrollbar-width: thin;
   }
 

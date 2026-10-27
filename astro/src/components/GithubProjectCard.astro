@@ -106,14 +106,20 @@ const languageColor = project.language
   .project-card-link {
     display: inline-flex;
     min-width: 0;
+    max-width: 100%;
     align-items: center;
     gap: 0.4rem;
     border-radius: 0.2rem;
     text-decoration: none;
   }
 
+  /* Lets long repository names truncate instead of running under the Static badge. */
+  .project-card-link > span {
+    min-width: 0;
+  }
+
   .project-card-link:hover {
-    color: var(--accent);
+    color: var(--accent-hover);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
@@ -158,7 +164,7 @@ const languageColor = project.language
     align-items: center;
     justify-content: space-between;
     gap: 0.625rem;
-    color: var(--muted-soft);
+    color: var(--muted);
     font-size: 0.6875rem;
     font-weight: 500;
   }

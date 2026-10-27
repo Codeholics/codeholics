@@ -9,7 +9,7 @@ const curatedCategories = await loadCuratedRepositories({
   token: import.meta.env.GITHUB_TOKEN,
 });
 const heroImageUrl = publicAssetUrl(
-  '/images/projects/cyberpunk_developer_desk_under_moonlight_fullsize.png',
+  '/images/projects/cyberpunk_developer_desk_under_moonlight_fullsize.webp',
 );
 ---
 
@@ -25,8 +25,8 @@ const heroImageUrl = publicAssetUrl(
         <img
           src={heroImageUrl}
           alt=""
-          width="1920"
-          height="768"
+          width="1983"
+          height="793"
           fetchpriority="high"
         />
       </div>
@@ -62,19 +62,28 @@ const heroImageUrl = publicAssetUrl(
     background: transparent;
   }
 
+  /*
+   * The mask fades the artwork into whatever page background is underneath, so the blend follows the
+   * theme and the body gradient without a seam. It is fully transparent across the copy column's overlap.
+   */
   .projects-hero-art {
     position: absolute;
     z-index: 0;
     inset: 0 0 0 auto;
     width: 58%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 16%, rgb(0 0 0 / 0.3) 30%, rgb(0 0 0 / 0.8) 62%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 16%, rgb(0 0 0 / 0.3) 30%, rgb(0 0 0 / 0.8) 62%, #000 100%);
   }
 
   .projects-hero-art::after {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(90deg, var(--bg) 0%, rgba(7, 13, 24, 0.92) 12%, rgba(7, 13, 24, 0.2) 62%, rgba(7, 13, 24, 0.08) 100%),
-      linear-gradient(0deg, rgba(7, 13, 24, 0.3), transparent 38%, rgba(7, 13, 24, 0.16));
+    background: linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--bg) 30%, transparent),
+      transparent 38%,
+      color-mix(in srgb, var(--bg) 16%, transparent)
+    );
     content: '';
   }
 
@@ -94,7 +103,7 @@ const heroImageUrl = publicAssetUrl(
   }
 
   .projects-eyebrow {
-    color: #67e8f9;
+    color: var(--accent);
     font-family: ui-monospace, monospace;
     font-size: 0.75rem;
     letter-spacing: 0.1em;
@@ -103,7 +112,7 @@ const heroImageUrl = publicAssetUrl(
 
   .projects-title {
     margin-top: 0.55rem;
-    color: #f8fafc;
+    color: var(--page-heading);
     font-size: clamp(2.25rem, 6vw, 3.75rem);
     font-weight: 800;
     letter-spacing: -0.035em;
@@ -113,36 +122,36 @@ const heroImageUrl = publicAssetUrl(
   .projects-summary {
     max-width: 44rem;
     margin-top: 1rem;
-    color: #cbd5e1;
+    color: var(--muted);
     font-size: 1rem;
     line-height: 1.7;
   }
 
+  /* Narrow screens stack the art above the copy so every wrapped line sits on the page background. */
   @media (max-width: 640px) {
     .projects-hero {
-      min-height: 21rem;
+      min-height: 0;
       grid-template-columns: minmax(0, 1fr);
-      align-items: end;
+      align-items: start;
     }
 
     .projects-hero-art {
+      position: relative;
+      inset: auto;
       width: 100%;
+      height: clamp(11rem, 56cqw, 14rem);
+      -webkit-mask-image: linear-gradient(0deg, transparent 0%, rgb(0 0 0 / 0.35) 22%, rgb(0 0 0 / 0.88) 60%, #000 100%);
+      mask-image: linear-gradient(0deg, transparent 0%, rgb(0 0 0 / 0.35) 22%, rgb(0 0 0 / 0.88) 60%, #000 100%);
     }
 
     .projects-hero-art img {
       object-position: 57% center;
     }
 
-    .projects-hero-art::after {
-      background:
-        linear-gradient(0deg, var(--bg) 0%, rgba(7, 13, 24, 0.9) 15%, rgba(7, 13, 24, 0.28) 75%, rgba(7, 13, 24, 0.18) 100%),
-        linear-gradient(90deg, rgba(7, 13, 24, 0.35), transparent 70%);
-    }
-
     .projects-hero-copy {
       grid-column: 1;
       max-width: 100%;
-      padding: 1.5rem 0.5rem;
+      padding: 0.5rem 0.5rem 1.5rem;
     }
   }
 </style>

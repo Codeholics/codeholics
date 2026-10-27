@@ -1,0 +1,259 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "# Codeholics" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - navigation "Primary" [ref=e7]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "~/" [ref=e10] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e11]:
+            - link "Coding" [ref=e12] [cursor=pointer]:
+              - /url: /tags/coding
+          - listitem [ref=e13]:
+            - link "SysAdmin" [ref=e14] [cursor=pointer]:
+              - /url: /tags/sysadmin
+          - listitem [ref=e15]:
+            - link "InfoSec" [ref=e16] [cursor=pointer]:
+              - /url: /tags/infosec
+          - listitem [ref=e17]:
+            - link "OS" [ref=e18] [cursor=pointer]:
+              - /url: /tags/os
+          - listitem [ref=e19]:
+            - link "Hardware" [ref=e20] [cursor=pointer]:
+              - /url: /tags/hardware
+          - listitem [ref=e21]:
+            - link "Reviews" [ref=e22] [cursor=pointer]:
+              - /url: /tags/review
+      - generic [ref=e23]:
+        - generic "Social links" [ref=e24]:
+          - link "X" [ref=e25] [cursor=pointer]:
+            - /url: https://twitter.com/root_codeholics
+          - link "Facebook" [ref=e28] [cursor=pointer]:
+            - /url: https://www.facebook.com/RootCodeholics
+          - link "Github" [ref=e31] [cursor=pointer]:
+            - /url: https://www.github.com/Codeholics
+          - link "RSS" [ref=e34] [cursor=pointer]:
+            - /url: /rss.xml
+        - button "Search" [ref=e39]
+        - button "Toggle theme" [ref=e44]
+  - main [ref=e48]:
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - heading "Codeholics" [level=1] [ref=e53]
+        - paragraph [ref=e54]: Notes, tutorials, and reviews about software, hardware, and systems — written with clarity and practical examples.
+        - generic [ref=e55]:
+          - link "View posts" [ref=e56] [cursor=pointer]:
+            - /url: /posts
+          - link "Explore tags" [ref=e57] [cursor=pointer]:
+            - /url: /tags
+      - generic [ref=e59]:
+        - heading "Sleek & modern" [level=3] [ref=e60]
+        - paragraph [ref=e61]: Readable posts, elegant layout, Tailwind-powered utilities.
+    - generic [ref=e62]:
+      - main [ref=e63]:
+        - heading "Latest posts" [level=2] [ref=e64]
+        - generic [ref=e65]:
+          - article [ref=e66]:
+            - link [ref=e67] [cursor=pointer]:
+              - /url: /posts/the-death-of-the-self-taught-hacker
+              - 'img "The Death of the Self-Taught Hacker: Why Restricting AI to Big Tech Is a Threat to Everyone" [ref=e68]'
+            - heading [level=2] [ref=e69]:
+              - 'link "The Death of the Self-Taught Hacker: Why Restricting AI to Big Tech Is a Threat to Everyone" [ref=e70] [cursor=pointer]':
+                - /url: /posts/the-death-of-the-self-taught-hacker
+            - generic [ref=e71]: 2026-09-26 16:20
+            - paragraph [ref=e72]: Why restricting AI to big tech and governments would shut down independent learning, centralize power, and kill the open, self-taught culture that built modern computing.
+          - article [ref=e73]:
+            - link [ref=e74] [cursor=pointer]:
+              - /url: /posts/beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
+              - 'img "Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)" [ref=e75]'
+            - heading [level=2] [ref=e76]:
+              - 'link "Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)" [ref=e77] [cursor=pointer]':
+                - /url: /posts/beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
+            - generic [ref=e78]: 2026-09-25 16:20
+            - paragraph [ref=e79]: A quick look at how Flock Safety and municipal AI surveillance systems are scaling, why the architecture is risky, and why the debate is moving beyond one company to the broader normalization of mass surveillance.
+          - article [ref=e80]:
+            - link [ref=e81] [cursor=pointer]:
+              - /url: /posts/migrating-codeholics-from-pelican-to-astro
+              - img "Migrating Codeholics from Pelican to Astro" [ref=e82]
+            - heading [level=2] [ref=e83]:
+              - link "Migrating Codeholics from Pelican to Astro" [ref=e84] [cursor=pointer]:
+                - /url: /posts/migrating-codeholics-from-pelican-to-astro
+            - generic [ref=e85]: 2026-09-22 15:14
+            - paragraph [ref=e86]: Why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process.
+          - article [ref=e87]:
+            - link [ref=e88] [cursor=pointer]:
+              - /url: /posts/home-network-overhaul
+              - img "Home Network Overhaul with Enterprise Techniques" [ref=e89]
+            - heading [level=2] [ref=e90]:
+              - link "Home Network Overhaul with Enterprise Techniques" [ref=e91] [cursor=pointer]:
+                - /url: /posts/home-network-overhaul
+            - generic [ref=e92]: 2022-06-20 18:39
+            - paragraph [ref=e93]: A practical breakdown of planning and building a segmented home network using VLANs, firewall rules, and enterprise-style design principles to improve security and organization.
+        - generic [ref=e94]:
+          - heading "All posts" [level=3] [ref=e95]
+          - generic [ref=e96]:
+            - article [ref=e97]:
+              - link [ref=e98] [cursor=pointer]:
+                - /url: /posts/the-death-of-the-self-taught-hacker
+                - 'img "The Death of the Self-Taught Hacker: Why Restricting AI to Big Tech Is a Threat to Everyone" [ref=e99]'
+              - heading [level=2] [ref=e100]:
+                - 'link "The Death of the Self-Taught Hacker: Why Restricting AI to Big Tech Is a Threat to Everyone" [ref=e101] [cursor=pointer]':
+                  - /url: /posts/the-death-of-the-self-taught-hacker
+              - generic [ref=e102]: 2026-09-26 16:20
+              - paragraph [ref=e103]: Why restricting AI to big tech and governments would shut down independent learning, centralize power, and kill the open, self-taught culture that built modern computing.
+            - article [ref=e104]:
+              - link [ref=e105] [cursor=pointer]:
+                - /url: /posts/beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
+                - 'img "Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)" [ref=e106]'
+              - heading [level=2] [ref=e107]:
+                - 'link "Beyond Flock: The Quiet Standardization of Mass Surveillance (TLDR)" [ref=e108] [cursor=pointer]':
+                  - /url: /posts/beyond-flock-the-quiet-standardization-of-mass-surveillance-(tldr)
+              - generic [ref=e109]: 2026-09-25 16:20
+              - paragraph [ref=e110]: A quick look at how Flock Safety and municipal AI surveillance systems are scaling, why the architecture is risky, and why the debate is moving beyond one company to the broader normalization of mass surveillance.
+            - article [ref=e111]:
+              - link [ref=e112] [cursor=pointer]:
+                - /url: /posts/migrating-codeholics-from-pelican-to-astro
+                - img "Migrating Codeholics from Pelican to Astro" [ref=e113]
+              - heading [level=2] [ref=e114]:
+                - link "Migrating Codeholics from Pelican to Astro" [ref=e115] [cursor=pointer]:
+                  - /url: /posts/migrating-codeholics-from-pelican-to-astro
+              - generic [ref=e116]: 2026-09-22 15:14
+              - paragraph [ref=e117]: Why Codeholics is moving from Pelican to Astro, and how Copilot CLI and OpenSpec are shaping the migration process.
+            - article [ref=e118]:
+              - link [ref=e119] [cursor=pointer]:
+                - /url: /posts/home-network-overhaul
+                - img "Home Network Overhaul with Enterprise Techniques" [ref=e120]
+              - heading [level=2] [ref=e121]:
+                - link "Home Network Overhaul with Enterprise Techniques" [ref=e122] [cursor=pointer]:
+                  - /url: /posts/home-network-overhaul
+              - generic [ref=e123]: 2022-06-20 18:39
+              - paragraph [ref=e124]: A practical breakdown of planning and building a segmented home network using VLANs, firewall rules, and enterprise-style design principles to improve security and organization.
+            - article [ref=e125]:
+              - heading [level=2] [ref=e126]:
+                - link "Mycroft Personal Assistant Setup Part 2" [ref=e127] [cursor=pointer]:
+                  - /url: /posts/mycroft-part-2-precise
+              - generic [ref=e128]: 2022-06-16 18:39
+            - article [ref=e129]:
+              - heading [level=2] [ref=e130]:
+                - link "Mycroft Personal Assistant Setup Part 1" [ref=e131] [cursor=pointer]:
+                  - /url: /posts/mycroft-part-1
+              - generic [ref=e132]: 2021-10-05 07:39
+              - paragraph [ref=e133]: A hands-on build log for creating a privacy-focused Mycroft voice assistant on a Raspberry Pi 4 with a ReSpeaker mic, speaker, and custom hardware setup.
+            - article [ref=e134]:
+              - heading [level=2] [ref=e135]:
+                - link "Using lua-openssl to view x509 attributes" [ref=e136] [cursor=pointer]:
+                  - /url: /posts/lua-openssl
+              - generic [ref=e137]: 2021-03-25 07:39
+            - article [ref=e138]:
+              - heading [level=2] [ref=e139]:
+                - link "Git GPG Signing Setup on OSX" [ref=e140] [cursor=pointer]:
+                  - /url: /posts/git-gpg-signing-osx
+              - generic [ref=e141]: 2021-02-22 07:39
+            - article [ref=e142]:
+              - heading [level=2] [ref=e143]:
+                - link "Kali Linux (rolling) Blank Screen Fix" [ref=e144] [cursor=pointer]:
+                  - /url: /posts/kali-rolling-blank-screen-fix
+              - generic [ref=e145]: 2020-10-23 13:41
+            - article [ref=e146]:
+              - heading [level=2] [ref=e147]:
+                - link "Moving a website from Wordpress to Pelican" [ref=e148] [cursor=pointer]:
+                  - /url: /posts/moving_a_website_from_wordpress_to_pelican
+              - generic [ref=e149]: 2019-03-01 20:43
+          - navigation [ref=e150]:
+            - link "Older →" [ref=e151] [cursor=pointer]:
+              - /url: /page/2
+      - complementary [ref=e152]:
+        - generic [ref=e153]:
+          - heading "Tags" [level=4] [ref=e154]
+          - generic [ref=e155]:
+            - link "coding 14" [ref=e156] [cursor=pointer]:
+              - /url: /tags/coding
+            - link "linux 13" [ref=e157] [cursor=pointer]:
+              - /url: /tags/linux
+            - link "os 9" [ref=e158] [cursor=pointer]:
+              - /url: /tags/os
+            - link "hardware 8" [ref=e159] [cursor=pointer]:
+              - /url: /tags/hardware
+            - link "sysadmin 8" [ref=e160] [cursor=pointer]:
+              - /url: /tags/sysadmin
+            - link "review 7" [ref=e161] [cursor=pointer]:
+              - /url: /tags/review
+            - link "python 7" [ref=e162] [cursor=pointer]:
+              - /url: /tags/python
+            - link "infosec 5" [ref=e163] [cursor=pointer]:
+              - /url: /tags/infosec
+            - link "video 5" [ref=e164] [cursor=pointer]:
+              - /url: /tags/video
+            - link "shell 4" [ref=e165] [cursor=pointer]:
+              - /url: /tags/shell
+            - link "book review 4" [ref=e166] [cursor=pointer]:
+              - /url: /tags/book%20review
+            - link "crypto 3" [ref=e167] [cursor=pointer]:
+              - /url: /tags/crypto
+            - link "pelican 2" [ref=e168] [cursor=pointer]:
+              - /url: /tags/pelican
+            - link "ai 2" [ref=e169] [cursor=pointer]:
+              - /url: /tags/ai
+            - link "mycroft 2" [ref=e170] [cursor=pointer]:
+              - /url: /tags/mycroft
+            - link "raspberrypi 2" [ref=e171] [cursor=pointer]:
+              - /url: /tags/raspberrypi
+            - link "pi4 2" [ref=e172] [cursor=pointer]:
+              - /url: /tags/pi4
+            - link "respeaker 2" [ref=e173] [cursor=pointer]:
+              - /url: /tags/respeaker
+            - link "opensource 2" [ref=e174] [cursor=pointer]:
+              - /url: /tags/opensource
+            - link "git 2" [ref=e175] [cursor=pointer]:
+              - /url: /tags/git
+            - link "docker 2" [ref=e176] [cursor=pointer]:
+              - /url: /tags/docker
+            - link "wordpress 2" [ref=e177] [cursor=pointer]:
+              - /url: /tags/wordpress
+            - link "C 2" [ref=e178] [cursor=pointer]:
+              - /url: /tags/C
+            - link "scifi 2" [ref=e179] [cursor=pointer]:
+              - /url: /tags/scifi
+        - generic [ref=e180]:
+          - heading "Categories" [level=4] [ref=e181]
+          - list [ref=e182]:
+            - listitem [ref=e183]:
+              - link "Surveillance (1)" [ref=e184] [cursor=pointer]:
+                - /url: /categories/Surveillance
+            - listitem [ref=e185]:
+              - link "surveillance (1)" [ref=e186] [cursor=pointer]:
+                - /url: /categories/surveillance
+            - listitem [ref=e187]:
+              - link "Coding (6)" [ref=e188] [cursor=pointer]:
+                - /url: /categories/Coding
+            - listitem [ref=e189]:
+              - link "Hardware (2)" [ref=e190] [cursor=pointer]:
+                - /url: /categories/Hardware
+            - listitem [ref=e191]:
+              - link "Software (1)" [ref=e192] [cursor=pointer]:
+                - /url: /categories/Software
+            - listitem [ref=e193]:
+              - link "Infosec (1)" [ref=e194] [cursor=pointer]:
+                - /url: /categories/Infosec
+            - listitem [ref=e195]:
+              - link "Linux (13)" [ref=e196] [cursor=pointer]:
+                - /url: /categories/Linux
+            - listitem [ref=e197]:
+              - link "Python (1)" [ref=e198] [cursor=pointer]:
+                - /url: /categories/Python
+            - listitem [ref=e199]:
+              - link "Book Review (3)" [ref=e200] [cursor=pointer]:
+                - /url: /categories/Book%20Review
+            - listitem [ref=e201]:
+              - link "Video (6)" [ref=e202] [cursor=pointer]:
+                - /url: /categories/Video
+            - listitem [ref=e203]:
+              - link "Review (2)" [ref=e204] [cursor=pointer]:
+                - /url: /categories/Review
+            - listitem [ref=e205]:
+              - link "Windows (2)" [ref=e206] [cursor=pointer]:
+                - /url: /categories/Windows
+  - contentinfo [ref=e207]:
+    - generic [ref=e208]: © 2026 Codeholics

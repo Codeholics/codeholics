@@ -1,10 +1,12 @@
 ---
-
 title: "Mycroft Personal Assistant Setup Part 2"
 date: "2022-06-16 18:39"
 category: "Software"
 tags: "ai, coding, mycroft, raspberrypi, pi4, python, respeaker, hardware, opensource"
+thumbnail: /images/posts/mycroft-personal-assistant-setup/local_jarvis_homelab_workstation_posts.webp
 ---
+
+![Mycroft Personal Assistant Setup](/images/posts/mycroft-personal-assistant-setup/local_jarvis_homelab_workstation_posts.webp)
 
 
 ### Intro

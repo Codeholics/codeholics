@@ -11,7 +11,7 @@
 
 Codeholics is a technical publication built around curiosity, experimentation, systems engineering, open technology, and the culture of learning by building.
 
-The interface should feel like a modern developer workstation translated into an editorial website: dark, precise, technical, information-dense when appropriate, but never cluttered. Terminal and Linux influences are welcome, but Codeholics must not look like a stereotypical "hacker" website.
+The interface should feel like a modern developer workstation translated into an editorial website: precise, technical, information-dense when appropriate, but never cluttered. Dark mode is the reference expression of the brand; light mode is a first-class equivalent with the same identity, not an afterthought. Terminal and Linux influences are welcome, but Codeholics must not look like a stereotypical "hacker" website.
 
 The design should balance **developer-tool aesthetics with high-quality editorial design**. Articles may be long and technical, so readability always takes priority over decoration.
 
@@ -30,11 +30,12 @@ Codeholics should feel handcrafted by someone who actually works with Linux, aut
 
 ### Key Characteristics
 
-- Dark-first interface
+- Dark-first design with a first-class light theme
+- Follows the visitor's OS color-scheme preference by default
 - Strong typographic hierarchy
 - Terminal-inspired details used selectively
 - Thin borders instead of excessive shadows
-- Subtle blue/cyan technical accents
+- Restrained violet/lavender accents over cool slate neutrals
 - High information clarity
 - Strong code and technical-content presentation
 - Restrained animation
@@ -60,87 +61,172 @@ If an element does none of these things, remove it.
 
 # 2. Color Palette & Roles
 
-Codeholics uses a cool, dark neutral palette with restrained blue/cyan accents.
+Codeholics uses the existing [live site](https://codeholics.com/) palette: cool slate neutrals with violet accents in light mode and lavender accents in dark mode.
 
-Bright accent colors should be rare enough that they naturally attract attention.
+**Color baseline verified on 2026-10-27:** the live homepage was inspected in both themes using computed styles and screenshots. Its shared theme values match `astro/src/styles/global.css`. The tables below retain the actual CSS variable names and source RGBA notation; deployed CSS may serialize the same values as eight-digit hex.
 
-## Primary
+This section documents the approved current appearance, not a proposed redesign. Preserve its colors, transparency, gradients, and theme-specific contrast relationships. A future palette redesign requires a separate, explicit decision.
 
-| Role | Hex | Usage |
-|---|---|---|
-| Primary | `#38BDF8` | Primary links, important accents, active states |
-| Primary Dark | `#0284C7` | Hover/pressed states |
-| Primary Light | `#7DD3FC` | High-emphasis text and subtle highlights |
-| Primary Muted | `#0C4A6E` | Accent backgrounds and subtle selected states |
+Reuse the existing theme variables and `theme-*` helpers. A migration to new `--color-*` names or a different Tailwind token scheme is not required. Other sections remain design guidance; this color capture is not evidence that every typography, spacing, or interaction rule already matches production.
 
-## Secondary Accent
+## Theme Modes
 
-| Role | Hex | Usage |
-|---|---|---|
-| Accent | `#22D3EE` | Terminal accents, small highlights, technical indicators |
-| Accent Dark | `#0891B2` | Hover/active accent states |
-| Accent Soft | `#164E63` | Low-emphasis accent surfaces |
+| Mode | Behavior |
+|---|---|
+| **System** (default) | Follows the visitor's `prefers-color-scheme`. Updates live if the OS preference changes. |
+| **Light** | Forces the light theme. |
+| **Dark** | Forces the dark theme. |
 
-Primary and accent colors should **not** become large decorative gradients.
+Rules:
 
-They exist primarily for hierarchy and interaction.
+1. **Default is System.** A first-time visitor sees the theme their OS requests.
+2. **Dark is the reference theme.** Design and review new UI in dark first, then verify it in light. When a visitor has no OS preference, the site follows the browser default for `prefers-color-scheme`.
+3. **Both themes are first-class.** Every page and component must meet the same hierarchy, readability, and WCAG AA contrast requirements in both themes. "Looks fine in dark" is not done.
+4. **The visitor's explicit choice persists** across pages and visits (`localStorage`). Choosing System restores OS-based resolution; the existing implementation stores this mode as `auto`.
+5. **No flash of the wrong theme.** The resolved theme must be applied before first paint by a small blocking inline script in `<head>`. This is the one justified exception to zero-JS-by-default for theming.
+6. **The theme is applied in one place:** a `dark` class on `<html>`, with `color-scheme: dark` or `color-scheme: light` set to match so native controls and scrollbars follow.
+7. **Without JavaScript the site must remain fully readable.** Falling back to the light theme is acceptable; following `prefers-color-scheme` through CSS is preferred where practical.
+8. **Theme switching is instant.** Do not cross-fade or animate the whole page between themes.
+9. Provide a `<meta name="theme-color">` for each scheme (`media="(prefers-color-scheme: dark)"` / `light`) using the Page Background token.
+
+### Theme Toggle
+
+- Lives in the primary navigation on every page, on both desktop and mobile.
+- Is a native `<button>`. Its accessible name states the current mode and the action (for example "Theme: System. Switch to light").
+- Cycles **System → Light → Dark → System**, or presents those three options explicitly.
+- Uses distinct icons per mode and does not rely on the icon alone to communicate state.
+- Meets the 44px touch target and has a visible focus ring in both themes.
+
+## Accents and Primary Actions
+
+| Role | Existing variable / rule | Dark | Light |
+|---|---|---|---|
+| Link / accent | `--accent` | `#A78BFA` | `#7C3AED` |
+| Link / accent hover | `--accent-hover` | `#C4B5FD` | `#6D28D9` |
+| Primary action background | `.theme-primary-action`, `--page-heading` | `#F8FAFC` | `#020617` |
+| Primary action text | `.theme-primary-action`, `--bg` | `#0B1220` | `#F8FAFC` |
+| Primary action hover background | `--accent` | `#A78BFA` | `#7C3AED` |
+| Primary action hover text | `.theme-primary-action:hover` | `#FFFFFF` | `#FFFFFF` |
+
+Primary actions are neutral, high-contrast buttons at rest, not blue-filled buttons. Ordinary accent links use violet/lavender; headings remain neutral until their hover treatment applies.
+
+The Tailwind configuration also contains legacy `primary: #60A5FA` and `bg: #0F1720` entries. These are not replacements for the rendered page background or the `--accent` link colors. Preserve established uses rather than applying those configuration values globally.
+
+## Gradients
+
+| Role | Existing variable / rule | Dark | Light |
+|---|---|---|---|
+| Page background | `body` | `linear-gradient(180deg, #0B1220, #071021)` | `linear-gradient(180deg, #F8FAFC, #E2E8F0)` |
+| Home hero | `--hero-bg` | `linear-gradient(90deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08), transparent)` | Same |
+| Header | `.theme-appbar` | `linear-gradient(to bottom, var(--header-bg), var(--header-bg-gradient-end))` | Same rule, light header values |
+
+These existing restrained gradients are part of the approved appearance. They are not violations of the guidance against gratuitous gradients. Do not remove them or substitute cyan gradients as part of a review.
 
 ## Neutral Scale
 
-| Role | Hex | Usage |
-|---|---|---|
-| Neutral 50 | `#F8FAFC` | Maximum-emphasis text |
-| Neutral 100 | `#F1F5F9` | Primary headings |
-| Neutral 200 | `#E2E8F0` | Primary body text |
-| Neutral 300 | `#CBD5E1` | Secondary text |
-| Neutral 400 | `#94A3B8` | Metadata |
-| Neutral 500 | `#64748B` | Disabled / tertiary text |
-| Neutral 600 | `#475569` | Strong borders |
-| Neutral 700 | `#334155` | Elevated borders |
-| Neutral 800 | `#1E293B` | Elevated surfaces |
-| Neutral 900 | `#0F172A` | Secondary background |
-| Neutral 950 | `#020617` | Deep background |
+The raw neutral scale (Tailwind `slate`) is shared by both themes. Existing theme variables select from this scale and the custom background shades below.
+
+| Step | Hex |
+|---|---|
+| 50 | `#F8FAFC` |
+| 100 | `#F1F5F9` |
+| 200 | `#E2E8F0` |
+| 300 | `#CBD5E1` |
+| 400 | `#94A3B8` |
+| 500 | `#64748B` |
+| 600 | `#475569` |
+| 700 | `#334155` |
+| 800 | `#1E293B` |
+| 900 | `#0F172A` |
+| 950 | `#020617` |
+
+## Text Colors
+
+| Role | Token | Dark | Light | Usage |
+|---|---|---|---|---|
+| Heading | `--page-heading` | `#F8FAFC` | `#020617` | Page titles, section headings, heading links |
+| Body | `--page-text` | `#E2E8F0` | `#1E293B` | Primary body text |
+| Secondary | `--muted` | `#CBD5E1` | `#475569` | Supporting copy |
+| Metadata | `--muted-soft` | `#94A3B8` | `#64748B` | Dates, compact metadata |
+| Code | `--code-text` | `#CBD5E1` | `#312E81` | Code text fallback |
+
+In light mode, `--muted-soft` meets 4.5:1 only near the top of the page gradient. For small text on transparent surfaces lower on the page, such as repository card metadata and Projects section eyebrows, use `--muted` instead.
 
 ## Surface Colors
 
-| Role | Hex | Usage |
-|---|---|---|
-| Page Background | `#020617` | Primary site background |
-| Surface Primary | `#0F172A` | Cards and major contained surfaces |
-| Surface Secondary | `#111827` | Alternate surface |
-| Surface Elevated | `#172033` | Dropdowns, menus, elevated UI |
-| Surface Hover | `#1E293B` | Hovered cards and interactive rows |
-| Code Background | `#020617` | Code blocks and terminal surfaces |
+| Role | Token | Dark | Light | Usage |
+|---|---|---|---|---|
+| Page Background | `--bg` | `#0B1220` | `#F8FAFC` | Base fill and top of page gradient |
+| Page Gradient End | `--bg-accent` | `#071021` | `#E2E8F0` | Bottom of page gradient |
+| Surface | `--surface-bg` | `rgba(15,23,42,0.9)` | `rgba(255,255,255,0.82)` | Cards, reading surfaces, panels |
+| Code Background | `--code-bg` | `rgba(2,6,23,0.94)` | `rgba(15,23,42,0.04)` | Code surfaces |
+| Chip Background | `--chip-bg` | `rgba(255,255,255,0.08)` | `rgba(255,255,255,0.9)` | Tag chips |
+| Chip Hover | `--chip-hover-bg` | `rgba(255,255,255,0.14)` | `rgba(226,232,240,0.92)` | Hovered chips |
+
+Alpha values are intentional: the visible result depends on the background underneath. Do not replace translucent fills with opaque approximations. Repository cards are transparent at rest; on hover they use `color-mix(in srgb, var(--page-heading) 5%, transparent)` and an accent border.
 
 ## Borders
 
-| Role | Hex | Usage |
-|---|---|---|
-| Border Subtle | `#1E293B` | Default separation |
-| Border Default | `#334155` | Visible component borders |
-| Border Strong | `#475569` | High-emphasis boundaries |
-| Border Accent | `#0EA5E9` | Selected/focused elements |
+| Role | Token | Dark | Light | Usage |
+|---|---|---|---|---|
+| Shared surface border | `--surface-border` | `rgba(148,163,184,0.18)` | `rgba(148,163,184,0.28)` | Cards, dividers, search |
+| Header border | `--header-border` | `rgba(255,255,255,0.08)` | `rgba(148,163,184,0.24)` | App bar bottom border |
+| Header search border | `--header-search-border` | `rgba(255,255,255,0.12)` | `rgba(148,163,184,0.36)` | Header search controls |
+| Repository hover border | `--accent` | `#A78BFA` | `#7C3AED` | Repository card hover |
 
-## Interactive States
+## Navigation Colors
 
-| Role | Hex | Usage |
+| Role / existing variable | Dark | Light |
 |---|---|---|
-| Link Default | `#38BDF8` | Links |
-| Link Hover | `#7DD3FC` | Hovered links |
-| Link Visited | `#A78BFA` | Optional visited article links |
-| Focus Ring | `#38BDF8` | Keyboard focus |
-| Success | `#4ADE80` | Success states |
-| Warning | `#FBBF24` | Warnings |
-| Error | `#F87171` | Errors |
-| Info | `#38BDF8` | Informational state |
+| `--header-bg` | `rgba(15,23,42,0.68)` | `rgba(255,255,255,0.78)` |
+| `--header-bg-gradient-end` | `rgba(15,23,42,0.16)` | `rgba(255,255,255,0.18)` |
+| `--header-brand` | `#F8FAFC` | `#0F172A` |
+| `--header-link` | `#E2E8F0` | `#1E293B` |
+| `--header-icon` | `#E2E8F0` | `#334155` |
+| `--header-hover-text` | `#FFFFFF` | `#020617` |
+| `--header-hover-bg` | `rgba(255,255,255,0.08)` | `rgba(15,23,42,0.06)` |
+| `--header-focus-ring` | `rgba(255,255,255,0.12)` | `rgba(124,58,237,0.22)` |
+| `--header-search-bg` | `rgba(15,23,42,0.98)` | `rgba(255,255,255,0.96)` |
+| `--header-search-text` | `#F8FAFC` | `#0F172A` |
+| `--header-search-placeholder` | `#CBD5E1` | `#64748B` |
+| `--header-mobile-panel-bg` | `rgba(15,23,42,0.92)` | `rgba(255,255,255,0.96)` |
+
+The app bar combines this gradient with `backdrop-filter: blur(12px)`. Preserve that existing localized translucency; it does not authorize glass effects across unrelated UI.
+
+## Alerts and Focus
+
+| Role | Token | Dark | Light | Usage |
+|---|---|---|---|---|
+| Note | `--alert-note` | `#60A5FA` | `#2563EB` | Note alerts |
+| Tip | `--alert-tip` | `#4ADE80` | `#15803D` | Tip alerts |
+| Important | `--alert-important` | `#C084FC` | `#7E22CE` | Important alerts |
+| Warning | `--alert-warning` | `#FBBF24` | `#B45309` | Warning alerts |
+| Caution | `--alert-caution` | `#F87171` | `#B91C1C` | Caution alerts |
+
+Existing global keyboard focus is a 3px outline in `rgba(124,58,237,0.2)` with a 2px offset. `.focus-ring` uses a 3px shadow in `rgba(124,58,237,0.18)`. Header-specific focus uses `--header-focus-ring`; repository links use `--accent`. These describe the current implementation, not a claim that every indicator already passes contrast checks.
+
+## Contrast Requirements
+
+Both themes must meet WCAG 2.2 AA:
+
+| Pairing | Minimum |
+|---|---:|
+| Body text, metadata, links, button labels | 4.5:1 |
+| Large text (≥ 24px, or ≥ 18.66px bold) | 3:1 |
+| Focus indicators, control boundaries, meaningful icons | 3:1 |
+
+The palette tables are an accurate baseline, not an accessibility certification. Measure contrast against the actual composited backgrounds, including gradients, translucent surfaces, and hover/focus states. Record any failure as a specific review finding; do not silently replace the approved palette with a new one to make the documentation claim compliance.
+
+Do not introduce a new color pairing without checking it in both themes. Any needed accessibility correction should be proposed as a focused follow-up, not a site-wide recoloring.
 
 ## Color Usage Rule
 
-The majority of any page should consist of:
+The majority of any page should consist of the page gradient, shared surfaces, neutral body text, and supporting text.
 
-`#020617`, `#0F172A`, `#1E293B`, `#E2E8F0`, and `#94A3B8`.
+- Dark: `#0B1220` to `#071021`, translucent slate surfaces, `#E2E8F0`, `#CBD5E1`, `#94A3B8`.
+- Light: `#F8FAFC` to `#E2E8F0`, translucent white surfaces, `#1E293B`, `#475569`, `#64748B`.
 
-Accent colors should generally occupy **less than 10% of the visible interface**.
+Accent colors should generally occupy **less than 10% of the visible interface** in either theme.
 
 Never create rainbow interfaces simply because technical content contains multiple categories.
 
@@ -209,16 +295,16 @@ Wide elements such as diagrams, images, tables, code blocks, and interactive dem
 
 | Property | Value |
 |---|---|
-| Background | `#0284C7` |
-| Text | `#F8FAFC` |
+| Background | `var(--page-heading)` |
+| Text | `var(--bg)` |
 | Font | IBM Plex Sans, 14px, 600 |
 | Padding | `10px 16px` |
 | Minimum Height | `44px` |
 | Radius | `8px` |
-| Border | `1px solid #0EA5E9` |
-| Shadow | Elevation 1 |
-| Hover | `#0369A1` |
-| Focus Ring | `0 0 0 3px rgba(56,189,248,0.35)` |
+| Border | No additional accent border on `.theme-primary-action` |
+| Shadow | `var(--surface-shadow)` |
+| Hover | Background `var(--accent)`, text `#FFFFFF` |
+| Focus Ring | Existing global focus treatment; see §2 Alerts and Focus |
 | Active Transform | `translateY(1px)` |
 | Disabled Opacity | `0.50` |
 | Transition | `150ms ease` |
@@ -227,11 +313,11 @@ Wide elements such as diagrams, images, tables, code blocks, and interactive dem
 
 | Property | Value |
 |---|---|
-| Background | `transparent` |
-| Text | `#CBD5E1` |
-| Border | `1px solid #334155` |
-| Hover Background | `#1E293B` |
-| Hover Border | `#475569` |
+| Background | `rgba(255,255,255,0.12)` (home secondary action) |
+| Text | `var(--page-heading)` |
+| Border | `1px solid var(--surface-border)` |
+| Hover Background | `rgba(255,255,255,0.28)` |
+| Hover Border | Unchanged |
 | Radius | `8px` |
 | Padding | `10px 16px` |
 | Minimum Height | `44px` |
@@ -248,13 +334,13 @@ Cards should feel like structured content regions rather than floating dashboard
 
 | Property | Value |
 |---|---|
-| Background | `#0F172A` |
-| Border | `1px solid #1E293B` |
+| Background | `var(--surface-bg)` |
+| Border | `1px solid var(--surface-border)` |
 | Radius | `12px` |
 | Padding | `24px` |
-| Shadow | Elevation 0 or 1 |
-| Hover Border | `#334155` |
-| Hover Background | `#111C2F` |
+| Shadow | `var(--surface-shadow)` on `.theme-surface`; home panels have no added shadow |
+| Hover Border | Follow the existing component; repository cards use `var(--accent)` |
+| Hover Background | Follow the existing component; repository cards use the 5% heading-color mix in §2 |
 | Transition | `150ms ease` |
 
 Interactive cards may move upward a maximum of:
@@ -275,7 +361,7 @@ Featured content may use:
 - larger title
 - increased internal spacing
 
-Do not simply make every featured card glow neon blue.
+Do not add glow or recolor every featured card to create emphasis.
 
 ---
 
@@ -321,16 +407,16 @@ Radius: 6px
 Default:
 
 ```text
-Background: #0F172A
-Border: #334155
-Text: #94A3B8
+Background: var(--chip-bg)
+Text: var(--page-heading)
+Border: no additional border on .theme-home-chip
 ```
 
 Hover:
 
 ```text
-Border: #38BDF8
-Text: #7DD3FC
+Background: var(--chip-hover-bg)
+Text: var(--page-heading)
 ```
 
 Avoid large collections of brightly colored tags.
@@ -341,17 +427,16 @@ Avoid large collections of brightly colored tags.
 
 | Property | Value |
 |---|---|
-| Background | `#020617` |
-| Border | `1px solid #334155` |
-| Text | `#E2E8F0` |
-| Placeholder | `#64748B` |
+| Background | `var(--surface-bg)` for page search; `var(--header-search-bg)` in the header |
+| Border | `1px solid var(--surface-border)` for page search; `var(--header-search-border)` in the header |
+| Text | `var(--page-text)` for page search; `var(--header-search-text)` in the header |
+| Placeholder | `var(--muted-soft)` for page search; `var(--header-search-placeholder)` in the header |
 | Radius | `8px` |
 | Padding | `10px 12px` |
 | Minimum Height | `44px` |
-| Focus Border | `#38BDF8` |
-| Focus Ring | `0 0 0 3px rgba(56,189,248,0.20)` |
-| Error Border | `#F87171` |
-| Disabled Background | `#0F172A` |
+| Focus | Existing global/header focus treatment; see §2 Alerts and Focus |
+
+No separate error-border or disabled-fill token is currently defined. Do not invent those colors during this documentation capture.
 
 ---
 
@@ -383,13 +468,18 @@ Recommended height:
 Code is a primary content type, not an afterthought.
 
 ```text
-Background: #020617
-Border: 1px solid #1E293B
+Background: var(--code-bg)
+Text fallback: var(--code-text)
+Border: var(--surface-border) where the existing code container has a border
 Radius: 10px
 Font: JetBrains Mono
 Font Size: 14px
 Line Height: 1.65
 ```
+
+Code blocks follow the active theme. Syntax highlighting uses a paired dark/light theme (for example Shiki dual themes), so token colors are designed for each background rather than reused across both. Every token color must stay readable (4.5:1 target) on its theme's code background.
+
+Preserve the existing inline-code styles from `global.css`; use the active theme's code colors rather than introducing a new blue/cyan code palette.
 
 Code blocks should support:
 
@@ -409,19 +499,20 @@ When terminal chrome is used, prefer neutral/Linux-inspired window decoration.
 
 ## Callouts
 
-Use four semantic callout types:
+Preserve the existing GitHub Markdown alert types:
 
 ```text
-INFO
+NOTE
 TIP
+IMPORTANT
 WARNING
-DANGER
+CAUTION
 ```
 
 Callouts use:
 
-- dark neutral background
-- colored left border
+- a restrained tinted background using the existing alert styles
+- colored left border using the matching `--alert-note`, `--alert-tip`, `--alert-important`, `--alert-warning`, or `--alert-caution` variable
 - semantic icon
 - heading
 - content
@@ -522,35 +613,17 @@ Radius communicates component type.
 
 Codeholics should rely more on **borders, contrast, and layering** than heavy shadows.
 
-| Level | Name | CSS |
+| Existing role / variable | Dark | Light |
 |---|---|---|
-| 0 | Flat | `none` |
-| 1 | Subtle | `0 1px 2px rgba(2,6,23,0.35)` |
-| 2 | Raised | `0 4px 12px rgba(2,6,23,0.35)` |
-| 3 | Elevated | `0 12px 30px rgba(2,6,23,0.45)` |
-| 4 | Floating | `0 20px 50px rgba(2,6,23,0.55)` |
+| Surface shadow, `--surface-shadow` | `0 18px 40px rgba(2,6,23,0.35)` | `0 18px 40px rgba(148,163,184,0.18)` |
+| Header elevation, `--header-elev` | `0 6px 18px rgba(2,6,23,0.6)` | Same |
+| Flat panels / repository cards | No added shadow | No added shadow |
 
-Use:
-
-- Level 0 for most content
-- Level 1 for interactive cards
-- Level 2 for dropdowns
-- Level 3 for dialogs
-- Level 4 extremely rarely
+These are the existing shadow colors and opacities, not a new numbered elevation system. Reuse them where the current components do; do not add `--shadow-1` through `--shadow-4` or retune shadow colors as part of this capture.
 
 ## Glow
 
-Accent glow is permitted only for high-value visual emphasis.
-
-Example:
-
-```css
-box-shadow:
-  0 0 0 1px rgba(56, 189, 248, 0.12),
-  0 0 32px rgba(14, 165, 233, 0.08);
-```
-
-Never apply glow to every card.
+A new glow treatment is not part of this palette baseline. Preserve the existing subtle violet hero gradient and surface shadows; do not introduce sky/cyan glow or apply glow to every card.
 
 ---
 
@@ -559,7 +632,7 @@ Never apply glow to every card.
 ## Do
 
 1. Prioritize article readability over decorative UI.
-2. Use `#38BDF8` strategically for meaningful emphasis.
+2. Use `--accent` (`#A78BFA` dark / `#7C3AED` light) strategically for meaningful emphasis.
 3. Use borders and surface changes before adding shadows.
 4. Use JetBrains Mono for genuinely technical UI.
 5. Let code, diagrams, screenshots, and technical imagery become visual focal points.
@@ -588,6 +661,9 @@ Never apply glow to every card.
 13. Do not introduce React, Vue, Svelte, or another client framework solely to implement visual styling.
 14. Do not create one-off component styling when an established Codeholics component already solves the problem.
 15. Do not invent new brand colors without updating this document.
+16. Prefer the existing theme variables and helpers for new shared colors rather than duplicating hex values.
+17. Existing raw palette utilities and dark-mode compatibility overrides are not automatic palette defects. Any cleanup must preserve the rendered colors in both themes.
+18. Do not invert or filter photos or technical imagery to fit a theme.
 
 ## The AI Slop Test
 
@@ -847,6 +923,15 @@ rounded-[13px]
 
 unless exact layout requirements justify the arbitrary value.
 
+## Theming Implementation
+
+- Reuse the current variables from §2 in global CSS: light values on `:root` and dark values on `html.dark`.
+- Reuse the existing `theme-*` helper classes and component styles. Do not require a Tailwind `@theme` migration to preserve this design.
+- Keep the class-based theme resolution so the visitor's explicit choice wins over OS preference.
+- Preserve the existing dark-mode compatibility rules while they are needed. Refactoring them is separate work, not a reason to change the palette.
+- Prose uses the existing theme variables and configured syntax colors. Verify the resulting appearance in both themes.
+- Third-party embeds and diagrams (Mermaid, YouTube, syntax themes) must be configured for both themes or placed on a neutral surface that works in both.
+
 ## Repeated Utility Groups
 
 When the same conceptual component repeatedly uses the same long utility collection, consider extracting:
@@ -883,6 +968,8 @@ Always provide:
 - responsive sizing
 
 Decorative images use empty alt text.
+
+Images must work on both theme backgrounds. Transparent PNG/SVG artwork (logos, diagrams, icons) must stay legible on light and dark surfaces. Provide a per-theme variant or place it on a neutral surface; never invert it with CSS filters.
 
 ## Icons
 
@@ -957,6 +1044,8 @@ Respect:
 ```
 
 Motion must never be required to understand content.
+
+Switching themes is instant. Do not animate background or color transitions across the whole page when the theme changes.
 
 ---
 
@@ -1039,7 +1128,7 @@ Metadata is supporting information.
 Use:
 
 ```text
-#94A3B8
+var(--muted-soft)  (#94A3B8 dark / #64748B light)
 14px
 ```
 
@@ -1171,17 +1260,23 @@ If not, revise before implementation.
 ## Quick Reference
 
 ```text
-Background:       #020617
-Surface:          #0F172A
-Surface Elevated: #172033
-Border:           #334155
+Theme:            System (default) / Light / Dark — class "dark" on <html>
 
-Text Primary:     #E2E8F0
-Text Secondary:   #94A3B8
+                  Dark        Light
+Background:       #0B1220     #F8FAFC
+Gradient End:     #071021     #E2E8F0
+Surface:          rgba(15,23,42,0.9)       rgba(255,255,255,0.82)
+Border:           rgba(148,163,184,0.18)   rgba(148,163,184,0.28)
 
-Primary:          #38BDF8
-Primary Dark:     #0284C7
-Accent:           #22D3EE
+Text Primary:     #E2E8F0     #1E293B
+Text Secondary:   #CBD5E1     #475569
+Metadata:         #94A3B8     #64748B
+
+Accent / Link:    #A78BFA     #7C3AED
+Accent Hover:     #C4B5FD     #6D28D9
+Primary Fill:     #F8FAFC     #020617
+Primary Text:     #0B1220     #F8FAFC
+Global Focus:     rgba(124,58,237,0.2) in both themes (review contrast)
 
 UI Font:          IBM Plex Sans
 Code Font:        JetBrains Mono
@@ -1227,6 +1322,8 @@ A Codeholics UI implementation is complete only when:
 - [ ] Keyboard navigation works.
 - [ ] Focus states are visible.
 - [ ] Color contrast meets WCAG AA.
+- [ ] It has been verified in **both** light and dark themes, and with the System default.
+- [ ] Shared colors reuse the existing theme variables/helpers and preserve the approved live palette.
 - [ ] Touch targets meet the 44px minimum.
 - [ ] Content works with unusually long titles and descriptions.
 - [ ] Empty/optional data states are handled.
