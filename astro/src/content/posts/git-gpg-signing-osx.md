@@ -4,8 +4,10 @@ title: "Git GPG Signing Setup on OSX"
 date: "2021-02-22 07:39"
 category: "Infosec"
 tags: "coding, git, crypto, infosec, osx, gpg, gnupg"
+thumbnail: /images/posts/git-gpg-signing-osx/gpg_signing_workflow_on_macos_thumbnail.webp
 ---
 
+![GPG Signing Workflow on macOS](/images/posts/git-gpg-signing-osx/gpg_signing_workflow_on_macos_posts.webp)
 
 ### Intro
 Setting up Git commit and tag signing with GnuPG on Mac OSX is not as straight forward as one would like it to be. Here are the steps I used to get it set up. Before hand I was getting the following error:
