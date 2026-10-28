@@ -47,7 +47,8 @@ From 1024px wide the primary navigation SHALL be visible inline. Below 1024px th
 - **THEN** icon links to `https://twitter.com/root_codeholics`, `https://www.facebook.com/RootCodeholics`, `https://www.github.com/Codeholics`, and `/rss.xml` are reachable without horizontal scrolling
 - **AND** at widths >= 1280px they appear in the app-bar
 - **AND** below 1024px they appear in the mobile navigation panel
-- **AND** they also appear in the site footer at every width, each with an accessible name
+- **AND** they also appear at every width as a distinct icon group in the site footer, visually separate from copyright and credits
+- **AND** each footer icon link has an accessible name
 
 ### Requirement: Mobile menu toggles and exposes navigation
 The system SHALL provide a hamburger control that toggles a mobile navigation panel at viewport widths below 1024px. The hamburger control SHALL change its accessible state (`aria-expanded`) and visually transform to an X when open.

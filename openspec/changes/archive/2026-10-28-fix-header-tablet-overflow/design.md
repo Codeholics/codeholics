@@ -54,9 +54,9 @@ Alternative considered: fluid `clamp()` label sizes. Rejected because the label 
 ### 3. Social links: app-bar from 1280px, drawer below 1024px, footer always
 
 - The app-bar social group becomes `hidden xl:flex`.
-- Between 1024px and 1279px the drawer is hidden and the app-bar has no room for the social group, so the footer provides the links. The footer shows them at every width, which also matches the convention that profile links appear in a site footer.
+- Between 1024px and 1279px the drawer is hidden and the app-bar has no room for the social group, so the footer provides the links. The footer shows them at every width in a dedicated icon group, visually separate from copyright and credits, which also matches the convention that profile links appear in a site footer.
 - The social link data (label, href, icon) moves to one shared module, for example `src/lib/social-links.ts`. The header, the drawer, and the footer all import it, so the URLs are not duplicated.
-- Footer links reuse the existing icon-button treatment with the theme tokens, and carry accessible names, `rel="noopener noreferrer"`, and `target="_blank"` for external profiles, matching the header.
+- Footer links use icons with accessible names and reuse the existing icon-button treatment and theme tokens; they carry `rel="noopener noreferrer"` and `target="_blank"` for external profiles, matching the header. Do not copy the reference image's colors or overall design.
 
 The user approved moving social icons out of the top bar wherever they don't fit, into the menu or the footer.
 

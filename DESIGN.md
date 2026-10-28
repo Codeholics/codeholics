@@ -761,17 +761,22 @@ Do not automatically turn every card collection into three columns.
 
 ## Navigation
 
-Desktop:
+Desktop (from `1024px`):
 
 ```text
-Horizontal navigation
+Compact horizontal navigation
 ```
 
-Mobile:
+Below `1024px`:
 
 ```text
 Compact menu / drawer
 ```
+
+- All inline links share one label size; the `# Codeholics` brand never wraps.
+- The app-bar shows the social icon group only from `1280px`, where it fits.
+- The footer shows a dedicated social icon group at every width, visually separate from the copyright line. It reuses the app-bar icon-button treatment with a `--surface-border` outline, an `8px` radius, and `44px` targets.
+- The header must never cause horizontal page scrolling. Adding or renaming a navigation item requires re-running the boundary overflow tests in `astro/tests/navbar.spec.ts`.
 
 Navigation must remain usable without JavaScript whenever practical.
 

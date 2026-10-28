@@ -71,6 +71,12 @@ Do not assume files belong at the repository root when they belong inside the As
 - Avoid unrelated refactoring while implementing a scoped change.
 - Preserve established naming and directory conventions.
 
+## Workspace and Temporary Files
+
+- Do not write temporary or scratch files (screenshots, logs, generated output) into the repository unless they are part of the requested change.
+- Before writing anything outside the workspace, ask the user which directory to use and explain what will be written and why it should stay out of the repository.
+- Use only the directory the user approves; do not choose a location on your own.
+
 ---
 
 # Astro Architecture

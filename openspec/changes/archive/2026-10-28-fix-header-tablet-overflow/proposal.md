@@ -19,7 +19,7 @@ Tablets and small laptops get a broken first impression on every page.
   - the brand never wraps;
   - the header row never exceeds the viewport width.
 - Show the social icon group in the app-bar only from 1280px up, where it fits.
-- Add the same four social links (X, Facebook, GitHub, RSS) to the site footer on every page. This keeps them reachable between 1024px and 1279px, where they are not in the app-bar and the drawer is hidden.
+- Add the same four social links (X, Facebook, GitHub, RSS) to a dedicated icon group in the site footer on every page, visually separate from copyright and credits. This keeps them reachable between 1024px and 1279px, where they are not in the app-bar and the drawer is hidden.
 - Keep the desktop search, theme toggle, theme colors, focus treatment, and light/dark behavior unchanged.
 - Tighten the Projects page horizontal-overflow test so it checks the whole document again instead of only the page content, now that the header no longer overflows.
 - Bring the `ui/site-navigation` requirement up to date with the shipped header:

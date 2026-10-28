@@ -4,7 +4,7 @@ date: "2021-10-05 07:39"
 category: "Hardware"
 tags: "coding, mycroft, raspberrypi, pi4, python, respeaker, hardware, opensource"
 summary: "A hands-on build log for creating a privacy-focused Mycroft voice assistant on a Raspberry Pi 4 with a ReSpeaker mic, speaker, and custom hardware setup."
-thumbnail: /images/posts/mycroft-personal-assistant-setup/local_jarvis_homelab_workstation_posts.webp
+thumbnail: /images/posts/mycroft-personal-assistant-setup/local_jarvis_homelab_workstation_thumbnail.webp
 ---
 
 ![Mycroft Personal Assistant Setup](/images/posts/mycroft-personal-assistant-setup/local_jarvis_homelab_workstation_posts.webp)

@@ -4,8 +4,10 @@ title: "Using lua-openssl to view x509 attributes"
 date: "2021-03-25 07:39"
 category: "Coding"
 tags: "coding, git, crypto, infosec, lua, x509, openssl"
+thumbnail: /images/posts/using-lua-openssl-to-view-x509-attributes/lua_and_openssl_encryption_workspace_thumbnail.webp
 ---
 
+![Using lua-openssl to view x509 attributes](/images/posts/using-lua-openssl-to-view-x509-attributes/lua_and_openssl_encryption_workspace_posts.webp)
 
 ### Intro
 I recently found myself needing to view x509 certificate extended attributes with Lua. 

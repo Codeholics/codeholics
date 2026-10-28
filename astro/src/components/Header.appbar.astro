@@ -1,52 +1,45 @@
 ---
-import { siFacebook, siGithub, siRss, siX } from 'simple-icons';
 import searchIcon from './icons/search.svg?raw';
+import { socialLinks } from '../lib/social-links';
 
 const siteTitle = Astro.props.title ?? '# Codeholics';
 const primaryNavItems = [
-  { label: '~/', href: '/', desktopClass: 'text-sm' },
+  { label: '~/', href: '/' },
   { label: 'Coding', href: '/tags/coding' },
   { label: 'SysAdmin', href: '/tags/sysadmin' },
   { label: 'InfoSec', href: '/tags/infosec' },
   { label: 'OS', href: '/tags/os' },
   { label: 'Hardware', href: '/tags/hardware' },
-  { label: 'Projects', href: '/projects/', desktopClass: 'text-sm' },
+  { label: 'Projects', href: '/projects/' },
   { label: 'Reviews', href: '/tags/review' },
 ];
 
-const socialLinks = [
-  { label: 'X', href: 'https://twitter.com/root_codeholics', icon: siX },
-  { label: 'Facebook', href: 'https://www.facebook.com/RootCodeholics', icon: siFacebook },
-  { label: 'Github', href: 'https://www.github.com/Codeholics', icon: siGithub },
-  { label: 'RSS', href: '/rss.xml', icon: siRss },
-];
-
 const desktopNavBaseClass =
-  'theme-appbar-link px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 transition';
+  'theme-appbar-link inline-flex whitespace-nowrap px-2 py-2 rounded-md text-base font-semibold focus:outline-none focus:ring-2 transition';
 ---
 <header class="theme-appbar w-full sticky top-0 z-40">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
     <!-- Left: Brand -->
-    <div class="flex items-center gap-3">
+    <div class="flex shrink-0 items-center gap-3">
       <a href="/" class="inline-flex items-center gap-3">
-        <span class="theme-appbar-brand text-2xl font-semibold tracking-tight">{siteTitle}</span>
+        <span class="theme-appbar-brand whitespace-nowrap text-2xl font-semibold tracking-tight">{siteTitle}</span>
       </a>
     </div>
 
     <!-- Center: primary nav (desktop) -->
-    <nav aria-label="Primary" class="desktop-nav flex-1 justify-center">
-      <ul class="inline-flex items-center space-x-4 bg-transparent rounded-md px-2 py-1">
+    <nav aria-label="Primary" class="desktop-nav min-w-0 flex-1 justify-center">
+      <ul class="flex items-center gap-0.5 bg-transparent rounded-md">
         {primaryNavItems.map((item) => (
           <li>
-            <a class={`${desktopNavBaseClass} ${item.desktopClass ?? 'text-lg'}`} href={item.href}>{item.label}</a>
+            <a class={desktopNavBaseClass} href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
     </nav>
 
     <!-- Right: utilities -->
-    <div class="flex items-center gap-3">
-      <div class="hidden items-center gap-1 md:flex" aria-label="Social links">
+    <div class="flex shrink-0 items-center gap-3">
+      <div class="hidden items-center gap-1 xl:flex" aria-label="Social links">
         {socialLinks.map((item) => (
           <a
             href={item.href}
@@ -318,8 +311,9 @@ const desktopNavBaseClass =
         }
       });
 
+      const desktopQuery = window.matchMedia('(min-width: 1024px)');
       window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
+        if (desktopQuery.matches) {
           const panel = document.getElementById('nav-panel');
           panel?.classList.add('hidden');
           panel?.classList.remove('open');

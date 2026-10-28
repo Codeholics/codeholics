@@ -179,6 +179,31 @@ request **Scrape Again**. These are deployment checks, not proof that a local
 test has updated the live site. Facebook controls rendering and caching;
 re-scraping does not guarantee that already published shares update.
 
+## Header and Navigation
+
+The shared app-bar in `src/components/Header.appbar.astro` switches layouts at
+fixed breakpoints:
+
+- Below 1024px, the hamburger opens a menu drawer with every primary
+  destination, the social links, and search.
+- From 1024px (Tailwind `lg`), the compact inline navigation is shown. All eight
+  links use one label size, and the `# Codeholics` brand never wraps. The
+  breakpoint is set in `src/styles/global.css` and in the header's resize
+  handler (`matchMedia('(min-width: 1024px)')`); keep the two in sync.
+- From 1280px (Tailwind `xl`), the social icon group also appears in the
+  app-bar.
+- The footer always shows a dedicated social icon group, separate from the
+  copyright line, so the links stay reachable between 1024px and 1279px.
+
+Social link data lives in [`src/lib/social-links.ts`](./src/lib/social-links.ts)
+and is shared by the app-bar, drawer, and footer. At 1024px the inline row has
+about 130px to spare. After adding or renaming a navigation item, re-run the
+boundary overflow tests:
+
+```sh
+npm run test:e2e -- tests/navbar.spec.ts
+```
+
 ## Featured Projects
 
 Featured Projects is a dedicated, full-width page at `/projects/`, linked from

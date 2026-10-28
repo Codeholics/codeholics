@@ -507,17 +507,12 @@ for (const theme of themes) {
           borderBottomWidth: styles.borderBottomWidth,
           borderRadius: styles.borderRadius,
           boxShadow: styles.boxShadow,
-          // The shared header currently overflows between the md breakpoint and ~1221px on every page; scope to page content.
-          contentOverflow: Array.from(document.querySelectorAll('main *'))
-            .some((child) => !child.closest('.curated-tabs > *')
-              && child.getBoundingClientRect().right > window.innerWidth + 0.5),
-          scrollWidth: document.querySelector('main')!.scrollWidth,
+          scrollWidth: document.documentElement.scrollWidth,
           viewportWidth: window.innerWidth,
         };
       });
 
       const label = `${theme} @ ${width}px`;
-      expect(layout.contentOverflow, label).toBe(false);
       expect(layout.scrollWidth, label).toBeLessThanOrEqual(layout.viewportWidth);
       expect(Math.abs(layout.artTop - layout.navBottom), label).toBeLessThanOrEqual(1);
       expect(layout.artWidth, label).toBeGreaterThan(0);

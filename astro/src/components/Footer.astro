@@ -1,5 +1,29 @@
 ---
+import { socialLinks } from '../lib/social-links';
 ---
 <footer class="theme-surface border-t mt-12">
-  <div class="max-w-4xl mx-auto px-4 py-6 text-sm theme-page-copy">© {new Date().getFullYear()} Codeholics</div>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <nav aria-labelledby="footer-social-heading" class="footer-social flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 id="footer-social-heading" class="theme-meta text-sm font-semibold">Follow Codeholics</h2>
+      <ul class="flex flex-wrap items-center gap-2">
+        {socialLinks.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="theme-appbar-icon-button theme-divider inline-flex h-11 w-11 items-center justify-center rounded-lg border focus:outline-none focus:ring-2 transition"
+              aria-label={item.label}
+              title={item.label}
+              {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d={item.icon.path}></path>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="theme-divider mt-6 border-t pt-6 text-sm theme-page-copy">© {new Date().getFullYear()} Codeholics</div>
+  </div>
 </footer>
